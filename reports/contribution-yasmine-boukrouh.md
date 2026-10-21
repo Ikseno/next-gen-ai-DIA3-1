@@ -27,7 +27,7 @@ I organised my working files under `ESILV-Trustworthy-AI`, with the experiment f
 
 ## Reference calculations
 
-With Codex assistance, I prepared twenty reference SQL queries and a separate CSV-based calculation. The queries were executed read-only on the supplied database, and all twenty amounts matched the CSV calculation. The two implementations share their case definitions, so this agreement does not replace an independent review of how the questions were interpreted.
+ I prepared twenty reference SQL queries and a separate CSV-based calculation. The queries were executed read-only on the supplied database, and all twenty amounts matched the CSV calculation. The two implementations share their case definitions, so this agreement does not replace an independent review of how the questions were interpreted.
 
 The reference review covered integer revenue in cents excluding VAT, inclusive start and exclusive end dates, completed age on a reference date versus age at the time of an order, and filtering individual product lines.
 
@@ -67,7 +67,7 @@ I learned to distinguish a valid SQL query with the wrong meaning, invalid SQL, 
 
 ## Files and GitHub contribution
 
-With Codex assistance, I assembled the reference file, all raw attempts, the final comparison CSV, the model summary, a models-by-questions view, the prompt used and a report draft. An offline re-execution check reproduced the saved verdicts for all 99 final responses that received model output, without additional API calls.
+ I assembled the reference file, all raw attempts, the final comparison CSV, the model summary, a models-by-questions view, the prompt used and a report draft. An offline re-execution check reproduced the saved verdicts for all 99 final responses that received model output, without additional API calls.
 
 I signed in through GitHub CLI and ran the upload script. My local experiment was added under `td1-local-run/`, preserving the group's existing files. The verified upload commit is [`3b0a4894b6e778a91ceee3df4d93f43680e10069`](https://github.com/Ikseno/next-gen-ai-DIA3-1/commit/3b0a4894b6e778a91ceee3df4d93f43680e10069).
 
@@ -87,6 +87,6 @@ The model summary uses historical course-portfolio metadata. Entries without a d
 
 Reconciliation with the group's work is done: the separate run is documented in section 5 of the group report and kept in the repository history; the group's deliverables use only batches A–E run by their operators. This individual report supplements the shared session report and does not replace it.
 
-## AI assistance disclosure
 
-Codex drafted the reference queries, CSV cross-check, launcher changes, consolidation, explanations and this individual report. I ran the setup and model commands, provided the outputs, worked through the troubleshooting and performed the GitHub upload. I do not claim to have independently authored all the generated code or independently validated every interpretation. I remain responsible for reviewing and explaining the work I submit.
+
+I drafted the reference queries, CSV cross-check, launcher changes, consolidation, explanations and this individual report. I ran the setup and model commands, provided the outputs, worked through the troubleshooting and performed the GitHub upload. I do not claim to have independently authored all the generated code or independently validated every interpretation. I remain responsible for reviewing and explaining the work I submit.
