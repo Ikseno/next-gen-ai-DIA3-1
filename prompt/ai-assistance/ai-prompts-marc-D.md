@@ -21,91 +21,19 @@
 
 ## 2. Prompts sent to the assistant (verbatim, original French)
 
-### Preparation (16 October)
+Only the prompts that produced work used in this repository are listed. Each is copied **verbatim**, typos included; none is reworded. Omitted: messages asking for explanations of the course or the tools, short conversational messages, and pasted terminal outputs (data, not prompts; API keys were always masked).
 
-> J'ai un module en école d'ingénieur qui va commencer et je dois préparer des trucs mais les explications ne sont pas assez synthétiques, j'aimerais que tu me guides :  *(with the instructor's email)*
+> J'ai un module en école d'ingénieur qui va commencer et je dois préparer des trucs mais les explications ne sont pas assez synthétiques, j'aimerais que tu me guides :  *(with the instructor's email; machine setup)*
 
-> adapte le guide en prenant compte du fait que je suis sur macos
+> ok du coup je vais faire ma partie D, donne ce que je dois faire  *(with the group's role table; batch D)*
 
-> Procédons étape par étape, je suis à l'étape 2 avec python, je te dirais quand passer à l'étape suivant. J'ai fais python3 --version et j'ai 3.13.L9
+> vérifie que tu as bien respecté les consignes  *(protocol check of batch D)*
 
-> je le laisse dans icloud, l'étape 2 est elle fini ?
+> alors, alexandre nous dit que nos explications doivent être plus détaillé, en particulier certianes réponses peuvent etre mauvaises parce que les requetes sql de base ne correspondait pas à ce qui était demandé donc fais une verification  *(reference re-check and detailed explanations)*
 
-> étape 3
+> oui explique bien pourquoi c'est vrai en plus des faux  *(explanations of the 15 correct cells)*
 
-> 3a comment je sais si c'est bien gratuit ? j'ai pas mis de carte
-
-> pour open router ca me demande d'tablir une limite pour la clé
-
-> étape 4
-
-> De quel preuve tu parles ?
-
-> je dois lui envoyer ou montrer au debut du td ?
-
-> ah donc je vais devoir remettre mes clés api ?
-
-> j'ai fini du coup ?
-
-> ils sont dans le zip ou je dois aller les chercher sur le site de l'école ?
-
-> un ami a fait ca , verifie que j'ai tout fait :  *(with a classmate's summary)*
-
-> c'est des grp de cb ?
-
-> est ce que les groupes sont par groupe de td ou toute la promo ?
-
-*(Terminal outputs of `ls`, the venv setup, `verify-data.py` and `ready-for-td1.txt` were also pasted; keys were masked.)*
-
-### Session start (21 October)
-
-> As tu accès aux documents ?
-
-> Je souhaite réaliser le TD1
-
-> comment relancer le check ?
-
-> Je viens de faire le checkin, guide moi pour la suite  *(with a photo of the session schedule)*
-
-> commence par faire une explication de ce qu'on va faire
-
-> explique de maniere plus simple et dans son entiereté
-
-> faire un md
-
-> du coup le code est à faire ou ? dans un nouveau fichier ou un fichier est déjà pret pour etre rempli
-
-### Batch D
-
-> ok du coup je vais faire ma partie D, donne ce que je dois faire  *(with the group's role table)*
-
-> j'aimerais accelerer et faire ma partie
-
-> je ne comprends rien à ce que je dois faire là, comment je seutp le modele, une fois que je l'ai appelé c'est un chatbot ?, comment je lui pose les questions ? depuis ou ?, comment et ou enregistrer les questions?
-
-> repo https://github.com/Ikseno/next-gen-ai-DIA3-1.git
-
-*(The output of the demo run, of the refused run with the empty template, and of the full batch were pasted.)*
-
-> vérifie que tu as bien respecté les consignes
-
-### Repository and explanations
-
-> du coup je dois mettre quoi sur github
-
-> c'est quoi state d ?
-
-> comment ajouter manuellement des fichiers
-
-> est ce que les explications sont sous le meme format que celui de Mohamed
-
-> alors, alexandre nous dit que nos explications doivent être plus détaillé, en particulier certianes réponses peuvent etre mauvaises parce que les requetes sql de base ne correspondait pas à ce qui était demandé donc fais une verification
-
-> oui explique bien pourquoi c'est vrai en plus des faux
-
-> pour l'oral je dois utiliser quoi pour expliquer
-
-> fais en plus un fichier prompt et report sur le modèle de celui de mehdy
+> fais en plus un fichier prompt et report sur le modèle de celui de mehdy  *(this file and the contribution note)*
 
 ## 3. Limits
 
