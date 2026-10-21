@@ -1,0 +1,127 @@
+{
+  "method": "SQLite read-only execution versus CSV iteration; shared case definitions",
+  "peer_review": "pending",
+  "instructor_validation": "pending",
+  "checks": [
+    {
+      "case_id": "C01",
+      "sql_cents": 792800,
+      "csv_cents": 792800,
+      "match": true
+    },
+    {
+      "case_id": "C02",
+      "sql_cents": 590320,
+      "csv_cents": 590320,
+      "match": true
+    },
+    {
+      "case_id": "C03",
+      "sql_cents": 936350,
+      "csv_cents": 936350,
+      "match": true
+    },
+    {
+      "case_id": "C04",
+      "sql_cents": 2826250,
+      "csv_cents": 2826250,
+      "match": true
+    },
+    {
+      "case_id": "C05",
+      "sql_cents": 38480,
+      "csv_cents": 38480,
+      "match": true
+    },
+    {
+      "case_id": "C06",
+      "sql_cents": 0,
+      "csv_cents": 0,
+      "match": true
+    },
+    {
+      "case_id": "C07",
+      "sql_cents": 13970,
+      "csv_cents": 13970,
+      "match": true
+    },
+    {
+      "case_id": "C08",
+      "sql_cents": 605580,
+      "csv_cents": 605580,
+      "match": true
+    },
+    {
+      "case_id": "C09",
+      "sql_cents": 487980,
+      "csv_cents": 487980,
+      "match": true
+    },
+    {
+      "case_id": "C10",
+      "sql_cents": 558980,
+      "csv_cents": 558980,
+      "match": true
+    },
+    {
+      "case_id": "C11",
+      "sql_cents": 446690,
+      "csv_cents": 446690,
+      "match": true
+    },
+    {
+      "case_id": "C12",
+      "sql_cents": 1666490,
+      "csv_cents": 1666490,
+      "match": true
+    },
+    {
+      "case_id": "C13",
+      "sql_cents": 107740,
+      "csv_cents": 107740,
+      "match": true
+    },
+    {
+      "case_id": "C14",
+      "sql_cents": 0,
+      "csv_cents": 0,
+      "match": true
+    },
+    {
+      "case_id": "C15",
+      "sql_cents": 168680,
+      "csv_cents": 168680,
+      "match": true
+    },
+    {
+      "case_id": "C16",
+      "sql_cents": 376740,
+      "csv_cents": 376740,
+      "match": true
+    },
+    {
+      "case_id": "C17",
+      "sql_cents": 258180,
+      "csv_cents": 258180,
+      "match": true
+    },
+    {
+      "case_id": "C18",
+      "sql_cents": 62480,
+      "csv_cents": 62480,
+      "match": true
+    },
+    {
+      "case_id": "C19",
+      "sql_cents": 1990,
+      "csv_cents": 1990,
+      "match": true
+    },
+    {
+      "case_id": "C20",
+      "sql_cents": 1106090,
+      "csv_cents": 1106090,
+      "match": true
+    }
+  ]
+}
