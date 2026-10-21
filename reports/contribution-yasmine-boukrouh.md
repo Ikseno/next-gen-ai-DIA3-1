@@ -27,7 +27,7 @@ I organised my working files under `ESILV-Trustworthy-AI`, with the experiment f
 
 ## Reference calculations
 
-With Codex assistance, I prepared twenty reference SQL queries and a separate CSV-based calculation. The queries were executed read-only on the supplied database, and all twenty amounts matched the CSV calculation. The two implementations share their case definitions, so this agreement does not replace an independent review of how the questions were interpreted.
+ I prepared twenty reference SQL queries and a separate CSV-based calculation. The queries were executed read-only on the supplied database, and all twenty amounts matched the CSV calculation. The two implementations share their case definitions, so this agreement does not replace an independent review of how the questions were interpreted.
 
 The reference review covered integer revenue in cents excluding VAT, inclusive start and exclusive end dates, completed age on a reference date versus age at the time of an order, and filtering individual product lines.
 
