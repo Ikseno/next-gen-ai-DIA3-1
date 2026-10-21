@@ -1,89 +1,89 @@
-case_id,sql,revenue_cents
+case_id,sql,revenue_cents,author,checked_by
 C01,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders o
 JOIN product p ON p.product_id=o.product_id
 WHERE o.date >= '2026-03-01 00:00:00'
-  AND o.date < '2026-06-01 00:00:00';",792800
+  AND o.date < '2026-06-01 00:00:00';",792800,Mohamed Diawara,Yasmine Boukrouh
 C02,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders AS o
 JOIN product AS p ON p.product_id = o.product_id
 JOIN customers AS c ON c.customer_id = o.customer_id
-WHERE (CAST(strftime('%Y', '2026-09-25') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-25') < substr(c.birth_date, 6, 5))) = 25;",590320
+WHERE (CAST(strftime('%Y', '2026-09-25') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-25') < substr(c.birth_date, 6, 5))) = 25;",590320,Mohamed Diawara,Yasmine Boukrouh
 C03,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders o
 JOIN product p ON p.product_id=o.product_id
 WHERE o.date >= '2026-01-01 00:00:00'
   AND o.date < '2026-07-01 00:00:00'
-  AND o.product_id IN ('a','b','c');",936350
+  AND o.product_id IN ('a','b','c');",936350,Maya Bourrey,Alexandre Flavigny
 C04,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders o
 JOIN product p ON p.product_id=o.product_id
 WHERE o.date >= '2026-01-01 00:00:00'
-  AND o.date < '2026-10-01 00:00:00';",2826250
+  AND o.date < '2026-10-01 00:00:00';",2826250,Dorian Courcelle,Mohamed Diawara
 C05,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders o
 JOIN product p ON p.product_id=o.product_id
 WHERE o.date >= '2026-06-01 00:00:00'
-  AND o.date < '2026-06-02 00:00:00';",38480
+  AND o.date < '2026-06-02 00:00:00';",38480,Raphaël Delavictoire,Dorian Courcelle
 C06,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders o
 JOIN product p ON p.product_id=o.product_id
 WHERE o.date >= '2025-01-01 00:00:00'
-  AND o.date < '2026-01-01 00:00:00';",0
+  AND o.date < '2026-01-01 00:00:00';",0,Marc Chen,Raphaël Delavictoire
 C07,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders o
 JOIN product p ON p.product_id=o.product_id
 WHERE o.date >= '2026-05-31 00:00:00'
-  AND o.date < '2026-06-01 00:00:00';",13970
+  AND o.date < '2026-06-01 00:00:00';",13970,Alexandre Flavigny,Marc Chen
 C08,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders AS o
 JOIN product AS p ON p.product_id = o.product_id
 JOIN customers AS c ON c.customer_id = o.customer_id
-WHERE (CAST(strftime('%Y', '2026-09-24') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-24') < substr(c.birth_date, 6, 5))) = 25;",605580
+WHERE (CAST(strftime('%Y', '2026-09-24') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-24') < substr(c.birth_date, 6, 5))) = 25;",605580,Dorian Courcelle,Mohamed Diawara
 C09,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders AS o
 JOIN product AS p ON p.product_id = o.product_id
 JOIN customers AS c ON c.customer_id = o.customer_id
-WHERE (CAST(strftime('%Y', '2026-09-26') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-26') < substr(c.birth_date, 6, 5))) = 25;",487980
+WHERE (CAST(strftime('%Y', '2026-09-26') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-26') < substr(c.birth_date, 6, 5))) = 25;",487980,Raphaël Delavictoire,Dorian Courcelle
 C10,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders AS o
 JOIN product AS p ON p.product_id = o.product_id
 JOIN customers AS c ON c.customer_id = o.customer_id
-WHERE (CAST(strftime('%Y', o.date) AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', o.date) < substr(c.birth_date, 6, 5))) = 25;",558980
+WHERE (CAST(strftime('%Y', o.date) AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', o.date) < substr(c.birth_date, 6, 5))) = 25;",558980,Marc Chen,Raphaël Delavictoire
 C11,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders AS o
 JOIN product AS p ON p.product_id = o.product_id
 JOIN customers AS c ON c.customer_id = o.customer_id
-WHERE (CAST(strftime('%Y', '2026-12-01') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-12-01') < substr(c.birth_date, 6, 5))) = 25;",446690
+WHERE (CAST(strftime('%Y', '2026-12-01') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-12-01') < substr(c.birth_date, 6, 5))) = 25;",446690,Alexandre Flavigny,Marc Chen
 C12,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders o
 JOIN product p ON p.product_id=o.product_id
-WHERE o.product_id IN ('a','b','c');",1666490
+WHERE o.product_id IN ('a','b','c');",1666490,Maya Bourrey,Alexandre Flavigny
 C13,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders o
 JOIN product p ON p.product_id=o.product_id
 WHERE o.date >= '2026-04-01 00:00:00'
   AND o.date < '2026-05-01 00:00:00'
-  AND o.product_id IN ('a','c');",107740
+  AND o.product_id IN ('a','c');",107740,Maya Bourrey,Alexandre Flavigny
 C14,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders o
 JOIN product p ON p.product_id=o.product_id
 WHERE o.date >= '2026-10-01 00:00:00'
   AND o.date < '2026-12-01 00:00:00'
-  AND o.product_id IN ('a','b','c');",0
+  AND o.product_id IN ('a','b','c');",0,Yasmine Boukrouh,Maya Bourrey
 C15,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders AS o
 JOIN product AS p ON p.product_id = o.product_id
 JOIN customers AS c ON c.customer_id = o.customer_id
 WHERE o.date >= '2026-03-01 00:00:00'
   AND o.date < '2026-06-01 00:00:00'
-  AND (CAST(strftime('%Y', '2026-09-25') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-25') < substr(c.birth_date, 6, 5))) = 25;",168680
+  AND (CAST(strftime('%Y', '2026-09-25') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-25') < substr(c.birth_date, 6, 5))) = 25;",168680,Mohamed Diawara,Yasmine Boukrouh
 C16,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders AS o
 JOIN product AS p ON p.product_id = o.product_id
 JOIN customers AS c ON c.customer_id = o.customer_id
 WHERE o.product_id IN ('a', 'b', 'c')
-  AND (CAST(strftime('%Y', '2026-09-25') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-25') < substr(c.birth_date, 6, 5))) = 25;",376740
+  AND (CAST(strftime('%Y', '2026-09-25') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-25') < substr(c.birth_date, 6, 5))) = 25;",376740,Dorian Courcelle,Mohamed Diawara
 C17,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders AS o
 JOIN product AS p ON p.product_id = o.product_id
@@ -91,14 +91,14 @@ JOIN customers AS c ON c.customer_id = o.customer_id
 WHERE o.date >= '2026-01-01 00:00:00'
   AND o.date < '2026-07-01 00:00:00'
   AND o.product_id IN ('a', 'b', 'c')
-  AND (CAST(strftime('%Y', '2026-09-25') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-25') < substr(c.birth_date, 6, 5))) = 25;",258180
+  AND (CAST(strftime('%Y', '2026-09-25') AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', '2026-09-25') < substr(c.birth_date, 6, 5))) = 25;",258180,Raphaël Delavictoire,Dorian Courcelle
 C18,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders AS o
 JOIN product AS p ON p.product_id = o.product_id
 JOIN customers AS c ON c.customer_id = o.customer_id
 WHERE o.date >= '2026-05-01 00:00:00'
   AND o.date < '2026-06-01 00:00:00'
-  AND (CAST(strftime('%Y', o.date) AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', o.date) < substr(c.birth_date, 6, 5))) = 25;",62480
+  AND (CAST(strftime('%Y', o.date) AS INTEGER) - CAST(substr(c.birth_date, 1, 4) AS INTEGER) - (strftime('%m-%d', o.date) < substr(c.birth_date, 6, 5))) = 25;",62480,Marc Chen,Raphaël Delavictoire
 C19,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders AS o
 JOIN product AS p ON p.product_id = o.product_id
@@ -106,9 +106,9 @@ JOIN customers AS c ON c.customer_id = o.customer_id
 WHERE o.date >= '2026-09-01 00:00:00'
   AND o.date < '2026-10-01 00:00:00'
   AND o.product_id = 'd'
-  AND (CAST(strftime('%Y', '2026-09-25') AS INTEGER) - CAST(strftime('%Y', c.birth_date) AS INTEGER) - (strftime('%m-%d', '2026-09-25') < strftime('%m-%d', c.birth_date))) = 25;",1990
+  AND (CAST(strftime('%Y', '2026-09-25') AS INTEGER) - CAST(strftime('%Y', c.birth_date) AS INTEGER) - (strftime('%m-%d', '2026-09-25') < strftime('%m-%d', c.birth_date))) = 25;",1990,Yasmine Boukrouh,Maya Bourrey
 C20,"SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
 FROM orders o
 JOIN product p ON p.product_id=o.product_id
 WHERE o.date >= '2026-06-01 00:00:00'
-  AND o.date < '2026-09-01 00:00:00';",1106090
+  AND o.date < '2026-09-01 00:00:00';",1106090,Alexandre Flavigny,Marc Chen

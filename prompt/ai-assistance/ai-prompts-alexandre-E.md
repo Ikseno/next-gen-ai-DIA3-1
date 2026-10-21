@@ -5,7 +5,7 @@
 
 ## 1. Experimental prompts
 
-The exact **system prompt** and **user prompt template** used for Model E are already documented in the subgroup's [`prompt/model-prompt-td1.md`](../model-prompt-td1.md). The same prompts were used for all five models, without changes. The script `skeleton-multi-llm-en.py` inserts the database schema and each question into the user template.
+The exact **system prompt** and **user prompt template** used for Model E are already documented in the subgroup's [`prompt/prompts-en.md`](../prompts-en.md). The same prompts were used for all five models, without changes. The script `skeleton-multi-llm-en.py` inserts the database schema and each question into the user template.
 
 The `prompt_sha256` field in the raw traces identifies the exact rendered prompt for each question.
 

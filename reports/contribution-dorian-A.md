@@ -57,7 +57,7 @@ python skeleton-multi-llm-en.py --run --models groq:openai/gpt-oss-120b --state 
 ## 5. Repository work
 
 - Pushed the raw files of batch A (`trace/traces-A.csv`, `state/state-A.jsonl`) and `explanations-A.csv`.
-- Wrote the verbatim prompt file (now [`prompt/model-prompt-td1.md`](../prompt/model-prompt-td1.md)). The system message and user template are extracted from the kit's `build_prompt()`; the `prompt_sha256` of each question is recomputed from that text and matches every line of the five trace files (20/20 questions).
+- Wrote the verbatim prompt file (now [`prompt/prompts-en.md`](../prompt/prompts-en.md)). The system message and user template are extracted from the kit's `build_prompt()`; the `prompt_sha256` of each question is recomputed from that text and matches every line of the five trace files (20/20 questions).
 - Added the kit's `.gitignore` at the root (keys, `.env`, `.venv`, caches and `ready-for-td1.txt` stay out of the public repository).
 - README: drafted a first version, then resolved the merge conflict with the teammate's README pushed at the same time (commit `0e07d97`). I kept their version as the base and added the database hash, my environment, the TD 1 status table and the wrong agreements.
 - Reviewed the repository against the assessment sheet and the hand-in page, and reported to the group:

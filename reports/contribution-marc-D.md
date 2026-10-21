@@ -23,7 +23,7 @@ python3 skeleton-multi-llm-en.py --run --models groq:qwen/qwen3.8-27b --state st
 - **25 recorded attempts:** 20 initial calls + 5 retries. HTTP 200 on 20 attempts, **HTTP 429 on 5** (first attempts of C16, C17, C18, C19, C20).
 - **Cause of the 429s:** Groq limit on **output tokens per minute for this model: 1,000 OTPM** (error message: "Used 913–950, Requested 132–233"). Qwen produced 57 to 251 completion tokens per call; at one call every 3 to 4 seconds, the combined questions (longest SQL) pushed the batch over 1,000 output tokens per minute. Each 429 was retried once by the skeleton and the retry got HTTP 200. These five cells have now used both allowed attempts.
 - **Measurements (successful attempts):** 12,598 prompt tokens and 2,761 completion tokens in total; latency 240 to 2,566 ms, median 507 ms; `model_returned = qwen/qwen3.8-27b`; `cost_native` empty on every line (Groq returns no cost: missing measurement, not zero); `nature = real` on all 25 lines.
-- **Prompt:** the `prompt_sha256` of each question is identical to the other four models (see [`prompt/model-prompt-td1.md`](../prompt/model-prompt-td1.md)).
+- **Prompt:** the `prompt_sha256` of each question is identical to the other four models (see [`prompt/prompts-en.md`](../prompt/prompts-en.md)).
 - Files: [`trace/traces-D.csv`](../trace/traces-D.csv), [`state/state-D.jsonl`](../state/state-D.jsonl).
 
 ## 3. Results and explanations

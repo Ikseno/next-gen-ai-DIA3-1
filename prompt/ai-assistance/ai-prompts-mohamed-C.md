@@ -3,7 +3,7 @@
 **Assigned model:** `openrouter:cohere/north-mini-code:free`  
 **Session:** 16 October (preparation) and 21 October 2026 (TD 1)  
 **Assistant:** Claude (Anthropic), used in a chat linked to my computer (it could read and write files in my project folders; it never received my API keys).  
-**Scope:** personal use of an AI assistant to set up, run, analyse and document TD 1. This file is **not** the prompt sent to the tested models: that prompt is the kit's `build_prompt()` output, unchanged, identical for the five models (see [`prompt/model-prompt-td1.md`](../model-prompt-td1.md) and the `prompt_sha256` column of the traces).
+**Scope:** personal use of an AI assistant to set up, run, analyse and document TD 1. This file is **not** the prompt sent to the tested models: that prompt is the kit's `build_prompt()` output, unchanged, identical for the five models (see [`prompt/prompts-en.md`](../prompts-en.md) and the `prompt_sha256` column of the traces).
 
 ## 1. What the assistant did, and what I checked
 

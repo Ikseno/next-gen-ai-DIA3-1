@@ -3,7 +3,7 @@
 **Assigned model:** `groq:openai/gpt-oss-120b` (Groq Free plan)
 **Session:** 21 October 2026 (TD 1, 14:00–18:30 Paris)
 **Assistant:** Claude (Anthropic), used in a chat linked to my computer. It could read and write files in the kit folder and in my clone of this repository. It never received my API keys; I ran every model call and every git command myself.
-**Scope:** personal use of an AI assistant to understand the kit, run batch A, analyse traces, document the work and review the repository. This file is **not** the prompt sent to the tested models: that prompt is the kit's `build_prompt()` output, unchanged, identical for the five models (see [`model-prompt-td1.md`](../model-prompt-td1.md) and the `prompt_sha256` column of the traces).
+**Scope:** personal use of an AI assistant to understand the kit, run batch A, analyse traces, document the work and review the repository. This file is **not** the prompt sent to the tested models: that prompt is the kit's `build_prompt()` output, unchanged, identical for the five models (see [`prompts-en.md`](../prompts-en.md) and the `prompt_sha256` column of the traces).
 
 ## 1. What the assistant did, and what I checked
 

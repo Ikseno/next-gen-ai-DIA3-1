@@ -11,10 +11,10 @@ All figures below are computed from the files of this repository. Every model ca
 |---|---|---|
 | Machine preparation and access check | Done before the session | `check_access.py` output kept by each member (5/5 models OK for C on 16 and 21 October) |
 | 1. Twenty reference queries | Done: 20/20 queries written and run on `data/boutique.sqlite`, cross-checked by a second member, values recomputed independently twice (see section 5) | [`reference-td1.csv`](../reference-td1.csv) |
-| 2. Five model batches (100 base cells) | Done: 100/100 cells with a final answer, 6 retries | [`trace/`](../trace/), [`state/`](../state/), merged in [`results/traces-td1.csv`](../results/traces-td1.csv) |
+| 2. Five model batches (100 base cells) | Done: 100/100 cells with a final answer, 6 retries | [`trace/`](../trace/), [`state/`](../state/), merged in [`results/traces-td1.csv`](../results/traces-td1.csv) and [`results/traces-td1.jsonl`](../results/traces-td1.jsonl) |
 | 3. Trace reading and explanations | Done for the 100 cells | [`explanation/`](../explanation/), [`results/model-question-comparison-en.csv`](../results/model-question-comparison-en.csv) |
 | 3. Five-model summary | Done | [`results/five-model-summary-en.csv`](../results/five-model-summary-en.csv) |
-| Prompt as used | Done, verified against the traces | [`prompt/model-prompt-td1.md`](../prompt/model-prompt-td1.md) |
+| Prompt as used | Done, verified against the traces | [`prompt/prompts-en.md`](../prompt/prompts-en.md) |
 | 4. Plenary | No oral presentation this session; models x questions view ready | [`results/pivot-td1.md`](../results/pivot-td1.md) |
 
 ## 2. What worked

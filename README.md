@@ -31,11 +31,11 @@ Seven members for eight roles: F and G are held by the same person. Roles rotate
 
 | Path | Content |
 |---|---|
-| `reference-td1.csv` | **Deliverable 1.** The 20 reference queries and values, computed with SQL on the database and cross-checked |
-| `results/traces-td1.csv` | **Deliverable 2.** All raw traces merged under one header (106 lines, every attempt, retries included) |
+| `reference-td1.csv` | **Deliverable 1.** The 20 reference queries and integer values, with the member who wrote each query (`author`) and the member who checked it (`checked_by`) |
+| `results/traces-td1.csv`, `results/traces-td1.jsonl` | **Deliverable 2.** Every attempt of the five batches, errors and retries included, with the original measurements (106 lines; the JSONL is the five state files concatenated) |
 | `results/model-question-comparison-en.csv` | **Deliverable 3.** One final row per model and question (100 rows) with the explanation of each result |
 | `results/five-model-summary-en.csv` | **Deliverable 4.** The five models: public index, dated prices, access used, results by question family, limits |
-| `prompt/model-prompt-td1.md` | **Deliverable 5.** The prompt sent to the models (system message and user template), verbatim, with the fingerprint of each question |
+| `prompt/prompts-en.md` | **Deliverable 5.** The prompt sent to the models (system message and user template), verbatim, with the fingerprint of each question |
 | `results/pivot-td1.md` | Models x questions view of the comparison |
 | `trace/traces-X.csv` | Raw traces of operator X (A to E), as produced by the skeleton |
 | `state/state-X.jsonl` | State files of the runs (one line per attempt) |
@@ -70,7 +70,7 @@ python3 verify-data.py                                    # data integrity, last
 cp ../next-gen-ai-DIA3-1/reference-td1.csv .              # our checked references
 
 # Replay the stored SQL offline (no key, no network): re-executes each model's SQL and recomputes the verdicts
-python3 skeleton-multi-llm-en.py --replay ../next-gen-ai-DIA3-1/state/state-C.jsonl --state replay-C.jsonl --out replay-C.csv
+python3 skeleton-multi-llm-en.py --replay ../next-gen-ai-DIA3-1/results/traces-td1.jsonl --state replay-td1.jsonl --out replay-td1.csv
 
 # Re-run a model for real (needs the keys exported in the shell; counts against the account allowance)
 export GROQ_API_KEY="..."; export OPENROUTER_API_KEY="..."
@@ -95,5 +95,9 @@ Completed: 20 references; 100 base cells (60 Groq, 40 OpenRouter), all executed;
 | E, dots-3-note-preview (OpenRouter) | 15 |
 
 Every failure is on an age question; all period and product-only questions are correct for all five models.
+
+Replay check: re-executing the stored SQL of `results/traces-td1.jsonl` offline against `reference-td1.csv` (command above) gives the same scores (20, 17, 12, 15, 15).
+
+**Open blocks:** comparison of the references with the instructor's answer key (end of session); member preparing TD 2 to be designated; access-check count and OpenRouter allowance of operator E not recorded (missing measurement).
 Wrong agreements kept for TD 2: C08 (B and E both 25920, reference 605580), C10 (D and E both 119410, reference 558980), C09 (C and D both 0, reference 487980).
 
