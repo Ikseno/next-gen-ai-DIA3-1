@@ -1,7 +1,7 @@
 # next-gen-ai-DIA3-1
 
 ESILV, A4 Data & AI, module **Next-Generation AI / Trustworthy Generative AI** (Didier Parisot).
-Shared repository of sub-group **DIA3-1**, kept from TD 1 to TD 3.
+Shared repository of **class DIA 3, sub-group 1 (DIA3-1)**, seven members, kept from TD 1 to TD 3.
 
 - Course pack: **2026-10-14-students-1** (kit `kit-td1` dated 14 October 2026, `modeles-autorises.json` dated 2026-10-14)
 - Database: `data/boutique.sqlite`, seed 20260925, SHA-256 `0077e235adc2ca647b484e3083c98a6d7cae3ef3655ce366a299caf13398fec2`, checked against `data/manifest.json` by `check_access.py`
@@ -42,8 +42,7 @@ Seven members for eight roles: F and G are held by the same person. Roles rotate
 | `explanation/explanations-X.csv` | Explanation of every final result of model X, written by its operator |
 | `prompt/ai-assistance/` | AI-assistance disclosure: prompts each member sent to an AI assistant, and what was checked |
 | `reports/td1.md` | Session report of the sub-group |
-| `reports/contribution-<firstname>-<role>.md` | Individual contribution of each member (A, B, C, D, F+G; H to come) |
-| `plenary-td1.md` | Plenary support |
+| `reports/contribution-*.md` | Individual contribution of each of the seven members |
 | `skeleton-multi-llm-en.py` | The kit's orchestrator, unchanged (identical to the 14 October kit) |
 
 ## AI assistance (declared)
@@ -58,7 +57,7 @@ AI-assisted work is accepted in this module when it is declared, the prompts are
 | Marc Chen (D) | Claude | [`prompt/ai-assistance/ai-prompts-marc-D.md`](prompt/ai-assistance/ai-prompts-marc-D.md) |
 | Alexandre Flavigny (E) | ChatGPT (and Codex, Claude for references) | [`prompt/ai-assistance/ai-prompts-alexandre-E.md`](prompt/ai-assistance/ai-prompts-alexandre-E.md) |
 | Maya Bourrey (F + G) | **No AI assistant used** | — |
-| Yasmine Boukrouh (H) | _to be declared_ | — |
+| Yasmine Boukrouh (H) | Codex | [`reports/contribution-yasmine-boukrouh.md`](reports/contribution-yasmine-boukrouh.md), section *AI assistance disclosure* |
 
 ## Reproduce
 

@@ -1,4 +1,4 @@
-# Contribution — Yasmine Boukrouh
+# TD 1 — Individual contribution: Yasmine Boukrouh (role H)
 
 **Student:** Yasmine Boukrouh  
 **Work:** Individual contribution to TD 1  
@@ -6,7 +6,16 @@
 **Session:** 21 October 2026  
 **Repository:** [next-gen-ai-DIA3-1](https://github.com/Ikseno/next-gen-ai-DIA3-1)
 
-## My contribution
+## Scope of this note
+
+This note has two parts that must not be confused:
+
+1. **My role in the group's deliverables** (role H): references C14 and C19 and the five-model summary. The figures of the group report ([`td1.md`](td1.md)) come from the group's five batches A–E, run by their operators.
+2. **A separate local experiment** that I ran alone, described below. It is **not** the group's experiment and its figures are **not** used in the group's deliverables: it used a runner modified with Codex, the same OpenRouter account for batches C and E, and it met HTTP 401/403 failures on batch A. Its files are kept in the repository history (commit [`3b0a489`](https://github.com/Ikseno/next-gen-ai-DIA3-1/tree/3b0a4894b6e778a91ceee3df4d93f43680e10069/td1-local-run), folder `td1-local-run/`) and were removed from the current tree so that the deliverables describe one experiment.
+
+What the separate run brings to the group: an **independent recomputation of the 20 references** (my own SQL and a CSV-based check), whose 20 values are identical to the group's [`reference-td1.csv`](../reference-td1.csv), and a second measurement of the same models showing that results change between runs at temperature 0 (see section 5 of the group report).
+
+## The separate local experiment
 
 I prepared my Windows environment and ran a local experiment comparing five free language models on the same twenty SQL revenue questions. I used Codex to help prepare code, explain queries, diagnose errors and assemble the results. This report describes my own local work; it does not claim that I performed the other members' work recorded elsewhere in the shared repository.
 
@@ -22,9 +31,9 @@ With Codex assistance, I prepared twenty reference SQL queries and a separate CS
 
 The reference review covered integer revenue in cents excluding VAT, inclusive start and exclusive end dates, completed age on a reference date versus age at the time of an order, and filtering individual product lines.
 
-Independent peer review and instructor comparison with the answer key were not confirmed during this work and remain pending.
+Update after consolidation: my 20 values are identical to the group's references and to Dorian's independent CSV recomputation. Comparison with the instructor's answer key is recorded in the group report.
 
-## Model batches I ran
+## Model batches of the separate run (not the group's figures)
 
 I launched all five batches from PowerShell, using the supplied model configuration and the same prompt for each question across models.
 
@@ -76,7 +85,7 @@ I ran the two OpenRouter batches using the same personal account. This differs f
 
 The model summary uses historical course-portfolio metadata. Entries without a documented exact-model index or paid route remain N/A with reasons. This does not establish that no paid route exists, and current metadata review remains pending.
 
-Peer and instructor reference validation, reconciliation with the group's work, and final submission remain to be completed. This individual report supplements the shared session report rather than replacing the required group submission.
+Reconciliation with the group's work is done: the separate run is documented in section 5 of the group report and kept in the repository history; the group's deliverables use only batches A–E run by their operators. This individual report supplements the shared session report and does not replace it.
 
 ## AI assistance disclosure
 

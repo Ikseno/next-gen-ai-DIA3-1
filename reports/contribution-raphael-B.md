@@ -12,7 +12,7 @@ Role: operator B, model `groq:openai/gpt-oss-20b`. All figures below come from
 
 ## 2. Step 1 - References
 
-- Wrote references **C05, C09, C17** (see the members table in [`td1.md`](td1.md)). _To complete: member who cross-checked them._
+- Wrote references **C05, C09, C17** (see the members table in [`td1.md`](td1.md)). They were cross-checked by Dorian; I checked Marc's references (C06, C10, C18).
 - Before the batch, the copy of `reference-td1.csv` in my `kit-td1` folder was still the empty kit template (146 bytes, no value), and the skeleton refused to run (`Complete your reference values before calling models`). The group file in the repository had a double extension (`reference-td1.csv.csv` at that time); I copied it into `kit-td1` as `reference-td1.csv` and checked its 20 values before calling the model. No reference value came from a model answer.
 
 ## 3. Step 2 - Batch B (20 cells)

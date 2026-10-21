@@ -2,7 +2,7 @@
 
 **Model operated:** `groq:qwen/qwen3.8-27b` (Qwen 3.8 27B, Groq Free plan)
 **References assigned:** C06, C10, C18 (see the members table in the [README](../README.md))
-**Cross-check:** _to complete (whose references I checked, and who checked mine)_
+**Cross-check:** I re-ran and checked Alexandre's references (C07, C11, C20); mine were checked by Raphaël.
 
 ## 1. Preparation
 

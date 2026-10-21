@@ -15,7 +15,7 @@ Role: operator A, model `groq:openai/gpt-oss-120b`. All figures below come from
 
 - Wrote references **C04, C08, C16** (see the members table in the [README](../README.md)).
 - The 20 group references in [`reference-td1.csv`](../reference-td1.csv) were re-checked by an independent method: every SQL query was run read-only on `boutique.sqlite`, and every value was recomputed by a separate Python script that reads the three CSV files (no SQL) and computes completed age by month and day. **20/20 values identical** (including the two zero cases C06 and C14 and the one-day window C07). No customer is born on 29 February, so no leap-year ambiguity applies. This check was done with AI assistance (see section 6); no model answer was used as a reference value.
-- _To complete: member who cross-checked C04, C08 and C16._
+- - Cross-check in the group's circle: C04, C08 and C16 were checked by Mohamed; I checked Raphaël's references (C05, C09, C17).
 
 ## 3. Step 2 - Batch A (20 cells)
 

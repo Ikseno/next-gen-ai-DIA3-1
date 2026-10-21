@@ -1,6 +1,6 @@
 # TD 1 report — Comparing five free models on the same 20 questions
 
-**Sub-group DIA3-1** · Session of 21 October 2026 · Course pack `2026-10-14-students-1` (kit of 14 October 2026)
+**Class DIA 3, sub-group 1 (DIA3-1)** · Session of 21 October 2026 · Course pack `2026-10-14-students-1` (kit of 14 October 2026)
 Members: Dorian Courcelle (A), Raphaël Delavictoire (B), Mohamed Diawara (C), Marc Chen (D), Alexandre Flavigny (E), Maya Bourrey (F + G), Yasmine Boukrouh (H).
 
 All figures below are computed from the files of this repository. Every model call counted here is a real call (`nature = real`); no replayed or simulated line is used.
@@ -10,12 +10,12 @@ All figures below are computed from the files of this repository. Every model ca
 | Step | Status | Evidence |
 |---|---|---|
 | Machine preparation and access check | Done before the session | `check_access.py` output kept by each member (5/5 models OK for C on 16 and 21 October) |
-| 1. Twenty reference queries | Done: 20/20 queries written, run on `data/boutique.sqlite`, cross-checked by a second member | [`reference-td1.csv`](../reference-td1.csv) |
+| 1. Twenty reference queries | Done: 20/20 queries written and run on `data/boutique.sqlite`, cross-checked by a second member, values recomputed independently twice (see section 5) | [`reference-td1.csv`](../reference-td1.csv) |
 | 2. Five model batches (100 base cells) | Done: 100/100 cells with a final answer, 6 retries | [`trace/`](../trace/), [`state/`](../state/), merged in [`results/traces-td1.csv`](../results/traces-td1.csv) |
 | 3. Trace reading and explanations | Done for the 100 cells | [`explanation/`](../explanation/), [`results/model-question-comparison-en.csv`](../results/model-question-comparison-en.csv) |
 | 3. Five-model summary | Done | [`results/five-model-summary-en.csv`](../results/five-model-summary-en.csv) |
 | Prompt as used | Done, verified against the traces | [`prompt/model-prompt-td1.md`](../prompt/model-prompt-td1.md) |
-| 4. Plenary | Support prepared | [`plenary-td1.md`](../plenary-td1.md), [`results/pivot-td1.md`](../results/pivot-td1.md) |
+| 4. Plenary | No oral presentation this session; models x questions view ready | [`results/pivot-td1.md`](../results/pivot-td1.md) |
 
 ## 2. What worked
 
@@ -75,18 +75,31 @@ Final verdicts over the 100 cells: 79 correct, 20 incorrect value, 1 invalid SQL
   - A: one full check on 21 October, 09:05 Paris (3 Groq + 2 OpenRouter calls); Groq Free limits read on the console for `openai/gpt-oss-120b` (30 RPM, 1K RPD, 8K TPM, 200K TPD); about 1 request used on this model before the batch, about 21 after. Remaining count after the batch not read on the console.
   - B: one full check on 16 October, 01:31 Paris (3 Groq + 2 OpenRouter calls); Groq allowance before and after the batch **not recorded** (missing measurement).
   - D: one full check on 16 October and one on 21 October at about 14:20 Paris (2 × (3 Groq + 2 OpenRouter) calls), plus a `--no-network` local check; allowance before and after the batch not recorded.
-  - E: check count and OpenRouter allowance not recorded in the repository (missing measurement).
+  - E: one test call on C01 before the batch (counted in the 20 base calls); access-check count and OpenRouter allowance before and after the batch not recorded (missing measurement).
   - Pause between requests: A used `--pause 8` after C01; B, C, D and E used the default 3 s. The trace timestamps agree: median gap between successive calls of 9 s for A and 3 to 6 s for B to E (3 s pause + latency).
 - Native cost: empty for every Groq line (Groq returns no cost: missing measurement, not zero); 0 for every OpenRouter line (free route). No credit was bought, no paid plan was enabled.
 
 ## 5. Decisions, limits and uncertainty
 
-- References were computed with SQL and cross-checked by another member; no model answer was used as a reference.
+- **References.** Each value comes from SQL run read-only on the database; no model answer was used as a reference. Each member's queries were re-run and checked by another member, in a circle so that nobody checks their own work:
+
+  | Author | Questions | Checked by |
+  |---|---|---|
+  | Mohamed Diawara | C01, C02, C15 | Yasmine Boukrouh |
+  | Dorian Courcelle | C04, C08, C16 | Mohamed Diawara |
+  | Raphaël Delavictoire | C05, C09, C17 | Dorian Courcelle |
+  | Marc Chen | C06, C10, C18 | Raphaël Delavictoire |
+  | Alexandre Flavigny | C07, C11, C20 | Marc Chen |
+  | Maya Bourrey | C03, C12, C13 | Alexandre Flavigny |
+  | Yasmine Boukrouh | C14, C19 | Maya Bourrey |
+
+  In addition, two independent recomputations agree with all 20 values of [`reference-td1.csv`](../reference-td1.csv): Dorian recomputed every value with a Python script reading the three CSV files without SQL (completed age by month and day), see [`contribution-dorian-A.md`](contribution-dorian-A.md); Yasmine wrote her own 20 SQL queries and a CSV-based check in a separate local run, and her 20 values are identical to ours ([her reference file](https://github.com/Ikseno/next-gen-ai-DIA3-1/blob/3b0a4894b6e778a91ceee3df4d93f43680e10069/td1-local-run/td1/reference-td1.csv), [cross-check record](https://github.com/Ikseno/next-gen-ai-DIA3-1/blob/3b0a4894b6e778a91ceee3df4d93f43680e10069/td1-local-run/td1/reference-crosscheck.json)). Comparison with the instructor's answer key: to be recorded at the end of the session.
 - Final verdict = last attempt of each cell; every attempt is kept in the raw traces.
 - Index and prices come from the kit (portfolio snapshot of 28 September, Groq Developer prices of 5 October). Cohere and Dots have no documented paid route for the exact same model: N/A, not $0.
 - One run per cell at temperature 0, on 20 questions: this supports a routing hypothesis for this task, not a general ranking. The highest public index (Qwen, 33.7) is not the best model here; gpt-oss-120b (index 11.6) is, and its paid route is cheaper than Qwen's.
 - **Protocol deviation.** The timestamps show that batches B (12:28–12:32 UTC), D (12:30–12:31) and E (12:27–12:39) overlapped, although the protocol asks for one request in flight per sub-group. They used different accounts, and the 429s are reported per Groq organisation, so we do not attribute the 429s to the overlap; we record it as a deviation.
-- An earlier draft of this report described a separate local run (`td1-local-run`) whose files are not part of this repository. Its figures are not used here.
+- **A second, separate experiment.** Yasmine also ran all five batches herself, from her own accounts, before the group batches were consolidated (files kept in the repository history at commit [`3b0a489`](https://github.com/Ikseno/next-gen-ai-DIA3-1/tree/3b0a4894b6e778a91ceee3df4d93f43680e10069/td1-local-run), folder `td1-local-run/`, removed from the current tree so that the deliverables describe one experiment). It is **not** used in the figures of this report, because it differs from the protocol on three points: the runner was modified with Codex (`--retry-access` to re-run cells that had failed with HTTP 401/403, `--stop-on-access-error`); the two OpenRouter batches (C and E) used the same personal account; and batch A first met 17 HTTP 403 and 2 HTTP 401 before its cells were recovered. That run recorded 123 attempts and 71/100 correct final cells (A 17, B 17, C 12, D 15, E 10; Qwen C18 left `not_executed` after two 429s).
+- **Observation from the two runs (hypothesis to test in TD 2).** With the same prompt, the same model identifiers and temperature 0, the two runs do not give the same answers: gpt-oss-120b is 20/20 here and 17/20 there (exact-birthday conditions on C15, C17, C19), Dots 15/20 here and 10/20 there. Temperature 0 does not make these hosted models deterministic; a single run per cell is therefore a weak basis for ranking, which supports a vote over several answers.
 
 ## 6. Who did what
 
@@ -96,15 +109,15 @@ Final verdicts over the 100 cells: 79 correct, 20 incorrect value, 1 invalid SQL
 | Raphaël Delavictoire | References C05, C09, C17; batch B; explanations B (see [`contribution-raphael-B.md`](contribution-raphael-B.md)) |
 | Mohamed Diawara | References C01, C02, C15; batch C; explanations C; merged traces, comparison CSV and pivot; repository layout; plenary support (see [`contribution-mohamed-C.md`](contribution-mohamed-C.md)) |
 | Marc Chen | References C06, C10, C18; batch D; explanations D (see [`contribution-marc-D.md`](contribution-marc-D.md)) |
-| Alexandre Flavigny | References C07, C11, C20; batch E; explanations E |
+| Alexandre Flavigny | References C07, C11, C20; batch E; explanations E (see [`contribution-alexandre-E.md`](contribution-alexandre-E.md)) |
 | Maya Bourrey | References C03, C12, C13; cross-check of references; trace consolidation (roles F + G, see [`contribution-maya-FG.md`](contribution-maya-FG.md)) |
-| Yasmine Boukrouh | References C14, C19; five-model summary (role H) |
+| Yasmine Boukrouh | References C14, C19; five-model summary (role H); separate local run used as an independent reference check (see section 5 and [`contribution-yasmine-boukrouh.md`](contribution-yasmine-boukrouh.md)) |
 
-**AI assistance.** Declared per member in the README (section *AI assistance*) and in [`prompt/ai-assistance/`](../prompt/ai-assistance/): Dorian, Raphaël, Mohamed and Marc used Claude; Alexandre used ChatGPT (and Codex, Claude for references); **Maya used no AI assistant**; Yasmine: to be declared. Every value and explanation was checked against the traces and the database by the member responsible.
+**AI assistance.** Declared per member in the README (section *AI assistance*), in [`prompt/ai-assistance/`](../prompt/ai-assistance/) and in the contribution notes: Dorian, Raphaël, Mohamed and Marc used Claude; Alexandre used ChatGPT (and Codex, Claude for references); Yasmine used Codex (queries, cross-check, runner changes, consolidation and her report, see her contribution note); **Maya used no AI assistant**. Every value and explanation kept in the deliverables was checked against the traces and the database by the member responsible.
 
 ## 7. Next steps and help needed
 
 - TD 2: the k-of-n vote on these five models. Questions C08, C09 and C10 are the natural test cases for a wrong or split consensus.
 - Routing hypothesis to test: period and product questions to the cheapest model; age questions to gpt-oss-120b or to a vote, reporting disagreement instead of picking a value.
 - Member preparing TD 2 (`atelier-vote.py`): _to be designated_.
-- To complete: access-check count and allowance of operator E; AI-assistance declaration of Yasmine; contribution notes of Alexandre and Yasmine.
+- Still open: the comparison of our 20 references with the instructor's answer key, the member preparing TD 2, and the access-check count and OpenRouter allowance of operator E (recorded as missing).

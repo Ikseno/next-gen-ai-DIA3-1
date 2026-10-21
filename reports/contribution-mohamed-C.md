@@ -2,7 +2,7 @@
 
 **Model operated:** `openrouter:cohere/north-mini-code:free` (Cohere North Mini Code, OpenRouter free route)
 **References assigned:** C01, C02, C15 (in the group's [`reference-td1.csv`](../reference-td1.csv))
-**Cross-check:** _to complete (whose references I checked, and who checked mine)_
+**Cross-check:** I re-ran and checked Dorian's references (C04, C08, C16); mine were checked by Yasmine.
 
 ## 1. Preparation
 
@@ -40,7 +40,7 @@ Each cause was checked with small SQLite queries (e.g. `substr` positions, text 
 - Proposed the split of the 20 references and of the roles A–H for seven members.
 - Merged the five trace files into [`results/traces-td1.csv`](../results/traces-td1.csv) (106 lines), built [`results/model-question-comparison-en.csv`](../results/model-question-comparison-en.csv) (100 rows) and [`results/pivot-td1.md`](../results/pivot-td1.md); checked that every question has one prompt fingerprint across the five models.
 - Checked the other explanation files, the five-model summary and the prompt file against the traces; added the C19 limit to the summary.
-- Repository: README, kit `.gitignore`, layout (`results/`, `reports/`, `prompt/`), merge conflicts, [`plenary-td1.md`](../plenary-td1.md), first full draft of [`td1.md`](td1.md).
+- Repository: README, kit `.gitignore`, layout (`results/`, `reports/`, `prompt/`), merge conflicts, first full draft of [`td1.md`](td1.md).
 
 ## 5. AI assistance
 
