@@ -1,38 +1,105 @@
-# TD 1 — Model comparison 
+# TD 1 report — Comparing five free models on the same 20 questions
 
-member : Yasmine Boukrouh
+**Sub-group DIA3-1** · Session of 21 October 2026 · Course pack `2026-10-14-students-1` (kit of 14 October 2026)
+Members: Dorian Courcelle (A), Raphaël de la Victoire (B), Mohamed Diawara (C), Marc Chen (D), Alexandre Flavigny (E), Maya Bourrey (F + G), Yasmine Boukrouh (H).
 
-## Method and evidence
+All figures below are computed from the files of this repository. Every model call counted here is a real call (`nature = real`); no replayed or simulated line is used.
 
-Twenty reference queries were executed read-only on the supplied database and cross-checked by a separate CSV iteration. Both implementations share case definitions; an independent group member must still review their interpretation. See [references](../td1/reference-td1.csv), [cross-check](../td1/reference-crosscheck.json), and [notes].
+## 1. What we attempted and what we completed
 
-Five models received the same prompt per question. All observed attempts have nature `real`; no simulation or replay is included. See the [prompt](../td1/prompt-used.md), [all raw attempts](../td1/traces-td1.csv), [100 final comparisons](../td1/model-question-comparison-en.csv), [five-model summary](../td1/five-model-summary-en-reviewed.csv) and [comparison view](../td1/comparison-view.md). Original CSV and JSONL logs for A–E are retained in td1.
-
-## Results
-
-| Batch | Model | Correct / planned |
+| Step | Status | Evidence |
 |---|---|---|
-| A | GPT-OSS 120B | 17/20 |
-| B | GPT-OSS 20B | 17/20 |
-| C | Cohere North Mini Code | 12/20 |
-| D | Qwen 3.8 27B | 15/20 |
-| E | Dots 3 Note Preview | 10/20 |
+| Machine preparation and access check | Done before the session | `check_access.py` output kept by each member (5/5 models OK for C on 16 and 21 October) |
+| 1. Twenty reference queries | Done: 20/20 queries written, run on `data/boutique.sqlite`, cross-checked by a second member | [`reference-td1.csv`](../reference-td1.csv) |
+| 2. Five model batches (100 base cells) | Done: 100/100 cells with a final answer, 6 retries | [`trace/`](../trace/), [`state/`](../state/), merged in [`results/traces-td1.csv`](../results/traces-td1.csv) |
+| 3. Trace reading and explanations | Done for the 100 cells | [`explanation/`](../explanation/), [`results/model-question-comparison-en.csv`](../results/model-question-comparison-en.csv) |
+| 3. Five-model summary | Done | [`results/five-model-summary-en.csv`](../results/five-model-summary-en.csv) |
+| Prompt as used | Done, verified against the traces | [`prompt/model-prompt-td1.md`](../prompt/model-prompt-td1.md) |
+| 4. Plenary | Support prepared | [`reports/plenary-td1.md`](plenary-td1.md), [`results/pivot-td1.md`](../results/pivot-td1.md) |
 
-Final cells: {'correct': 71, 'incorrect': 27, 'not_executed': 1, 'sql_invalid': 1}. Of 100 planned cells, 99 received model output, 98 executed SQL successfully, and 71 matched the reference. Dots C08 had invalid SQL. Qwen C18 remained blocked by HTTP 429 on both allowed attempts. Access failures are separate from wrong numerical answers.
+## 2. What worked
 
-All five models answered the six pure-period and four product-family cases correctly (the product family includes cases combining products with periods, as classified in the supplied question JSON). Failures concentrate in age and combined questions: exact-birthday equality, wrong birth intervals, omitted completed-age cases, contradictory predicates, or unrequested order-date filters. The comparison CSV gives an evidence-based explanation for each final failure. This is a hypothesis about this batch, not a general ranking.
+**Same prompt for every model.** For each of the 20 questions, the `prompt_sha256` is identical on every line of the five trace files, retries included. The prompt is the kit's `build_prompt()` output, unchanged; `skeleton-multi-llm-en.py` in this repository is byte-identical to the kit's.
 
-For example, A/C15 uses `c.birth_date = date('2026-09-25', '-25 years')`, selecting one birthday instead of all age-25 customers. E/C08 contains malformed CAST syntax. The original SQL remains unchanged in the raw traces.
+**Results (final attempt per cell):**
 
-## Access, attempts and missing measurements
+| Model | Operator, access | Correct | Failed questions |
+|---|---|---|---|
+| `openai/gpt-oss-120b` | A, Groq Free | **20/20** | — |
+| `openai/gpt-oss-20b` | B, Groq Free | 17/20 | C02, C08, C11 |
+| `qwen/qwen3.8-27b` | D, Groq Free | 15/20 | C09, C10, C15, C17, C19 |
+| `dots-studio/dots-3-note-preview:free` | E, OpenRouter | 15/20 | C08, C09, C10, C16, C18 |
+| `cohere/north-mini-code:free` | C, OpenRouter | 12/20 | C02, C08, C09, C10, C11 (invalid SQL), C15, C17, C18 |
 
-There are 123 recorded batch attempts: 100 initial calls and 23 second attempts. HTTP status counts: {'403': 17, '200': 99, '401': 2, '429': 5}. A initially had 17 HTTP 403 failures and two HTTP 401 failures; C18 succeeded before the other cells were recovered. D recorded five HTTP 429 responses across four cells. All originals and retries remain in the same state files, with a maximum of two attempts per cell. Setup checks are additional calls and are not included in these batch totals; the full setup-call count and before/after account allowances were not recorded and must not be invented.
+Final verdicts over the 100 cells: 79 correct, 20 incorrect value, 1 invalid SQL, 0 access failure.
 
-Missing token/cost measurements remain blank in raw logs. Free-route access does not establish a paid-route price. Model metadata in the summary comes only from the dated course portfolio: it is not a live price check. N/A entries mean the supplied snapshot does not document the exact model/paid route; they do not assert that no paid route exists.
+**By question family** (6 period, 4 product list, 5 age, 5 combined):
 
-## Assistance, contributions and protocol deviations
+| Family | gpt-oss-120b | gpt-oss-20b | qwen3.8-27b | dots-3-note | north-mini-code |
+|---|---|---|---|---|---|
+| Period | 6/6 | 6/6 | 6/6 | 6/6 | 6/6 |
+| Product list | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
+| Age | 5/5 | 2/5 | 3/5 | 2/5 | 0/5 |
+| Combined | 5/5 | 5/5 | 2/5 | 3/5 | 2/5 |
 
+## 3. What failed, and why
 
-The supplied runner was modified to add explicit `--retry-access` for repaired access failures, preserving original traces and the two-attempt cap, and `--stop-on-access-error` to stop a batch after a new access failure. The launcher trims key input and reuses process environment variables. Prompts, output caps, temperature, sandbox and reference values were unchanged. The explicit recovery of previously terminal access failures is documented here; it is not an automatic retry of every HTTP 403.
+**Observation.** All 21 failed cells involve the completed-age convention ("exactly 25 years old"). No model fails a period-only or product-only question. C08, C09 and C10 are each missed by 3 of the 5 models.
 
+**Causes read in the returned SQL** (one cause per cell, detailed in `explanation/explanations-X.csv`):
 
+- age window too wide: customers aged 0 to 25 kept instead of exactly 25 (e.g. Cohere C08, C15);
+- one birth date or one birth year instead of a one-year window (e.g. gpt-oss-20b C02, C08; Dots C08, C09);
+- year difference without the month-day test, or the month-day test inverted (e.g. Qwen C10, C17; Dots C10, C18);
+- string handling errors in SQLite: wrong `substr` positions (Cohere C17, C18), text subtraction of dates (Cohere C09), `||` evaluated before `+` making `strftime` return NULL (Cohere C10), comparison of a year string with a full date (Qwen C19);
+- one syntax error: the `? :` operator does not exist in SQLite (Cohere C11, HTTP 200, `syntax error near "?"`). This is a wrong answer, not an access failure.
+
+**A correct value is not always a correct query.** Cohere's C19 matches the reference, but its age test compares month-year strings: it keeps C003 (born 2001-09-26, aged 24) and drops C005 (born 2000-09-26, aged 25). Neither bought product d in September 2026, so the value is unaffected. Dots' C19 is also correct with an incomplete age predicate (customers born late 2000 are missed). Both are recorded as correct, with this limit stated.
+
+**Hypotheses (not verified here).** The age convention is written in the prompt, yet four of five models still apply a simpler rule; this suggests the difficulty is in translating "completed age" into SQLite string/date functions rather than in understanding the question. Testing this would need a variant prompt, i.e. a separate experiment.
+
+## 4. Access, attempts and missing measurements
+
+| Operator | Initial calls | Retries | HTTP 429 (all recovered) |
+|---|---|---|---|
+| A | 20 | 0 | 0 |
+| B | 20 | 1 | 1 — C20, Groq tokens per minute (limit 8000) |
+| C | 20 | 0 | 0 |
+| D | 20 | 5 | 5 — C16 to C20, Groq **output** tokens per minute (limit 1000) |
+| E | 20 | 0 | 0 |
+| **Total** | **100** | **6** | **6** |
+
+- Each 429 cell was retried once, about three seconds later, and answered with HTTP 200; no cell exceeded two attempts.
+- Qwen's 429s come from an output-tokens-per-minute limit of 1000 that is not shown in the limits table of the Groq console (which lists 8K tokens per minute); the limit and usage are in the error message of the trace.
+- Access checks are counted separately from the 100 base cells: member C ran two full checks (16 and 21 October, 3 Groq + 2 OpenRouter calls each); OpenRouter allowance of C after the batch: 28 of 50 free requests left (21 October, 14:19 Paris). _Checks and allowances of the other operators: to be added._
+- Native cost: empty for every Groq line (Groq returns no cost: missing measurement, not zero); 0 for every OpenRouter line (free route). No credit was bought, no paid plan was enabled.
+
+## 5. Decisions, limits and uncertainty
+
+- References were computed with SQL and cross-checked by another member; no model answer was used as a reference.
+- Final verdict = last attempt of each cell; every attempt is kept in the raw traces.
+- Index and prices come from the kit (portfolio snapshot of 28 September, Groq Developer prices of 5 October). Cohere and Dots have no documented paid route for the exact same model: N/A, not $0.
+- One run per cell at temperature 0, on 20 questions: this supports a routing hypothesis for this task, not a general ranking. The highest public index (Qwen, 33.7) is not the best model here; gpt-oss-120b (index 11.6) is, and its paid route is cheaper than Qwen's.
+- **Protocol deviation.** The timestamps show that batches B (12:28–12:32 UTC), D (12:30–12:31) and E (12:27–12:39) overlapped, although the protocol asks for one request in flight per sub-group. They used different accounts, and the 429s are reported per Groq organisation, so we do not attribute the 429s to the overlap; we record it as a deviation.
+- An earlier draft of this report described a separate local run (`td1-local-run`) whose files are not part of this repository. Its figures are not used here.
+
+## 6. Who did what
+
+| Member | Contribution |
+|---|---|
+| Dorian Courcelle | References C04, C08, C16; batch A; explanations A; prompt file with fingerprint check; README merge |
+| Raphaël de la Victoire | References C05, C09, C17; batch B; explanations B |
+| Mohamed Diawara | References C01, C02, C15; batch C; explanations C; merged traces, comparison CSV and pivot; repository layout; plenary support |
+| Marc Chen | References C06, C10, C18; batch D; explanations D |
+| Alexandre Flavigny | References C07, C11, C20; batch E; explanations E |
+| Maya Bourrey | References C03, C12, C13; cross-check of references; trace consolidation (roles F + G, see [`contribution-maya-FG.md`](contribution-maya-FG.md)) |
+| Yasmine Boukrouh | References C14, C19; five-model summary (role H) |
+
+**AI assistance.** Declared in [`prompt/ai-assistance/`](../prompt/ai-assistance/): Mohamed (Claude), Alexandre (ChatGPT; Codex and Claude for references, prompts not retrieved), Maya (assistant prompt for Excel/Power Query). _Other members: add a file or state "no assistant used"._ Every value and explanation was checked against the traces and the database by the member responsible.
+
+## 7. Next steps and help needed
+
+- TD 2: the k-of-n vote on these five models. Questions C08, C09 and C10 are the natural test cases for a wrong or split consensus.
+- Routing hypothesis to test: period and product questions to the cheapest model; age questions to gpt-oss-120b or to a vote, reporting disagreement instead of picking a value.
+- Member preparing TD 2 (`atelier-vote.py`): _to be designated_.
+- To complete: access-check counts and allowances of operators A, B, D, E; AI-assistance files of the remaining members.

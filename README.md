@@ -16,7 +16,7 @@ Shared repository of sub-group **DIA3-1**, kept from TD 1 to TD 3.
 | Marc Chen | C06, C10, C18 | D | `groq:qwen/qwen3.8-27b` |
 | Alexandre Flavigny | C07, C11, C20 | E | `openrouter:dots-studio/dots-3-note-preview:free` |
 | Maya Bourrey | C03, C12, C13 | F + G | cross-check of references, merge of traces |
-| Yasmine | C14, C19 | H | summaries and pivot |
+| Yasmine Boukrouh | C14, C19 | H | summaries and pivot |
 
 Seven members for eight roles: F and G are held by the same person. Roles rotate in TD 2 and TD 3.
 
