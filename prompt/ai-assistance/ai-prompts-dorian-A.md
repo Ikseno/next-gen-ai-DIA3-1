@@ -17,52 +17,46 @@
 | Documentation | Drafted the model-prompt file with the fingerprint check, the root `.gitignore`, the README merge after a conflict, my [contribution note](../../reports/contribution-dorian-A.md) and the link and access-check fixes in [`td1.md`](../../reports/td1.md) | Reviewed before each commit |
 | Repository review | Compared the repository with the assessment sheet and the hand-in page. Found an erroneous report draft and an Excel-corrupted trace merge; ran an offline `--replay` of the five state files (100/100 verdicts reproduced); audited the full git history for leaked secrets | Relayed to the group; corrections made and pushed |
 
-## 2. Essential requests — reformulated for readability
+## 2. AI-assistance requests — clarified technical formulations
 
-The requests below are **reformulated in English** for an external reader and **reduced to the essential ones**. They are not verbatim. The original wording (French, complete list of 18 messages) is kept verbatim in [`reports/contribution-dorian-A.md`](../../reports/contribution-dorian-A.md), section 6. Each entry ends with the original message it reformulates.
+The following prompts are **retrospective, technically clarified summaries** of the requests made during TD 1. They preserve the objectives of the original exchanges but are **not verbatim chat messages** or a complete transcript.
 
-### Understanding the task and organising the group
+### Interpreting the assignment and designing the workflow
 
-1. **Read the student pack and explain what I have to do for TD 1.**
-   _Original: « lis le contenu de ce dossier et explique moi ce que je dois faire »_
-2. **Here are the reference queries our group chose (`reference-td1.csv` attached). What is the next step, and how should the eight members split the work?**
-   _Original: « d'accord voici les questions que nous avons choisi quelle est la suite ? Comment s'organiser en groupe chacun fait de son côté ? »_
-3. **I am operator A (role table attached). Give me the exact steps to run my batch.**
-   _Original: « je suis le rôle A »_
-4. **We were told that only the reference values are assessed, not the model queries. Explain what the assessment sheet actually marks.**
-   _Original: « les requêtes ne seront pas évaluées on sera évalulés sur les valeurs de référence explique »_
+> Analyse le kit étudiant et les consignes officielles du TD 1 pour identifier les livrables évalués, les contraintes expérimentales et les preuves attendues. Propose une procédure reproductible allant de l'établissement des références SQL à l'analyse des traces, en distinguant ce qui relève du protocole obligatoire des bonnes pratiques supplémentaires.
 
-### Running batch A
+> À partir du fichier `reference-td1.csv` et des rôles attribués au sous-groupe, propose une répartition cohérente du travail entre les sept membres : rédaction des vingt références, vérification croisée indépendante, exécution des cinq lots de modèles et consolidation des résultats. Précise les dépendances afin d'éviter toute utilisation de valeurs non vérifiées.
 
-5. **How can I check on the Groq console that my account has enough requests left for 20 calls plus a margin?**
-   _Original: « […] vérifie qu'il te reste au moins 25 requêtes pour `openai/gpt-oss-120b` […] comment on sait ? »_
-6. **My first run stopped with a `KeyboardInterrupt` after C01 (terminal output attached). What happened, and how do I resume without losing or repeating a call?**
-   _Original: the terminal output, pasted without comment_
-7. **I finished batch A with 20/20 correct. Should I run the 20 questions again to check that the result is stable?**
-   _Original: « c'est fait, est ce intéressant de refaire les questions pour voir si j'ai encore 20/20 »_
-   → Decision: **no second batch**. It is outside the TD 1 budget and protocol and is not assessed; answer stability at temperature 0 is recorded as a limit.
+> J'assure le rôle A avec `groq:openai/gpt-oss-120b`. Décris précisément la configuration attendue, les arguments du script fourni, les prérequis avant les appels réels ainsi que les fichiers de trace et d'état qui doivent être conservés pour assurer la reproductibilité.
 
-### Analysis and repository
+> Clarifie la distinction entre la validation des montants de référence et l'évaluation de la qualité des requêtes SQL. À partir de la grille du TD, explique quels éléments démontrent l'exactitude des références, la traçabilité des essais et la capacité à diagnostiquer les erreurs des modèles.
 
-8. **The merged traces and state files of the five operators are in the repository. What remains to be done?**
-   _Original: « je t'ai mis en contexte le github avec la mise en commun de toutes nos traces et states quelle est la suite ? »_
-9. **Write `explanations-A.csv` in the same format as the other operators' files.**
-   _Original: « fais un fichier explantaions-A »_
-10. **My push was rejected, then `git pull` reported a merge conflict in `README.md` (outputs attached). Resolve it.**
-    _Original: the git outputs, pasted without comment_
+### API quota management and batch execution
 
-### Review against the assessment sheet
+> Comment vérifier les quotas Groq applicables à `openai/gpt-oss-120b` avant d'exécuter les vingt questions ? Prends en compte les limites en requêtes et en tokens, la marge nécessaire pour d'éventuelles relances, et la différence entre le coût monétaire et les restrictions de la route gratuite.
 
-11. **Review the current repository against the assessment sheet: what is missing for a perfect mark?** Then, after each round of corrections: **is the problem solved?**
-    _Original: « lis le repo actuel que manque t il pour avoir une note parfaite ? », then « relis le repo et dis moi si ces problèmes sont résolus ? »_
-12. **Check the repository and its history for security problems (leaked keys, personal data).**
-    _Original: « c'est fait peux tu vérifier s'il y a des failles de sécurité »_
-13. **Write a contribution note describing everything I did, then fix the broken links and complete the open items of the report.**
-    _Original: « dans report fait un rapport qui explique ce que j'ai fait depuis le début », then « corrige le point2, le point 3 »_
+> L'exécution du lot A a été interrompue après C01 par un `KeyboardInterrupt` (sortie du terminal fournie). Vérifie à partir du fichier `state-A.jsonl` si C01 a déjà été enregistré, puis précise comment reprendre sans dupliquer les appels ni altérer les traces. Examine également l'intérêt d'augmenter `--pause` au regard du budget de tokens par minute.
 
+> Le premier lot A affiche 20 réponses correctes sur 20. Serait-il méthodologiquement pertinent de le répéter pour tester la stabilité des réponses à température 0 ? Distingue la valeur scientifique d'une répétition de sa compatibilité avec le quota et le protocole du TD 1, et indique comment documenter cette limite sans modifier les résultats initiaux.
+
+### Failure diagnosis and evidence consolidation
+
+> Les fichiers de traces et d'état des opérateurs A à E sont maintenant disponibles. Vérifie la couverture des cent couples modèle-question, la conservation des tentatives supplémentaires, la cohérence des `prompt_sha256` pour une même question et la correspondance entre les verdicts et les valeurs de référence. Identifie les étapes restantes avant la consolidation finale.
+
+> Produis le tableau `explanation/explanations-A.csv` à partir des vingt réponses effectivement enregistrées pour GPT-OSS 120B. Pour chaque cellule, justifie le verdict à partir du SQL retourné, du montant calculé et des conventions applicables, en particulier les bornes temporelles et le calcul de l'âge en années révolues.
+
+> Une tentative de synchronisation GitHub a échoué et `git pull` signale un conflit dans `README.md`. Analyse les messages Git et les modifications concurrentes, puis propose une résolution qui conserve les ajouts des différents membres et évite de perdre l'historique ou les artefacts expérimentaux.
+
+### Submission audit, security and individual contribution
+
+> Compare la structure actuelle du dépôt aux critères R1, R2 et R3 ainsi qu'aux consignes de remise. Recherche les éléments insuffisamment justifiés, les écarts entre les fichiers individuels et la synthèse commune, les liens cassés et les informations manquantes. Pour chaque problème, indique une correction vérifiable plutôt qu'une appréciation générale.
+
+> Effectue un audit du dépôt public et de son historique afin d'identifier d'éventuelles clés API exposées, informations sensibles ou fichiers locaux à exclure. Vérifie notamment les règles de `.gitignore` et distingue un secret effectivement divulgué d'un simple nom de variable d'environnement.
+
+> Rédige une note individuelle de contribution fondée sur les références et les traces du rôle A, en distinguant mes actions, l'assistance reçue et les vérifications que j'ai réalisées. Termine par un contrôle des liens et des éléments en attente dans `reports/td1.md`, sans attribuer à mon rôle le travail des autres opérateurs.
 
 ## 3. Limits
 
 - The assistant's answers are not reproduced; its contribution is summarised in section 1, and every file it drafted was reviewed before commit.
-- Section 2 is a selection and a reformulation; the verbatim originals are kept in the contribution note.
+- Section 2 describes the substance of selected requests in clarified language; it must not be cited as a verbatim transcript.
 - No API key, account identifier, e-mail address or local path is reproduced in this file.
