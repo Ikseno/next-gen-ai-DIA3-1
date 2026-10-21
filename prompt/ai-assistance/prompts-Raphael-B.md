@@ -32,41 +32,37 @@ The second run reused the same state file, so C01 and C02 were not called again.
 |Explanations for model B|Drafted `explanation/explanations-B.csv`, one row per question, causes read from the returned SQL and the HTTP status|Checked each value and reference against my trace|
 |Independent check|Compared the group's 20 reference queries with a separate Python computation of each question (no SQL), and ran each model-B query and its reference query on dense synthetic test databases (one customer per birth date 1999 to 2008, orders on the period boundaries). Result: the 20 references match the questions; the 17 correct B queries are equivalent to the references, the 3 failures (C02, C08, C11) are not|The real `boutique.sqlite` was not available to the assistant: this check is on test data, the reference values themselves remain those validated in session|
 
-## 3\. My prompts to the assistant (verbatim, original French wording and typos kept)
+## 3\. AI-assistance requests — clarified technical formulations
 
-### Understanding the lecture and preparing TD 1
+The requests below are **retrospective reformulations of the questions asked**, written to make their technical objectives explicit. They are **not verbatim chat messages**. The original wording is not reproduced in this document.
 
-> https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/latest/index.html
-> tu peux me faire un resumé de la lecon 1 avec ce que je dois retenir et savoir pour le td 1
+### Lecture concepts and experimental methodology
 
-### Environment and kit
+> À partir du cours « Trustworthy Generative AI » et du protocole du TD 1, peux-tu synthétiser les concepts opérationnels nécessaires à la comparaison des cinq modèles : homogénéité des prompts, séparation entre génération SQL et exécution, validation sur une référence indépendante, traçabilité par cellule et limites d'interprétation des scores ? Distingue précisément ce que le protocole exige de ce qui relève d'une recommandation méthodologique.
 
-> je crois que j ai deja les clés api sur mon pc je veux juste verifier
+### Environment and reproducibility
 
+> Je souhaite confirmer la disponibilité de mon environnement Groq sans exposer mes identifiants. Quelle vérification PowerShell permet d'établir que `GROQ_API_KEY` est définie dans le terminal courant, et comment distinguer la présence de la variable d'une véritable validation d'accès à l'API ?
 
+### Execution of batch B
 
-### Running batch B
+> Les références SQL du sous-groupe étant disponibles, quelle est la séquence exacte pour exécuter le lot B (`groq:openai/gpt-oss-20b`) avec le squelette fourni ? Précise les prérequis, les fichiers d'entrée, le rôle de VS Code, et les artefacts JSONL/CSV attendus, afin d'assurer une exécution reproductible sans perdre l'historique des tentatives.
 
-> on est au td qql a finis la partie sql on doit faire quoi ensuite et est ce que je dois ouvrir vsscode
+> Donne-moi les commandes CLI précises pour lancer le modèle B dans `kit-td1`, tout en conservant le même état entre les essais et l'exécution complète. Je comparerai ensuite les verdicts, les valeurs calculées et les références à partir des traces produites.
 
-> c est bon donne moi juste ce que je dois taper pour avoir faire mon travail apres je t envoie les reponses 
+> Commençons par C01 et C02 comme tests de bon fonctionnement : indique la commande avec `--cases`, `--state` et `--out`, puis les éléments à inspecter dans les traces (`verdict`, `sql`, `value`, `reference`, `http_status`, latence) avant de poursuivre les vingt questions.
 
-> c est bon tu peux me donner les test c01 et c02 et apres tu me dis la trace
+### Trace analysis, SQL semantics and documentation
 
-### Analysing failures and documenting
+> Sur les vingt cellules du modèle B, établis un bilan vérifiable à partir des traces : nombre de réponses correctes, incorrectes et non exécutées ; pour chaque échec, confronte le SQL généré à la sémantique de la question, en particulier les intervalles temporels et le calcul de l'âge révolu à la date de référence.
 
-> tu peux faire un resumé de ou il a les bonnes reponse et ou il a eu faux et pourquoi
+> À partir du dépôt du sous-groupe et de `traces-B.csv`, propose le contenu de `explanations-B.csv` dans le format attendu. Chaque conclusion doit être justifiée par la requête SQL ou les champs d'erreur correspondants ; ne déduis pas une cause du seul écart numérique avec la référence.
 
-> https://github.com/Ikseno/next-gen-ai-DIA3-1
-> peut tu faire un fichier csv explanation B
+> Approfondis les explications en distinguant la justesse du montant obtenu et la correction sémantique de la requête. Pour les filtres d'âge, examine les dates d'anniversaire et les cas limites susceptibles de révéler des SQL accidentellement corrects sur le jeu de données initial.
 
-> alors on nous a demandez que nos explications doivent etre plus detaillé en particulier certaines réponses peuvent etre mauvais parce que les requetes sql de base ne correspondait pas a ce qui etait demandé donc fais une verifications
+> Identifie dans le dépôt le prompt système, le modèle de prompt utilisateur et la fonction qui assemble les messages envoyés à `gpt-oss-20b`. Explique comment `prompt_sha256` permet de vérifier que le contenu expérimental est identique pour les différents modèles sur une même question.
 
-> lit le github et donne notre prompt pour le B
-
-> passe a l etape b et le nomme le prompte B
-
-Short messages in between (screenshots of the terminal, "ok", file-upload questions) are not listed.
+> Prépare la documentation spécifique au modèle B en distinguant le prompt expérimental commun, les paramètres effectifs d'appel, les traces sauvegardées et les vérifications réalisées ; conserve une séparation explicite entre les échanges d'assistance et les appels mesurés de l'expérience.
 
 ## 4\. Results of batch B (from `trace/traces-B.csv`)
 
@@ -79,4 +75,3 @@ Short messages in between (screenshots of the terminal, "ok", file-upload questi
 * Model B was queried only through the provided skeleton and the Groq API; its inputs and outputs are in `trace/traces-B.csv` and `state/state-B.jsonl`. My conversation with the assistant is not a model evaluation and is not counted among the 100 cells.
 * The assistant's explanations were checked against the raw traces before submission; the group remains responsible for every line.
 * No API key or secret appears in this file.
-
