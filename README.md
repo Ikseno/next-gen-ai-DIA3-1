@@ -31,17 +31,20 @@ Seven members for eight roles: F and G are held by the same person. Roles rotate
 
 | Path | Content |
 |---|---|
-| `reference-td1.csv` | The 20 reference queries and values, computed with SQL on the database and cross-checked |
-| `trace/traces-X.csv` | Raw traces of operator X (A to E), every attempt |
+| `reference-td1.csv` | **Deliverable 1.** The 20 reference queries and values, computed with SQL on the database and cross-checked |
+| `results/traces-td1.csv` | **Deliverable 2.** All raw traces merged under one header (106 lines, every attempt, retries included) |
+| `results/model-question-comparison-en.csv` | **Deliverable 3.** One final row per model and question (100 rows) with the explanation of each result |
+| `results/five-model-summary-en.csv` | **Deliverable 4.** The five models: public index, dated prices, access used, results by question family, limits |
+| `prompt/model-prompt-td1.md` | **Deliverable 5.** The prompt sent to the models (system message and user template), verbatim, with the fingerprint of each question |
+| `results/pivot-td1.md` | Models x questions view of the comparison |
+| `trace/traces-X.csv` | Raw traces of operator X (A to E), as produced by the skeleton |
 | `state/state-X.jsonl` | State files of the runs (one line per attempt) |
-| `traces-td1.csv` | All raw traces merged under one header (106 lines, retries included) |
-| `explanation/` | Per-model explanation of every final result, written by each operator |
-| `model-question-comparison-en.csv` | One final row per model and question (100 rows) |
-| `pivot-td1.md` | Models x questions view of the comparison |
-| `prompts-en.md` | System message and user template, verbatim, with the prompt fingerprint of each question |
-| `five-model-summary-en.csv` | _TODO_ Five models: index, dated prices, access, results by family |
-| `traces-td1.jsonl` | _TODO_ Merge of the five JSONL state files |
+| `explanation/explanations-X.csv` | Explanation of every final result of model X, written by its operator |
+| `prompt/ai-assistance/` | AI-assistance disclosure: prompts each member sent to an AI assistant, and what was checked |
 | `reports/td1.md` | Session report |
+| `reports/plenary-td1.md` | Plenary support |
+| `reports/contribution-maya-FG.md` | Contribution note of roles F and G |
+| `skeleton-multi-llm-en.py` | The kit's orchestrator, unchanged (identical to the 14 October kit) |
 
 ## Reproduce
 

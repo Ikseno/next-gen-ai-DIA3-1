@@ -1,6 +1,6 @@
 # TD 1 plenary - sub-group DIA3-1
 
-Same database, same 20 questions, same prompt (one `prompt_sha256` per question across the five models, see `prompts-en.md`), temperature 0. Real calls only, no replay, no credits bought.
+Same database, same 20 questions, same prompt (one `prompt_sha256` per question across the five models, see `prompt/model-prompt-td1.md`), temperature 0. Real calls only, no replay, no credits bought.
 
 ## 1. Results (final attempt per cell)
 
@@ -12,7 +12,7 @@ Same database, same 20 questions, same prompt (one `prompt_sha256` per question 
 | dots-studio/dots-3-note-preview:free (E, OpenRouter) | 15/20 | C08, C09, C10, C16, C18 |
 | cohere/north-mini-code:free (C, OpenRouter) | 12/20 | C02, C08, C09, C10, C11, C15, C17, C18 |
 
-Full models x questions view: `pivot-td1.md`. Rows and causes: `model-question-comparison-en.csv`.
+Full models x questions view: `results/pivot-td1.md`. Rows and causes: `results/model-question-comparison-en.csv`.
 
 ## 2. By question family
 

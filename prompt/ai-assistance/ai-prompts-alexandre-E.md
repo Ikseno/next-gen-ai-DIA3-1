@@ -6,7 +6,7 @@
 
 ## 1. Prompt used for the five-model experiment
 
-The system message and user template sent to all five tested models are already documented verbatim in the subgroup file [`prompts-en.md`](./prompts-en.md). Model E used those same prompts without modifications. They were constructed by `build_prompt()` in `skeleton-multi-llm-en.py` using `schema.sql` and `questions-td1.json`; the `prompt_sha256` values are recorded in the traces.
+The system message and user template sent to all five tested models are already documented verbatim in the subgroup file [`prompt/model-prompt-td1.md`](../model-prompt-td1.md). Model E used those same prompts without modifications. They were constructed by `build_prompt()` in `skeleton-multi-llm-en.py` using `schema.sql` and `questions-td1.json`; the `prompt_sha256` values are recorded in the traces.
 
 ## 2. Personal ChatGPT prompts (verbatim examples)
 
