@@ -1,1 +1,7 @@
+# TD 1 — Individual contribution: Maya Bourrey (roles F + G)
+
+**References written:** C03, C12, C13 · **References checked:** Yasmine's (C14, C19) · **AI assistance:** none
+
 During this session, I served as the quality control and data coordinator for our sub-group by taking on roles F and G. In the initial phase, alongside drafting my assigned SQL reference queries, I conducted the cross-examination of the queries written by my teammates to ensure strict alignment with the protocol’s conventions. Once the API executions were finalized by members A through E, I collected their raw output files and merged them into a unified traces-td1.csv log, carefully preserving all attempts and metadata. I then transitioned to analyzing these logs to pinpoint the exact root causes of model failures—distinguishing between invalid SQL syntax, broken conventions, and refused access—in order to populate the model-question-comparison-en.csv matrix and structure the final five-model-summary-en.csv portfolio.
+
+**Evidence in the repository.** My merge of the five trace files was uploaded at 15:24 (commit `9c2ae61`, `trace/traces-td1.csv`, exported from Excel with `;` separators and timestamps cut to the minute); it contains the same 106 rows as [`results/traces-td1.csv`](../results/traces-td1.csv), which was kept as the group's version because it preserves the original CSV format and full timestamps. The comparison CSV and the five-model summary were finalised together with Mohamed and Yasmine.

@@ -38,9 +38,9 @@ Each cause was checked with small SQLite queries (e.g. `substr` positions, text 
 ## 4. Group work
 
 - Proposed the split of the 20 references and of the roles A–H for seven members.
-- Merged the five trace files into [`results/traces-td1.csv`](../results/traces-td1.csv) (106 lines), built [`results/model-question-comparison-en.csv`](../results/model-question-comparison-en.csv) (100 rows) and [`results/pivot-td1.md`](../results/pivot-td1.md); checked that every question has one prompt fingerprint across the five models.
+- Merged the five trace files into [`results/traces-td1.csv`](../results/traces-td1.csv) and [`results/traces-td1.jsonl`](../results/traces-td1.jsonl) (106 lines; Maya made a parallel merge, same rows), built [`results/model-question-comparison-en.csv`](../results/model-question-comparison-en.csv) (100 rows) and [`results/pivot-td1.md`](../results/pivot-td1.md); checked that every question has one prompt fingerprint across the five models.
 - Checked the other explanation files, the five-model summary and the prompt file against the traces; added the C19 limit to the summary.
-- Repository: README, kit `.gitignore`, layout (`results/`, `reports/`, `prompt/`), merge conflicts, first full draft of [`td1.md`](td1.md).
+- Repository: README, kit `.gitignore`, layout (`results/`, `reports/`, `prompt/`), merge conflicts, consolidation of the group report [`td1.md`](td1.md).
 
 ## 5. AI assistance
 

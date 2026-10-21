@@ -62,7 +62,7 @@ python skeleton-multi-llm-en.py --run --models groq:openai/gpt-oss-120b --state 
 - README: drafted a first version, then resolved the merge conflict with the teammate's README pushed at the same time (commit `0e07d97`). I kept their version as the base and added the database hash, my environment, the TD 1 status table and the wrong agreements.
 - Reviewed the repository against the assessment sheet and the hand-in page, and reported to the group:
   - the first draft of the report described a different run (A 17/20, E 10/20, 123 attempts, HTTP 403s, a modified runner, broken `../td1/` links);
-  - `trace/traces-td1.csv` had been re-saved by Excel with `;` separators (717 rows instead of 106);
+  - `trace/traces-td1.csv` had been re-saved by Excel with `;` separators (717 text lines, because the SQL contains line breaks; read with `;` it holds the same 106 rows, with timestamps cut to the minute — it was later moved out of the deliverables);
   - missing items: `reports/` path, cross-check record, `traces-td1.jsonl`, AI-assistance files.
 
   The report was rewritten and the corrupted file deleted.

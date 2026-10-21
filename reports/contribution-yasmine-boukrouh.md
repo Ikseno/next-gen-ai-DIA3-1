@@ -10,7 +10,7 @@
 
 This note has two parts that must not be confused:
 
-1. **My role in the group's deliverables** (role H): references C14 and C19 and the five-model summary. The figures of the group report ([`td1.md`](td1.md)) come from the group's five batches A–E, run by their operators.
+1. **My role in the group's deliverables** (role H): references C14 and C19, the five-model summary [`results/five-model-summary-en.csv`](../results/five-model-summary-en.csv) (uploaded to the repository by Alexandre), and the cross-check of Mohamed's references (C01, C02, C15). The figures of the group report ([`td1.md`](td1.md)) come from the group's five batches A–E, run by their operators.
 2. **A separate local experiment** that I ran alone, described below. It is **not** the group's experiment and its figures are **not** used in the group's deliverables: it used a runner modified with Codex, the same OpenRouter account for batches C and E, and it met HTTP 401/403 failures on batch A. Its files are kept in the repository history (commit [`3b0a489`](https://github.com/Ikseno/next-gen-ai-DIA3-1/tree/3b0a4894b6e778a91ceee3df4d93f43680e10069/td1-local-run), folder `td1-local-run/`) and were removed from the current tree so that the deliverables describe one experiment.
 
 What the separate run brings to the group: an **independent recomputation of the 20 references** (my own SQL and a CSV-based check), whose 20 values are identical to the group's [`reference-td1.csv`](../reference-td1.csv), and a second measurement of the same models showing that results change between runs at temperature 0 (see section 5 of the group report).

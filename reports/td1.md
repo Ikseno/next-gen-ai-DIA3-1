@@ -103,15 +103,17 @@ Final verdicts over the 100 cells: 79 correct, 20 incorrect value, 1 invalid SQL
 
 ## 6. Who did what
 
-| Member | Contribution |
-|---|---|
-| Dorian Courcelle | References C04, C08, C16; batch A; explanations A; independent recomputation of the 20 references; prompt file with fingerprint check; `.gitignore`; README merge; repository review (see [`contribution-dorian-A.md`](contribution-dorian-A.md)) |
-| Raphaël Delavictoire | References C05, C09, C17; batch B; explanations B (see [`contribution-raphael-B.md`](contribution-raphael-B.md)) |
-| Mohamed Diawara | References C01, C02, C15; batch C; explanations C; merged traces, comparison CSV and pivot; repository layout; plenary support (see [`contribution-mohamed-C.md`](contribution-mohamed-C.md)) |
-| Marc Chen | References C06, C10, C18; batch D; explanations D (see [`contribution-marc-D.md`](contribution-marc-D.md)) |
-| Alexandre Flavigny | References C07, C11, C20; batch E; explanations E (see [`contribution-alexandre-E.md`](contribution-alexandre-E.md)) |
-| Maya Bourrey | References C03, C12, C13; cross-check of references; trace consolidation (roles F + G, see [`contribution-maya-FG.md`](contribution-maya-FG.md)) |
-| Yasmine Boukrouh | References C14, C19; five-model summary (role H); separate local run used as an independent reference check (see section 5 and [`contribution-yasmine-boukrouh.md`](contribution-yasmine-boukrouh.md)) |
+| Member | References written / checked | Batch and analysis | Group work |
+|---|---|---|---|
+| Dorian Courcelle | C04, C08, C16 / checked Raphaël's | A (gpt-oss-120b), explanations A | Independent recomputation of the 20 references (Python on the CSV files, no SQL); `prompts-en.md` with fingerprint check; README merge; repository review against the assessment sheet ([note](contribution-dorian-A.md)) |
+| Raphaël Delavictoire | C05, C09, C17 / checked Marc's | B (gpt-oss-20b, 1 retry), explanations B | — ([note](contribution-raphael-B.md)) |
+| Mohamed Diawara | C01, C02, C15 / checked Dorian's | C (north-mini-code), explanations C | Merged traces kept in `results/` (CSV and JSONL), the 100-row comparison CSV and the pivot; README, `.gitignore` and repository layout; consolidation of this report ([note](contribution-mohamed-C.md)) |
+| Marc Chen | C06, C10, C18 / checked Alexandre's | D (qwen3.8-27b, 5 retries), explanations D | — ([note](contribution-marc-D.md)) |
+| Alexandre Flavigny | C07, C11, C20 / checked Maya's | E (dots-3-note), explanations E | Created the shared repository; compiled and uploaded the group's `reference-td1.csv`; uploaded the five-model summary prepared by Yasmine ([note](contribution-alexandre-E.md)) |
+| Maya Bourrey | C03, C12, C13 / checked Yasmine's | — (roles F + G) | Cross-check of the references; her own merge of the five trace files (uploaded in `trace/` at 15:24, Excel export, superseded by the version in `results/` with the same rows); help with the comparison CSV and the five-model summary ([note](contribution-maya-FG.md)) |
+| Yasmine Boukrouh | C14, C19 / checked Mohamed's | — (role H) | Five-model summary (index, prices, access, results by family); separate local run used as an independent reference check, see section 5 ([note](contribution-yasmine-boukrouh.md)) |
+
+Several consolidation files were built in parallel by more than one member (merged traces, comparison CSV); the versions kept in `results/` were checked against the five raw trace files (see the README replay check). The git history records who uploaded each file.
 
 **AI assistance.** Declared per member in the README (section *AI assistance*), in [`prompt/ai-assistance/`](../prompt/ai-assistance/) and in the contribution notes: Dorian, Raphaël, Mohamed and Marc used Claude; Alexandre used ChatGPT (and Codex, Claude for references); Yasmine used Codex (queries, cross-check, runner changes, consolidation and her report, see her contribution note); **Maya used no AI assistant**. Every value and explanation kept in the deliverables was checked against the traces and the database by the member responsible.
 

@@ -15,8 +15,8 @@ Shared repository of **class DIA 3, sub-group 1 (DIA3-1)**, seven members, kept 
 | Mohamed Diawara | C01, C02, C15 | C | `openrouter:cohere/north-mini-code:free` |
 | Marc Chen | C06, C10, C18 | D | `groq:qwen/qwen3.8-27b` |
 | Alexandre Flavigny | C07, C11, C20 | E | `openrouter:dots-studio/dots-3-note-preview:free` |
-| Maya Bourrey | C03, C12, C13 | F + G | cross-check of references, merge of traces |
-| Yasmine Boukrouh | C14, C19 | H | summaries and pivot |
+| Maya Bourrey | C03, C12, C13 | F + G | cross-check of references, merge of traces, help with comparison and summary |
+| Yasmine Boukrouh | C14, C19 | H | five-model summary |
 
 Seven members for eight roles: F and G are held by the same person. Roles rotate in TD 2 and TD 3.
 
