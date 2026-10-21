@@ -71,7 +71,12 @@ Final verdicts over the 100 cells: 79 correct, 20 incorrect value, 1 invalid SQL
 
 - Each 429 cell was retried once, about three seconds later, and answered with HTTP 200; no cell exceeded two attempts.
 - Qwen's 429s come from an output-tokens-per-minute limit of 1000 that is not shown in the limits table of the Groq console (which lists 8K tokens per minute); the limit and usage are in the error message of the trace.
-- Access checks are counted separately from the 100 base cells: member C ran two full checks (16 and 21 October, 3 Groq + 2 OpenRouter calls each); OpenRouter allowance of C after the batch: 28 of 50 free requests left (21 October, 14:19 Paris). _Checks and allowances of the other operators: to be added._
+- Access checks are counted separately from the 100 base cells: member C ran two full checks (16 and 21 October, 3 Groq + 2 OpenRouter calls each); OpenRouter allowance of C after the batch: 28 of 50 free requests left (21 October, 14:19 Paris). Other operators, from their contribution notes:
+  - A: one full check on 21 October, 09:05 Paris (3 Groq + 2 OpenRouter calls); Groq Free limits read on the console for `openai/gpt-oss-120b` (30 RPM, 1K RPD, 8K TPM, 200K TPD); about 1 request used on this model before the batch, about 21 after. Remaining count after the batch not read on the console.
+  - B: one full check on 16 October, 01:31 Paris (3 Groq + 2 OpenRouter calls); Groq allowance before and after the batch **not recorded** (missing measurement).
+  - D: one full check on 16 October and one on 21 October at about 14:20 Paris (2 × (3 Groq + 2 OpenRouter) calls), plus a `--no-network` local check; allowance before and after the batch not recorded.
+  - E: check count and OpenRouter allowance not recorded in the repository (missing measurement).
+  - Pause between requests: A used `--pause 8` after C01; B, C, D and E used the default 3 s. The trace timestamps agree: median gap between successive calls of 9 s for A and 3 to 6 s for B to E (3 s pause + latency).
 - Native cost: empty for every Groq line (Groq returns no cost: missing measurement, not zero); 0 for every OpenRouter line (free route). No credit was bought, no paid plan was enabled.
 
 ## 5. Decisions, limits and uncertainty
@@ -87,10 +92,10 @@ Final verdicts over the 100 cells: 79 correct, 20 incorrect value, 1 invalid SQL
 
 | Member | Contribution |
 |---|---|
-| Dorian Courcelle | References C04, C08, C16; batch A; explanations A; prompt file with fingerprint check; README merge |
-| Raphaël Delavictoire | References C05, C09, C17; batch B; explanations B |
-| Mohamed Diawara | References C01, C02, C15; batch C; explanations C; merged traces, comparison CSV and pivot; repository layout; plenary support |
-| Marc Chen | References C06, C10, C18; batch D; explanations D |
+| Dorian Courcelle | References C04, C08, C16; batch A; explanations A; independent recomputation of the 20 references; prompt file with fingerprint check; `.gitignore`; README merge; repository review (see [`contribution-dorian-A.md`](contribution-dorian-A.md)) |
+| Raphaël Delavictoire | References C05, C09, C17; batch B; explanations B (see [`contribution-raphael-B.md`](contribution-raphael-B.md)) |
+| Mohamed Diawara | References C01, C02, C15; batch C; explanations C; merged traces, comparison CSV and pivot; repository layout; plenary support (see [`contribution-mohamed-C.md`](contribution-mohamed-C.md)) |
+| Marc Chen | References C06, C10, C18; batch D; explanations D (see [`contribution-marc-D.md`](contribution-marc-D.md)) |
 | Alexandre Flavigny | References C07, C11, C20; batch E; explanations E |
 | Maya Bourrey | References C03, C12, C13; cross-check of references; trace consolidation (roles F + G, see [`contribution-maya-FG.md`](contribution-maya-FG.md)) |
 | Yasmine Boukrouh | References C14, C19; five-model summary (role H) |
@@ -102,4 +107,4 @@ Final verdicts over the 100 cells: 79 correct, 20 incorrect value, 1 invalid SQL
 - TD 2: the k-of-n vote on these five models. Questions C08, C09 and C10 are the natural test cases for a wrong or split consensus.
 - Routing hypothesis to test: period and product questions to the cheapest model; age questions to gpt-oss-120b or to a vote, reporting disagreement instead of picking a value.
 - Member preparing TD 2 (`atelier-vote.py`): _to be designated_.
-- To complete: access-check counts and allowances of operators A, B, D, E; AI-assistance files of the remaining members.
+- To complete: access-check count and allowance of operator E; AI-assistance declaration of Yasmine; contribution notes of Alexandre and Yasmine.

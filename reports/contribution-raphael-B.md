@@ -71,7 +71,7 @@ The three failures are all valid SQL with the wrong birth-date window:
 ## 5. Repository work
 
 - Pushed `trace/traces-B.csv`, `state/state-B.jsonl` and `explanation/explanations-B.csv` (first version, then a detailed version covering the 20 questions after the instructors asked for more detailed explanations).
-- Wrote [`prompt/ai-assistance/prompts-Raphael-B.md`](../prompt/ai-assistance/prompts-Raphael-B.md) (AI-assistance prompts, verbatim).
+- Wrote [`prompt/ai-assistance/ai-prompts-Raphael-B.md`](../prompt/ai-assistance/ai-prompts-Raphael-B.md) (AI-assistance prompts, verbatim).
 - Reviewed the repository and reported to the group that the first draft of `td1.md` did not match the traces (A 17/20 instead of 20/20, E 10/20 instead of 15/20, 71 instead of 79 correct, 123 attempts and HTTP 403/401 instead of 106 attempts and six 429s, B's 429 missing, broken `../td1/` links, `report/` instead of `reports/`).
 
 ## 6. AI assistance (declared)
@@ -87,7 +87,7 @@ Assistant: **Claude** (Anthropic), in a chat conversation. It read the course si
 | Independent check | Synthetic-database equivalence test and Python recomputation (section 4) | Results reported with their limit |
 | Documentation | Drafted the prompts file and this contribution note | Reviewed before upload |
 
-Verbatim prompts: [`prompt/ai-assistance/prompts-Raphael-B.md`](../prompt/ai-assistance/prompts-Raphael-B.md).
+Verbatim prompts: [`prompt/ai-assistance/ai-prompts-Raphael-B.md`](../prompt/ai-assistance/ai-prompts-Raphael-B.md).
 
 ## 7. Limits and next steps
 

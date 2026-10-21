@@ -81,7 +81,7 @@ python3 skeleton-multi-llm-en.py --run --models groq:openai/gpt-oss-120b --state
 
 Model identifiers per operator are in the table above. A changed prompt or reference starts a new experiment: new `--state` and `--out` files, old ones kept.
 
-Operator A resumed after a manual interruption (Ctrl+C after C01, no extra call) with `--pause 8` to stay under the Groq Free limit of 8,000 tokens per minute. _TODO: other operators state any non-default `--pause`._
+Operator A resumed after a manual interruption (Ctrl+C after C01, no extra call) with `--pause 8` to stay under the Groq Free limit of 8,000 tokens per minute. Operators B, C, D and E used the default 3-second pause (median gap between successive calls in the traces: 3 to 6 s, i.e. 3 s + latency).
 
 ## TD 1 status
 

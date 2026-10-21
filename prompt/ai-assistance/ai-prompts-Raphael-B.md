@@ -7,7 +7,7 @@
 
 ## 1\. Prompt used for the five-model experiment
 
-Model B received exactly the prompt built by `build\_prompt()` in `skeleton-multi-llm-en.py`, unchanged: the system message and user template documented verbatim in [`prompt-yasmine.md`](./prompt-yasmine.md) and [`prompts-Dorian.md`](./prompts-Dorian.md). The `prompt\_sha256` of the 21 lines of `trace/traces-B.csv` (retry included) equals the per-question fingerprint listed in `prompts-Dorian.md` for all 20 questions.
+Model B received exactly the prompt built by `build\_prompt()` in `skeleton-multi-llm-en.py`, unchanged: the system message and user template documented verbatim in [`model-prompt-td1.md`](../model-prompt-td1.md). The `prompt\_sha256` of the 21 lines of `trace/traces-B.csv` (retry included) equals the per-question fingerprint listed in `model-prompt-td1.md` for all 20 questions.
 
 Call parameters for B: temperature 0, `reasoning\_effort: low`, `max\_completion\_tokens: 1024`, 45 s timeout, at most one retry per cell, one request at a time per sub-group.
 
