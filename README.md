@@ -52,7 +52,7 @@ AI-assisted work is accepted in this module when it is declared, the prompts are
 
 | Member | Assistant | Where it is declared |
 |---|---|---|
-| Dorian Courcelle (A) | Claude | [`reports/contribution-dorian-A.md`](reports/contribution-dorian-A.md), section 6 |
+| Dorian Courcelle (A) | Claude | [`prompt/ai-assistance/ai-prompts-dorian-A.md`](prompt/ai-assistance/ai-prompts-dorian-A.md) (verbatim originals in [`reports/contribution-dorian-A.md`](reports/contribution-dorian-A.md), section 6) |
 | Raphaël Delavictoire (B) | Claude | [`prompt/ai-assistance/ai-prompts-Raphael-B.md`](prompt/ai-assistance/ai-prompts-Raphael-B.md) |
 | Mohamed Diawara (C) | Claude | [`prompt/ai-assistance/ai-prompts-mohamed-C.md`](prompt/ai-assistance/ai-prompts-mohamed-C.md) |
 | Marc Chen (D) | Claude | [`prompt/ai-assistance/ai-prompts-marc-D.md`](prompt/ai-assistance/ai-prompts-marc-D.md) |
