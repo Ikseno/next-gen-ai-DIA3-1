@@ -1,4 +1,4 @@
-# TD 1 contribution - Raphaël de la Victoire (role B)
+# TD 1 contribution - Raphaël Delavictoire (role B)
 
 Sub-group DIA3-1, session of 21 October 2026, pack `2026-10-14-students-1`.
 Role: operator B, model `groq:openai/gpt-oss-20b`. All figures below come from

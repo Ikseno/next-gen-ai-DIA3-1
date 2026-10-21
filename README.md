@@ -11,7 +11,7 @@ Shared repository of sub-group **DIA3-1**, kept from TD 1 to TD 3.
 | Member | References (step 1) | Role (step 2) | Model run |
 |---|---|---|---|
 | Dorian Courcelle | C04, C08, C16 | A | `groq:openai/gpt-oss-120b` |
-| Raphaël de la Victoire | C05, C09, C17 | B | `groq:openai/gpt-oss-20b` |
+| Raphaël Delavictoire | C05, C09, C17 | B | `groq:openai/gpt-oss-20b` |
 | Mohamed Diawara | C01, C02, C15 | C | `openrouter:cohere/north-mini-code:free` |
 | Marc Chen | C06, C10, C18 | D | `groq:qwen/qwen3.8-27b` |
 | Alexandre Flavigny | C07, C11, C20 | E | `openrouter:dots-studio/dots-3-note-preview:free` |
@@ -41,10 +41,24 @@ Seven members for eight roles: F and G are held by the same person. Roles rotate
 | `state/state-X.jsonl` | State files of the runs (one line per attempt) |
 | `explanation/explanations-X.csv` | Explanation of every final result of model X, written by its operator |
 | `prompt/ai-assistance/` | AI-assistance disclosure: prompts each member sent to an AI assistant, and what was checked |
-| `reports/td1.md` | Session report |
-| `reports/plenary-td1.md` | Plenary support |
-| `reports/contribution-maya-FG.md` | Contribution note of roles F and G |
+| `reports/td1.md` | Session report of the sub-group |
+| `reports/contribution-<firstname>-<role>.md` | Individual contribution of each member (A, B, C, D, F+G; H to come) |
+| `plenary-td1.md` | Plenary support |
 | `skeleton-multi-llm-en.py` | The kit's orchestrator, unchanged (identical to the 14 October kit) |
+
+## AI assistance (declared)
+
+AI-assisted work is accepted in this module when it is declared, the prompts are kept and the decisions are explained. Every value and explanation was checked by the member responsible against the traces and the database; no model or assistant answer was used as a reference value.
+
+| Member | Assistant | Where it is declared |
+|---|---|---|
+| Dorian Courcelle (A) | Claude | [`reports/contribution-dorian-A.md`](reports/contribution-dorian-A.md), section 6 |
+| Raphaël Delavictoire (B) | Claude | [`prompt/ai-assistance/ai-prompts-Raphael-B.md`](prompt/ai-assistance/ai-prompts-Raphael-B.md) |
+| Mohamed Diawara (C) | Claude | [`prompt/ai-assistance/ai-prompts-mohamed-C.md`](prompt/ai-assistance/ai-prompts-mohamed-C.md) |
+| Marc Chen (D) | Claude | [`prompt/ai-assistance/ai-prompts-marc-D.md`](prompt/ai-assistance/ai-prompts-marc-D.md) |
+| Alexandre Flavigny (E) | ChatGPT (and Codex, Claude for references) | [`prompt/ai-assistance/ai-prompts-alexandre-E.md`](prompt/ai-assistance/ai-prompts-alexandre-E.md) |
+| Maya Bourrey (F + G) | **No AI assistant used** | — |
+| Yasmine Boukrouh (H) | _to be declared_ | — |
 
 ## Reproduce
 

@@ -1,7 +1,7 @@
 # TD 1 report — Comparing five free models on the same 20 questions
 
 **Sub-group DIA3-1** · Session of 21 October 2026 · Course pack `2026-10-14-students-1` (kit of 14 October 2026)
-Members: Dorian Courcelle (A), Raphaël de la Victoire (B), Mohamed Diawara (C), Marc Chen (D), Alexandre Flavigny (E), Maya Bourrey (F + G), Yasmine Boukrouh (H).
+Members: Dorian Courcelle (A), Raphaël Delavictoire (B), Mohamed Diawara (C), Marc Chen (D), Alexandre Flavigny (E), Maya Bourrey (F + G), Yasmine Boukrouh (H).
 
 All figures below are computed from the files of this repository. Every model call counted here is a real call (`nature = real`); no replayed or simulated line is used.
 
@@ -15,7 +15,7 @@ All figures below are computed from the files of this repository. Every model ca
 | 3. Trace reading and explanations | Done for the 100 cells | [`explanation/`](../explanation/), [`results/model-question-comparison-en.csv`](../results/model-question-comparison-en.csv) |
 | 3. Five-model summary | Done | [`results/five-model-summary-en.csv`](../results/five-model-summary-en.csv) |
 | Prompt as used | Done, verified against the traces | [`prompt/model-prompt-td1.md`](../prompt/model-prompt-td1.md) |
-| 4. Plenary | Support prepared | [`reports/plenary-td1.md`](plenary-td1.md), [`results/pivot-td1.md`](../results/pivot-td1.md) |
+| 4. Plenary | Support prepared | [`plenary-td1.md`](../plenary-td1.md), [`results/pivot-td1.md`](../results/pivot-td1.md) |
 
 ## 2. What worked
 
@@ -88,14 +88,14 @@ Final verdicts over the 100 cells: 79 correct, 20 incorrect value, 1 invalid SQL
 | Member | Contribution |
 |---|---|
 | Dorian Courcelle | References C04, C08, C16; batch A; explanations A; prompt file with fingerprint check; README merge |
-| Raphaël de la Victoire | References C05, C09, C17; batch B; explanations B |
+| Raphaël Delavictoire | References C05, C09, C17; batch B; explanations B |
 | Mohamed Diawara | References C01, C02, C15; batch C; explanations C; merged traces, comparison CSV and pivot; repository layout; plenary support |
 | Marc Chen | References C06, C10, C18; batch D; explanations D |
 | Alexandre Flavigny | References C07, C11, C20; batch E; explanations E |
 | Maya Bourrey | References C03, C12, C13; cross-check of references; trace consolidation (roles F + G, see [`contribution-maya-FG.md`](contribution-maya-FG.md)) |
 | Yasmine Boukrouh | References C14, C19; five-model summary (role H) |
 
-**AI assistance.** Declared in [`prompt/ai-assistance/`](../prompt/ai-assistance/): Mohamed (Claude), Alexandre (ChatGPT; Codex and Claude for references, prompts not retrieved), Maya (assistant prompt for Excel/Power Query). _Other members: add a file or state "no assistant used"._ Every value and explanation was checked against the traces and the database by the member responsible.
+**AI assistance.** Declared per member in the README (section *AI assistance*) and in [`prompt/ai-assistance/`](../prompt/ai-assistance/): Dorian, Raphaël, Mohamed and Marc used Claude; Alexandre used ChatGPT (and Codex, Claude for references); **Maya used no AI assistant**; Yasmine: to be declared. Every value and explanation was checked against the traces and the database by the member responsible.
 
 ## 7. Next steps and help needed
 
