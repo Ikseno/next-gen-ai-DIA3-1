@@ -5,7 +5,9 @@ Place next to skeleton-multi-llm-en.py and sandbox_sqlite.py. Run from the
 repository root: python TD2/pair-A/td2_compare_votes.py
 No network, no API keys. Never passes references into the voting function.
 """
+import argparse
 import csv
+import io
 import importlib.util
 from pathlib import Path
 from types import SimpleNamespace
@@ -86,6 +88,13 @@ def describe_change(a, b):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Verify the committed CSV without modifying it",
+    )
+    args = parser.parse_args()
     vote = load_vote()
     rows = read_csv(TRACES)
     refs = {r['case_id']: int(r['revenue_cents']) for r in read_csv(REFERENCE)}
@@ -112,11 +121,26 @@ def main():
             'panel_3of5_models': '; '.join(b['models']),
             'decision_change': reason
         })
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    with OUTPUT.open('w', newline='', encoding='utf-8') as f:
-        w = csv.DictWriter(f, fieldnames=list(result_rows[0]))
-        w.writeheader()
-        w.writerows(result_rows)
+    if args.check:
+        with OUTPUT.open('r', newline='', encoding='utf-8-sig') as f:
+            expected = list(csv.DictReader(f))
+
+        buffer = io.StringIO(newline='')
+        writer = csv.DictWriter(buffer, fieldnames=list(result_rows[0]))
+        writer.writeheader()
+        writer.writerows(result_rows)
+        buffer.seek(0)
+        actual = list(csv.DictReader(buffer))
+
+        if actual != expected:
+            raise SystemExit("FAIL: Recomputed results differ from committed CSV.")
+        print("PASS: All 20 cases match the committed CSV.")
+    else:
+        OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+        with OUTPUT.open('w', newline='', encoding='utf-8') as f:
+            w = csv.DictWriter(f, fieldnames=list(result_rows[0]))
+            w.writeheader()
+            w.writerows(result_rows)
     print('2-of-3:', counts3)
     print('3-of-5:', counts5)
     print('Changed decisions:')
