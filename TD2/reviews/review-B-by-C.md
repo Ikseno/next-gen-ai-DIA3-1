@@ -63,13 +63,15 @@ _Answer by Pair B, written by Marc Chen with AI assistance (see [`ai-assistance-
 
 | # | Answer | Status |
 |---|---|---|
-| 1 | Accepted and fixed. `analyse.py` now hashes text files with line endings normalised to LF, and a root [`.gitattributes`](../../.gitattributes) (`TD2/pair-b/data/*.csv -text`, `*.sqlite binary`) keeps the data byte-identical. Tested on a copy where every CSV, SQL and JSON file was converted to CRLF: the check passes. Existing Windows clones should re-checkout the data folder once. | done (to confirm on a Windows machine) |
+| 1 | Accepted and fixed. `analyse.py` now hashes text files with line endings normalised to LF, and a root [`.gitattributes`](../../.gitattributes) (`TD2/pair-b/data/*.csv -text`, `*.sqlite binary`) keeps the data byte-identical. Tested on a copy where every CSV, SQL and JSON file was converted to CRLF: the check passes. Existing Windows clones should re-checkout the data folder once. | done — verified on Windows, 18 November 2026 |
 | 2 | Accepted and fixed. `analyse.py` now runs in **check mode by default**: it recomputes every evidence file in memory, compares it with the committed file (`OK`/`DIFF`) and writes nothing. `--write` regenerates the files on purpose. `evidence.json` was regenerated once to record that the Pair A check is done. | done |
 | 3 | Accepted and fixed. [`pair-b/C09/empty-filter-check.sql`](../pair-b/C09/empty-filter-check.sql) re-runs each model's own `WHERE`, verbatim, with `COUNT(*)` and `COUNT(DISTINCT customer_id)`. Output in [`empty-filter-check.csv`](../pair-b/C09/empty-filter-check.csv): both keep 0 lines and 0 customers, against 68 lines and 6 customers for the correct window. So the 0 is an empty filter, not customers without revenue. | done |
 | 4 | Fixed in `864ac6a`: `part3-delta-mohamed.md` now documents `python3 TD2/pair-b/C09/check_c09_csv.py TD2/pair-b/data`. Your review was written on `7967fcd`, before the C09 files moved to `pair-b/C09/`. | done |
 | 5 | Accepted and fixed: [`faulty-north-mini-code.sql`](../pair-b/C09/faulty-north-mini-code.sql) and [`faulty-qwen.sql`](../pair-b/C09/faulty-qwen.sql), verbatim from the `sql` column of the traces (last attempt); both return 0 when re-run. | done |
 | 6 | Fixed in `a3169f6`: the pending notes are replaced by the result of the re-check with Pair A's `vote_k_sur_n` (`pair-b/check-votes-with-pair-A.py` → `votes-pair-A-method.jsonl`). It is identical to the hand counts and to your re-run. | done |
 | 7 | Fair question. The kit data is not personal data (fictitious shop), but the course does not say whether it may be redistributed. We will ask the instructor; if not allowed, we keep only `manifest.json` and the hashes. | to ask |
+
+Windows verification follow-up (18 November 2026, Codex on Yasmine's Windows machine, commit `53e1b85`): ran `python TD2/pair-b/analyse.py` with Python 3.13.9. All seven files reported `OK` (reference.sql, faulty-gpt-oss-20b.sql, faulty-dots.sql, delta.sql, delta-customers.csv, C08-models.csv, evidence.json); exit code 0. Repository status before and after was identical: no evidence files were written. This closes the pending Windows verification for issues 1 and 2; the original reviewer findings above are retained as history.
 
 **Answers to the questions**
 
