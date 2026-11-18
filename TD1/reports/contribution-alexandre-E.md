@@ -3,7 +3,7 @@
 **Sub-group:** DIA3-1  
 **Session:** 21 October 2026  
 **Assigned model:** `openrouter:dots-studio/dots-3-note-preview:free` (OpenRouter Free)  
-**Reference questions assigned:** C07, C11 and C20, as recorded in the [group README](../../README.md).
+**Reference questions assigned:** C07, C11 and C20, as recorded in the [group README](../README.md).
 
 ## 1. Preparation and reference work
 
