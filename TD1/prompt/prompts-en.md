@@ -89,5 +89,4 @@ Question: {question}
 
 AI assistance (Claude) was used to independently re-check the reference values (a separate Python
 computation on the CSV files), to draft explanation files and this documentation. Every value and
-explanation was checked against the traces and the database. Prompts used for coding help:
-_to be completed by each member who used an assistant._
+explanation was checked against the traces and the database. Individual assistance disclosures and retained prompts are available in [`ai-assistance/`](ai-assistance/), with further contribution notes in [`../reports/`](../reports/). The experimental model prompts remained unchanged in TD 2.

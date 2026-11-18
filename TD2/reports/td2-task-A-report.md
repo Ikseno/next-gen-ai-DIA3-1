@@ -67,12 +67,16 @@ python TD2/pair-A/td2_compare_votes.py
 Inputs: `TD1/results/traces-td1.csv` and `TD1/reference-td1.csv`.  
 Outputs: `reports/td2-vote-synthetic.jsonl`, `reports/td2-vote-real.jsonl`, and `reports/td2-task-A-comparison.csv`.
 
-The synthetic cases and the recorded TD1 traces are clearly labelled as **simulation** and **real replay**, respectively. No live model calls were made during TD2. The implementation and report preparation used AI assistance; the results were checked against the offline test outputs and the course's voting contract.
+The synthetic cases and the recorded TD1 traces are clearly labelled as **simulation** and **real replay**, respectively. No live model calls were made during TD2. Pair A implemented and documented the voting comparison, with AI tools used for coding and drafting support. The results were checked against the offline test outputs and the course's voting contract.
 
-## 6. Cross-review checklist
+## 6. Cross-review and hand-in checks
 
-- [ ] Confirm the model names and trace paths against the subgroup's final TD1 files.
-- [ ] Inspect the 20-row CSV to confirm all cases C01–C20 and the four changes above.
-- [ ] Cross-check C09's actual SQL clauses with Task B's analysis; do not claim that the two models made exactly the same SQL mistake.
-- [ ] Check the professor's TD2 handout / Assessment page for any additional submission formatting requirements.
-- [ ] Ask another subgroup member to review the vote and the report before final submission.
+- [x] Confirmed model identifiers and trace paths against the final TD1 files.
+- [x] Verified the comparison covers C01-C20 and changes only on C08, C09, C15 and C17.
+- [x] Cross-checked C09's different faulty SQL clauses with Pair B's analysis.
+- [x] Checked the official TD2 assignment's required technical artefacts.
+- [x] Obtained documented cross-reviews from [Pair B](../reviews/review-A-by-B.md) and [Pair C](../reviews/review-A-by-C.md).
+- [ ] Confirm the final Moodle submission and any remaining individual approvals required by the instructor.
+
+These checks reflect the completed technical evidence and cross-review
+documents; they do not assert approval by an absent individual.

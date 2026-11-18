@@ -117,9 +117,19 @@ Several consolidation files were built in parallel by more than one member (merg
 
 **AI assistance.** Declared per member in the README (section *AI assistance*), in [`prompt/ai-assistance/`](../prompt/ai-assistance/) and in the contribution notes: Dorian, Raphaël, Mohamed and Marc used Claude; Alexandre used ChatGPT (and Codex, Claude for references); Yasmine used Codex (queries, cross-check, runner changes, consolidation and her report, see her contribution note); **Maya used no AI assistant**. Every value and explanation kept in the deliverables was checked against the traces and the database by the member responsible.
 
-## 7. Next steps and help needed
+## 7. Next steps and follow-up after TD 1
 
-- TD 2: the k-of-n vote on these five models. Questions C08, C09 and C10 are the natural test cases for a wrong or split consensus.
-- Routing hypothesis to test: period and product questions to the cheapest model; age questions to gpt-oss-120b or to a vote, reporting disagreement instead of picking a value.
-- Member preparing TD 2 (`atelier-vote.py`): _to be designated_.
-- Still open: the comparison of our 20 references with the instructor's answer key, the member preparing TD 2, and the access-check count and OpenRouter allowance of operator E (recorded as missing).
+At the end of TD 1, the planned next work was the k-of-n vote,
+investigation of wrong or split consensus on age questions, and the
+routing policy. These tasks were subsequently completed for TD 2
+on 18 November 2026. See the [TD 2 report](../../TD2/reports/td2.md).
+
+Pair A completed the vote and twenty-question comparison; Pair B
+investigated wrong consensus; Pair C completed the routing rule.
+
+The 20 reference values were checked against the instructor's
+published answer key, as documented in Section 5.
+
+One historical measurement remains unavailable: operator E's
+access-check count and OpenRouter allowance before and after the
+TD 1 batch were not recorded. These measurements are not estimated.

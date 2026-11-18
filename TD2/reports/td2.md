@@ -38,6 +38,33 @@ If no value reaches the fixed quorum, the system abstains. It never lowers the t
 | Abstention | 3 | 3 |
 | **Total** | **20** | **20** |
 
+**Complete C01?C20 comparison (values in euro cents).** For abstentions, the vote count is the largest group of agreeing proposals, below the required threshold. Correctness is assessed against the reference only after voting.
+
+| Case | Reference | 2-of-3 decision | Votes | Correct? | 3-of-5 decision | Votes | Correct? |
+|---|---:|---:|---:|---|---:|---:|---|
+| C01 | 792,800 | 792,800 | 3 | Correct | 792,800 | 5 | Correct |
+| C02 | 590,320 | 590,320 | 2 | Correct | 590,320 | 3 | Correct |
+| C03 | 936,350 | 936,350 | 3 | Correct | 936,350 | 5 | Correct |
+| C04 | 2,826,250 | 2,826,250 | 3 | Correct | 2,826,250 | 5 | Correct |
+| C05 | 38,480 | 38,480 | 3 | Correct | 38,480 | 5 | Correct |
+| C06 | 0 | 0 | 3 | Correct | 0 | 5 | Correct |
+| C07 | 13,970 | 13,970 | 3 | Correct | 13,970 | 5 | Correct |
+| C08 | 605,580 | 605,580 | 2 | Correct | Abstain | 2 | ? |
+| C09 | 487,980 | 0 | 2 | Wrong | Abstain | 2 | ? |
+| C10 | 558,980 | Abstain | 1 | ? | Abstain | 2 | ? |
+| C11 | 446,690 | 446,690 | 2 | Correct | 446,690 | 3 | Correct |
+| C12 | 1,666,490 | 1,666,490 | 3 | Correct | 1,666,490 | 5 | Correct |
+| C13 | 107,740 | 107,740 | 3 | Correct | 107,740 | 5 | Correct |
+| C14 | 0 | 0 | 3 | Correct | 0 | 5 | Correct |
+| C15 | 168,680 | Abstain | 1 | ? | 168,680 | 3 | Correct |
+| C16 | 376,740 | 376,740 | 3 | Correct | 376,740 | 4 | Correct |
+| C17 | 258,180 | Abstain | 1 | ? | 258,180 | 3 | Correct |
+| C18 | 62,480 | 62,480 | 2 | Correct | 62,480 | 3 | Correct |
+| C19 | 1,990 | 1,990 | 2 | Correct | 1,990 | 4 | Correct |
+| C20 | 1,106,090 | 1,106,090 | 3 | Correct | 1,106,090 | 5 | Correct |
+
+The [detailed comparison CSV](td2-task-A-comparison.csv) also records the supporting model identities and changed-decision explanations.
+
 Four decisions changed between the two configurations:
 
 | Case | 2-of-3 | 3-of-5 | Explanation |
@@ -93,7 +120,7 @@ Evidence:
 - [`td2-vote-real.jsonl`](td2-vote-real.jsonl) — real-trace tests.
 - [`td2-task-A-report.md`](td2-task-A-report.md) — supplementary Pair A report.
 
-AI assistance was used in coding and report preparation. The experimental results were obtained by running the offline scripts against the recorded TD1 traces.
+Pair A developed and documented the voting implementation, with AI tools used for coding and drafting support. The experimental results were obtained by running the offline scripts against the recorded TD1 traces.
 
 ## 3. Step 2 — Wrong consensus (Pair B)
 
@@ -232,8 +259,8 @@ The cross-review by Pair B (C1 to C5, [`review-C-by-B.md`](../reviews/review-C-b
 | Pair | Members | Step |
 |---|---|---|
 | A | Alexandre, Maya | k-of-n vote |
-| B | Yasmine Boukrouh, Marc Chen, Mohamed Diawara | wrong consensus — C08 (Yasmine: identification, SQL cause, delta, `analyse.py`); C09 (Marc: SQL root cause; Mohamed: identification and quorums, delta query, independent CSV check, assembly of section 3). Prepared with AI assistance (Yasmine: Codex; Marc and Mohamed: Claude); every figure re-run on the database. |
-| C | Raphael Delavictoire, Dorian Courcelle | routing rule; rule, simulator adaptation and analysis prepared with AI assistance (Claude); outputs reproduced by the pair; cross-reviews written, with remaining follow-ups and sign-offs pending |
+| B | Yasmine Boukrouh, Marc Chen, Mohamed Diawara | wrong consensus — C08 (Yasmine: identification, SQL cause, delta, `analyse.py`); C09 (Marc: SQL root cause; Mohamed: identification and quorums, delta query, independent CSV check, assembly of section 3). Pair B prepared and verified the analysis, using Codex (Yasmine) and Claude (Marc and Mohamed) as supporting tools; every figure was re-run on the database. |
+| C | Raphael Delavictoire, Dorian Courcelle | routing rule; Rapha?l and Dorian developed the rule, adapted the simulator and prepared the analysis with assistance from Claude; they reproduced the outputs and documented cross-reviews, with remaining follow-ups and sign-offs pending |
 
 ## 7. Cross-review between pairs
 

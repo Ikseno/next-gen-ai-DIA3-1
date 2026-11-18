@@ -59,7 +59,7 @@ All runs were made on a scratch copy of the repository, so that the scripts coul
 
 ## Authors' answer
 
-_Answer by Pair B, written by Marc Chen with AI assistance (see [`ai-assistance-marc.md`](../pair-b/ai-assistance-marc.md)) and validated by Yasmine Boukrouh and Mohamed Diawara. Statuses updated after the fixes._
+_Pair B's response was authored by Marc Chen and validated by Yasmine Boukrouh and Mohamed Diawara. Assistance during preparation is documented in [`ai-assistance-marc.md`](../pair-b/ai-assistance-marc.md); statuses were updated after the fixes._
 
 | # | Answer | Status |
 |---|---|---|
@@ -71,7 +71,7 @@ _Answer by Pair B, written by Marc Chen with AI assistance (see [`ai-assistance-
 | 6 | Fixed in `a3169f6`: the pending notes are replaced by the result of the re-check with Pair A's `vote_k_sur_n` (`pair-b/check-votes-with-pair-A.py` → `votes-pair-A-method.jsonl`). It is identical to the hand counts and to your re-run. | done |
 | 7 | Fair question. The kit data is not personal data (fictitious shop), but the course does not say whether it may be redistributed. We will ask the instructor; if not allowed, we keep only `manifest.json` and the hashes. | to ask |
 
-Windows verification follow-up (18 November 2026, Codex on Yasmine's Windows machine, commit `53e1b85`): ran `python TD2/pair-b/analyse.py` with Python 3.13.9. All seven files reported `OK` (reference.sql, faulty-gpt-oss-20b.sql, faulty-dots.sql, delta.sql, delta-customers.csv, C08-models.csv, evidence.json); exit code 0. Repository status before and after was identical: no evidence files were written. This closes the pending Windows verification for issues 1 and 2; the original reviewer findings above are retained as history.
+Windows verification follow-up on Yasmine's machine (18 November 2026, commit `53e1b85`, with Codex assistance): ran `python TD2/pair-b/analyse.py` with Python 3.13.9. All seven files reported `OK` (reference.sql, faulty-gpt-oss-20b.sql, faulty-dots.sql, delta.sql, delta-customers.csv, C08-models.csv, evidence.json); exit code 0. Repository status before and after was identical: no evidence files were written. This closes the pending Windows verification for issues 1 and 2; the original reviewer findings above are retained as history.
 
 **Answers to the questions**
 
