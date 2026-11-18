@@ -66,4 +66,4 @@ Pending — to be completed by Pair C. The existing explanation of the Qwen tie-
 
 ## Review conclusion
 
-The published simulations reproduce and all family rates match the team's traces. Request clarification/correction of the evidence in reasons, deterministic fallback scope and F2b family diversity before final approval. At least two Pair B members must validate and sign the review.
+The published simulations reproduce and all family rates match the team's traces. Request clarification/correction of the evidence in reasons, deterministic fallback scope and F2b family diversity before final approval.
