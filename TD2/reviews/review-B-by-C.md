@@ -58,4 +58,21 @@ All runs were made on a scratch copy of the repository, so that the scripts coul
 
 ## Authors' answer
 
-_To complete by Pair B._
+_Draft by Pair B (Marc Chen), prepared with AI assistance (Claude), on `main` at `26ff494`; to be validated by Yasmine and Mehdy._
+
+| # | Answer | Status |
+|---|---|---|
+| 1 | Accepted. The hash check fails only because of CRLF conversion on Windows. A `.gitattributes` with `TD2/pair-b/data/*.csv -text` and `*.sqlite binary` will be added and tested on a Windows clone. | to do (Yasmine) |
+| 2 | Accepted: a replay must not rewrite the evidence. `analyse.py` will write to a temporary folder and only compare with the committed files. | to do (Yasmine) |
+| 3 | Accepted. `part2-sql-cause-marc.md` gives the decomposition (lines kept and revenue per predicate, all 0 for the full `WHERE`), but the `COUNT(DISTINCT c.customer_id)` queries and their output are not stored. They will be added next to `delta-query.sql`. | to do (Marc) |
+| 4 | Fixed in `864ac6a`: `part3-delta-mehdy.md` now documents `python3 TD2/pair-b/C09/check_c09_csv.py TD2/pair-b/data`. Your review was written on `7967fcd`, before the C09 files moved to `pair-b/C09/`. | done |
+| 5 | Accepted. The two faulty C09 queries will be stored as `faulty-north-mini-code.sql` and `faulty-qwen.sql`, copied from the `sql` column of the traces, as for C08. | to do (Marc) |
+| 6 | Fixed in `a3169f6`: the pending notes are replaced by the result of the re-check with Pair A's `vote_k_sur_n` (`pair-b/check-votes-with-pair-A.py` → `votes-pair-A-method.jsonl`). It is identical to the hand counts and to your re-run. | done |
+| 7 | Fair question. The kit data is not personal data (fictitious shop), but the course does not say whether it may be redistributed. We will ask the instructor; if not allowed, we keep only `manifest.json` and the hashes. | to ask |
+
+**Answers to the questions**
+
+1. Yes. `part2-sql-cause-marc.md` ("A check that can see the cause") proposes the deterministic check `age-window-nonempty`. Re-run the model's `WHERE` with `COUNT(DISTINCT c.customer_id)`, and compare it with the number of customers in the age window computed by code. Deliver a 0 only if both counts are 0; otherwise reject the answer. The check is logged with its identifier and result (Lecture 2, slides 37–38), and Pair C's rule can run it after the vote on F2 questions.
+2. The pilot case is described in the TD 2 assignment ("Historical shop-database case: DEMO-SQL-C11": gpt-oss-20b and north-mini-code, two different queries, both 0). It is also the example of the "wrong agreement" slides of Lecture 2 (slide 21 in our copy). We will cite the assignment section, which is stable.
+3. No. For age questions, neither quorum is enough on its own. 3-of-5 abstains on C08 (where 2-of-3 was right) and on C09, and it would have let C09's 0 through if a third model had shared it. Section 3.4 of `td2.md` recommends a deterministic age-window check after the vote, whatever k is, which is consistent with Pair C's rule.
+4. It is declared in section 6 of `td2.md` (Yasmine: Codex; Marc and Mehdy: Claude) and at the end of each Pair B file. There is no TD 2 log of the AI-assistance prompts yet; we will add a short one under `TD2/pair-b/`, in the TD 1 format. The assignment's item 6 ("the prompts, as used, if they have changed since TD 1") concerns the prompt sent to the models, which did not change in TD 2: there was no new batch.
