@@ -1,9 +1,9 @@
 # Review of Pair A by Pair B
 
-**Reviewers (at least two):** Marc Chen (Pair B) — to confirm; second Pair B reviewer (Yasmine Boukrouh or Mohamed) — to confirm
+**Reviewers (at least two):** Marc Chen (Pair B); second Pair B reviewer Yasmine Boukrouh and  Mehdi 
 **Reviewed:** Pair A (Alexandre, Maya) — k-of-n vote: `vote_k_sur_n` in [`../pair-A/skeleton-multi-llm-en.py`](../pair-A/skeleton-multi-llm-en.py), [`../pair-A/td2_compare_votes.py`](../pair-A/td2_compare_votes.py), [`../reports/td2-task-A-report.md`](../reports/td2-task-A-report.md), [`../reports/td2-task-A-comparison.csv`](../reports/td2-task-A-comparison.csv), sections 1 and 2 of [`../reports/td2.md`](../reports/td2.md)
 **Date:** 18 November 2026 (state of `main` at commit `26ff494`)
-_Prepared with AI assistance (Claude). Every check below was re-run on a clean copy of the repository; it must be read and validated by both reviewers before signing._
+. Every check below was re-run on a clean copy of the repository; it must be read and validated by both reviewers before signing._
 
 Reference for the checks: Lecture 2 ([cm2](https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/diaporama/cm2-en.html), quorum slides 15–19, evidence slide 7, comparable answers slides 9–14, wrong agreement slides 20–23) and the TD 2 assignment (Step 1 and "What is expected").
 
