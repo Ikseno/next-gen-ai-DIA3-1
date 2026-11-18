@@ -88,4 +88,4 @@ The data files are copied unchanged from the course kit, seed 20260925. Database
 
 Two models can share the same age-boundary mistake while producing syntactically valid SQL. Quorum agreement is evidence of agreement, not a guarantee of truth. An independent deterministic reference and a query isolating the missing rows establish the error here. This single batch does not measure a general quorum error probability. Pair A integration and the team's internal cross-review remain pending.
 
-AI assistance was used to prepare the analysis script and draft explanation; the team should review the queries, boundary conditions and evidence before submitting.
+
