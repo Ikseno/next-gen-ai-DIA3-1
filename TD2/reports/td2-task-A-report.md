@@ -34,7 +34,7 @@ For the 20-case offline comparison, a proposal is also excluded *before voting* 
 | 2-of-3 | 16 | 1 | 3 | 20 |
 | 3-of-5 | 17 | 0 | 3 | 20 |
 
-The full per-case table with reference values, vote counts, agreeing model names, and a decision-change explanation is in **`reports/td2-task-A-comparison.csv`**.
+The full per-case table with reference values, vote counts, agreeing model names, and a decision-change explanation is in **`TD2/reports/td2-task-A-comparison.csv`**.
 
 ### Four decisions that change
 
@@ -60,8 +60,8 @@ These are **four changes out of 20 cases**. In the remaining 16 cases, the accep
 Run from the repository root:
 
 ```powershell
-python atelier-vote.py
-python td2_compare_votes.py
+python TD2/pair-A/atelier-vote.py
+python TD2/pair-A/td2_compare_votes.py
 ```
 
 Inputs: `TD1/results/traces-td1.csv` and `TD1/reference-td1.csv`.  

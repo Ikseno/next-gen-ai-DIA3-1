@@ -1,8 +1,8 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """TD2 Task A: offline 2-of-3 vs 3-of-5 comparison on TD1 traces.
 
 Place next to skeleton-multi-llm-en.py and sandbox_sqlite.py. Run from the
-repository root: python td2_compare_votes.py
+repository root: python TD2/pair-A/td2_compare_votes.py
 No network, no API keys. Never passes references into the voting function.
 """
 import csv

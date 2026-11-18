@@ -1,8 +1,8 @@
 # TD2 / pair-A — k-of-n vote (Alexandre, Maya)
 
-Kit files copied unchanged from `kit-td1` (pack of 14 October; `skeleton-multi-llm-en.py` is byte-identical to [`../../TD1/skeleton-multi-llm-en.py`](../../TD1/skeleton-multi-llm-en.py)). `atelier-vote.py` loads `skeleton-multi-llm-en.py` (and the skeleton imports `sandbox_sqlite.py`) from this same folder.
+The kit files provide the starting point. Pair A completed `vote_k_sur_n` in `skeleton-multi-llm-en.py`; it is no longer identical to the TD1 skeleton. `atelier-vote.py` loads `skeleton-multi-llm-en.py` (and the skeleton imports `sandbox_sqlite.py`) from this same folder.
 
-To complete by Pair A: `Orchestrateur.vote_k_sur_n` in `skeleton-multi-llm-en.py` (contract in its docstring), then:
+Completed by Pair A: `Orchestrateur.vote_k_sur_n` in `skeleton-multi-llm-en.py` (contract in its docstring), then:
 
 ```bash
 cd TD2/pair-A

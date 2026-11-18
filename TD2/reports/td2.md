@@ -197,7 +197,7 @@ Among free resources, `choose` picks the least capable eligible one (key `(alloc
 
 **Pair B (wrong consensus):**
 - Two cases from one run per cell at temperature 0; they show the mechanism, not a probability that a quorum is wrong.
-- The vote counts were computed by hand from the stored answers, then re-run with Pair A's completed `vote_k_sur_n` on C08 and C09: identical decisions ([`check-votes-with-pair-A.py`](../pair-b/check-votes-with-pair-A.py), output [`votes-pair-A-method.jsonl`](../pair-b/votes-pair-A-method.jsonl)). The script copies `TD2/skeleton-multi-llm-en.py` next to `pair-A/sandbox_sqlite.py` in a temporary folder, because the completed skeleton does not run from `TD2/` on its own.
+- The vote counts were computed by hand from the stored answers, then re-run with Pair A's completed `vote_k_sur_n` on C08 and C09: identical decisions ([`check-votes-with-pair-A.py`](../pair-b/check-votes-with-pair-A.py), output [`votes-pair-A-method.jsonl`](../pair-b/votes-pair-A-method.jsonl)). The cross-check now uses the authoritative implementation and supporting files from `TD2/pair-A/`.
 - `TD2/pair-b/evidence.json` records SHA-256 hashes of the source files; they were recomputed on the repository's own files (LF line endings) — a checkout with CRLF line endings gives different text-file hashes, the database hash is unaffected.
 
 **Pair A:** Implementation and 20-case comparison completed; see Section 2.

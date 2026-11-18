@@ -30,7 +30,7 @@ def load_vote():
     return lambda proposals, k: module.Orchestrateur.vote_k_sur_n(None, proposals, k)
 
 
-def proposals_for(rows, case, nature):
+def proposals_for(rows, case, nature, panel=PANEL):
     """Fixed panel: an unavailable member keeps its place but casts no vote.
 
     The last CSV row per panel member is its last attempt. Use one chronological
@@ -40,10 +40,10 @@ def proposals_for(rows, case, nature):
     selected = {}
     for row in rows:
         key = (row["provider"], row["model_requested"])
-        if row["case_id"] == case and row["nature"] == nature and key in PANEL:
+        if row["case_id"] == case and row["nature"] == nature and key in panel:
             selected[key] = row
     proposals = []
-    for provider, model in PANEL:
+    for provider, model in panel:
         row = selected.get((provider, model), {})
         value = row.get("value", "")
         valid = row.get("verdict") in {"correct", "incorrect"} and value not in {None, ""}

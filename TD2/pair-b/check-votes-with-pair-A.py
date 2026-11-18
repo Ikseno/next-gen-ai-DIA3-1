@@ -1,8 +1,8 @@
 """Re-run Pair B's quorum counts (C08, C09) with Pair A's completed vote_k_sur_n.
 
-Pair A's completed method is in TD2/skeleton-multi-llm-en.py; the skeleton needs
+Pair A's completed method is in TD2/pair-A/skeleton-multi-llm-en.py; the skeleton needs
 sandbox_sqlite.py next to it (kept in TD2/pair-A/). This script copies the three
-files into a temporary folder, loads the vote through TD2/atelier-vote.py, and
+files into a temporary folder, loads the vote through TD2/pair-A/atelier-vote.py, and
 votes on the last attempt of each model in TD1/results/traces-td1.csv.
 No network call; the reference is printed only after each decision.
 
@@ -17,7 +17,7 @@ TRACES = ROOT / "TD1" / "results" / "traces-td1.csv"
 REFERENCE = ROOT / "TD1" / "reference-td1.csv"
 
 tmp = Path(tempfile.mkdtemp())
-for src in (TD2 / "skeleton-multi-llm-en.py", TD2 / "atelier-vote.py", TD2 / "pair-A" / "sandbox_sqlite.py"):
+for src in (TD2 / "pair-A" / "skeleton-multi-llm-en.py", TD2 / "pair-A" / "atelier-vote.py", TD2 / "pair-A" / "sandbox_sqlite.py"):
     shutil.copy(src, tmp / src.name)
 
 spec = importlib.util.spec_from_file_location("atelier_vote", tmp / "atelier-vote.py")

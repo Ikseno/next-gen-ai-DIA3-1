@@ -628,7 +628,7 @@ class Orchestrateur:
         n = len(traces_question)
 
         # k must be a strict majority of the full panel.
-        if not (n // 2 < k <= n):
+        if not isinstance(k, int) or isinstance(k, bool) or not (n // 2 < k <= n):
             raise ValueError("k must be a strict majority of n")
 
         counts = {}
