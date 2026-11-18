@@ -9,8 +9,8 @@ Inputs: TD 1 outputs in [`TD1/`](../../TD1/) — no new network batch. Work file
 |---|---|---|---|
 | 1. k-of-n vote, 2-of-3 vs 3-of-5 on C01–C20 | A | Done: implementation, tests and 20-case comparison completed | [section 2](#2-step-1--k-of-n-vote-pair-a) |
 | 2. Wrong consensus | B | Done: two real cases from the TD 1 traces, C09 (wrong consensus wins the fixed panel) and C08 (wins no quorum), each with SQL cause, delta query and independent check; vote counts re-checked with Pair A's `vote_k_sur_n` | [section 3](#3-step-2--wrong-consensus-pair-b) |
-| 3. Routing rule and simulator | C | _to complete by Pair C_ | |
-| Cross-review between pairs | all | _to complete_ (review of C by B: drafted) | [section 7](#7-cross-review-between-pairs) |
+| 3. Routing rule and simulator | C | Done: routing policy and simulations completed; 7 original and 10 adapted scenarios reproduced | [section 4](#4-step-3--routing-rule-pair-c) |
+| Cross-review between pairs | all | All six reviews written; remaining author follow-ups and human validations pending | [section 7](#7-cross-review-between-pairs) |
 
 Inputs are the TD 1 outputs only ([`TD1/`](../../TD1/)); no new model call was made. The prompts are unchanged since TD 1 ([`TD1/prompt/prompts-en.md`](../../TD1/prompt/prompts-en.md)).
 
@@ -49,6 +49,17 @@ Four decisions changed between the two configurations:
 
 The remaining 16 cases produced unchanged decisions.
 
+The table below gives the exact final-attempt values (integer euro cents) and verdicts from the stored TD1 traces for the four changed cases:
+
+| Case | Reference | GPT-OSS 120B | North | Qwen | GPT-OSS 20B | Dots |
+|---|---:|---|---|---|---|---|
+| C08 | 605580 | 605580 correct | 1188090 wrong | 605580 correct | 25920 wrong | 25920 wrong |
+| C09 | 487980 | 487980 correct | 0 wrong | 0 wrong | 487980 correct | 369240 wrong |
+| C15 | 168680 | 168680 correct | 314020 wrong | 0 wrong | 168680 correct | 168680 correct |
+| C17 | 258180 | 258180 correct | 0 wrong | 248490 wrong | 258180 correct | 258180 correct |
+
+For C17, Qwen's value of 248490 is its second attempt, following an HTTP 429 response. Only the final attempt counts, so retries never create additional votes.
+
 ### 2.3 Interpretation and limitations
 
 The 3-of-5 configuration avoids the incorrect C09 consensus and recovers correct answers for C15 and C17, but loses the correct C08 consensus. Increasing both the panel size and the threshold therefore changes the balance between accepted answers, errors and abstentions.
@@ -56,6 +67,10 @@ The 3-of-5 configuration avoids the incorrect C09 consensus and recovers correct
 A quorum establishes agreement, **not correctness**. C09 demonstrates that different model families can produce the same incorrect value through different SQL mistakes, as analysed by Pair B in Section 3.
 
 The five-model panel also contains two GPT-OSS models from the same family, so its votes are not fully independent. Furthermore, the experiment changes both panel composition and quorum threshold; it cannot isolate the effect of changing `k` alone.
+
+C10 provides another warning: the 3-of-5 panel abstains on a two-versus-two tie between the correct value 558980 and the shared wrong value 119410. If a third model had returned 119410, the quorum would have accepted a wrong result.
+
+On C19, North Mini Code matches the reference by chance despite using an incorrect age condition. A numerically correct answer therefore does not establish that the underlying SQL reasoning is valid.
 
 These results describe only 20 recorded TD1 questions and do not establish general error rates. Accepted answers still require appropriate independent checks before delivery.
 
@@ -218,7 +233,7 @@ The cross-review by Pair B (C1 to C5, [`review-C-by-B.md`](../reviews/review-C-b
 |---|---|---|
 | A | Alexandre, Maya | k-of-n vote |
 | B | Yasmine Boukrouh, Marc Chen, Mohamed Diawara | wrong consensus — C08 (Yasmine: identification, SQL cause, delta, `analyse.py`); C09 (Marc: SQL root cause; Mohamed: identification and quorums, delta query, independent CSV check, assembly of section 3). Prepared with AI assistance (Yasmine: Codex; Marc and Mohamed: Claude); every figure re-run on the database. |
-| C | Raphael Delavictoire, Dorian Courcelle | routing rule; rule, simulator adaptation and analysis prepared with AI assistance (Claude); outputs reproduced by the pair; review of the rule pending |
+| C | Raphael Delavictoire, Dorian Courcelle | routing rule; rule, simulator adaptation and analysis prepared with AI assistance (Claude); outputs reproduced by the pair; cross-reviews written, with remaining follow-ups and sign-offs pending |
 
 ## 7. Cross-review between pairs
 

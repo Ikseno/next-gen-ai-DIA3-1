@@ -71,4 +71,66 @@ C10 abstains in both quorums. The other 16 cases give the same correct value in 
 
 ## Authors' answer
 
-_To complete by Pair A._
+## Authors' answer
+
+**From Pair A (Alexandre Flavigny; Maya Bourrey's validation pending).**
+
+Thank you for the detailed review. We have addressed the main reproducibility and voting-contract issues raised by Pair C. The original findings above describe an earlier repository state; the responses below describe the current Pair A implementation.
+
+### Responses to the findings
+
+| # | Status | Response |
+|---|---|---|
+| 1 | Fixed | Pair A's files were consolidated into `TD2/pair-A/`, including `sandbox_sqlite.py` and `questions-td1.json`. The authoritative voting implementation is `pair-A/skeleton-multi-llm-en.py`. Reproduction now works from the repository root without reconstructing missing inputs. |
+| 2 | Fixed | Section 2 of `TD2/reports/td2.md` contains the comparison of both panels, including all four changed decisions. The detailed results are stored in `td2-task-A-comparison.csv`, and the synthetic and real-trace evidence is committed. |
+| 3 | Fixed | `proposals_for()` in `atelier-vote.py` now requires a nonempty SQL query in addition to a valid verdict and numerical value. Answers without stored SQL cannot vote. |
+| 4 | Fixed | `vote_k_sur_n()` now skips invalid numerical proposals rather than raising `ValueError` for the whole question. The invalid member remains part of the original panel size but casts no vote. The preprocessing also safely handles malformed numerical values. |
+| 5 | Partially addressed | The report gives explicit denominators and states that the results apply only to the 20 recorded TD1 questions. It also acknowledges that the two GPT-OSS models are not independent. The C19 correct-by-chance case will be added explicitly to the main report. |
+| 6 | Partially addressed | The authoritative `td2-task-A-comparison.csv` records the models supporting each winning value through `panel_2of3_models` and `panel_3of5_models`. Explicit policy identifiers are not yet included in the exported CSV. |
+| 7 | Open, low severity | `evaluate()` is currently dedicated to the fixed three-member panel and uses `k=2`. The separate `compare_panels()` function explicitly supplies `k=2` and `k=3` for the respective panels. Making `evaluate()` accept a configurable threshold would improve reusability but does not affect the current experiment. |
+
+### Answers to the questions
+
+**Q1 — Origin of `compare_panels()` and `--compare`**
+
+These functions are present in the Pair A comparison workflow. The repository's initial bulk-upload commit does not establish their individual authorship or distinguish all additions from the course kit. We cannot reliably attribute their original implementation to a particular team member from that commit alone. The current implementation and its results have been verified by Pair A.
+
+**Q2 — Is the 3-of-5 panel intended for production?**
+
+No. The 3-of-5 configuration is an experimental comparison required by TD2. It includes GPT-OSS 20B and GPT-OSS 120B, which are not independent model families.
+
+For production, we would prioritise distinct model families and require an independent deterministic check for customer-facing numerical results. A quorum alone does not establish correctness.
+
+**Q3 — Abstention cost and panel choice**
+
+An abstention has an operational cost: additional checking, potential delays, and possibly human review. The 3-of-5 panel also requires two additional model calls per question compared with 2-of-3.
+
+Across the 20 recorded cases, both configurations produce three abstentions, but their decisions differ. The 3-of-5 panel avoids the wrong consensus on C09 and correctly answers C15 and C17, while losing the correct consensus on C08.
+
+We would not select a production panel solely from this small sample. For customer-facing figures, the final delivery decision should depend on independent verification, not just quorum size.
+
+**Q4 — AI assistance disclosure**
+
+AI assistance in coding and report preparation is acknowledged in section 2.4 of `TD2/reports/td2.md`. A complete TD2-specific prompt log has not yet been provided; this remains a documentation item if required by the assignment.
+
+### Final technical verification
+
+After the latest corrections, Pair A executed:
+
+- `python TD2/pair-A/td2_compare_votes.py --check`
+- `python TD2/pair-A/atelier-vote.py`
+
+Both passed. The comparison reproduced all 20 cases without modifying the committed evidence:
+
+| Outcome | 2-of-3 | 3-of-5 |
+|---|---:|---:|
+| Correct consensus | 16 | 17 |
+| Incorrect consensus | 1 | 0 |
+| Abstention | 3 | 3 |
+| Total | 20 | 20 |
+
+The four changed decisions remain C08, C09, C15 and C17.
+
+The updated code also rejects SQL-less proposals and safely excludes malformed numerical proposals. These changes did not alter the original 20-case results.
+
+**Conclusion:** The main functional and reproducibility defects raised by Pair C have been corrected. The remaining items concern documentation, policy traceability and generalisation beyond the fixed experimental panels. Final confirmation by both Pair A members is pending.

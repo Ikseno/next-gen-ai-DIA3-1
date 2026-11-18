@@ -92,4 +92,49 @@ Pair A then wrote section 2 of `td2.md` (commit `59e7e37`) consolidated its impl
 
 ## Authors' answer
 
-_To complete by Pair A._
+## Authors' answer
+
+**From Pair A (Alexandre Flavigny; Maya Bourrey's validation pending).** Thank you for the detailed review. We addressed the implementation and reproducibility issues while preserving the original experimental protocol and results. The historical findings above refer to earlier repository states.
+
+### Responses to the findings
+
+| # | Status | Response |
+|---|---|---|
+| 1 | Fixed | Section 2 of `TD2/reports/td2.md` now contains the 20-case summary, four changed decisions, interpretation and reproduction instructions. |
+| 2 | Partially addressed | The detailed model-by-model values are available in this review and the stored TD1 traces. We will also add them to the main report, including Qwen's second attempt after HTTP 429 on C17. |
+| 3 | Fixed | The duplicate skeleton implementation was removed. `TD2/pair-A/skeleton-multi-llm-en.py` is authoritative and rejects invalid `k` values, including floats and booleans. |
+| 4 | Fixed | Commands now use paths relative to the repository root. |
+| 5 | Fixed | Both JSONL evidence files were normalised to UTF-8 without BOM. |
+| 6 | Fixed | `td2_compare_votes.py --check` reproduces all 20 committed results without modifying the CSV. Latest independent run: **20/20 matched**. |
+| 7 | Partially addressed | The report explicitly identifies the two GPT-OSS models as non-independent. We will add the C19 correct-by-chance caveat to the main report. |
+| 8 | Addressed | The comparison preprocessing converts valid SQL-backed results into integer euro cents before voting. Invalid or missing values do not vote. The voting function also ignores invalid numerical proposals without reducing the original panel size. |
+| 9 | Open, low priority | The two panel configurations are fixed and documented. Explicit policy identifiers in exported evidence remain a useful reproducibility improvement. |
+
+### Answers to the questions
+
+**Q1 — Which implementation is authoritative?**
+
+The authoritative implementation is `TD2/pair-A/skeleton-multi-llm-en.py`. The duplicate under `TD2/` was removed, and the comparison scripts use the consolidated Pair A implementation. Individual authorship attribution should be confirmed by both Pair A members.
+
+**Q2 — Which panel would we use for customer-facing figures?**
+
+Neither quorum should be trusted without independent verification. In the 20-case experiment, 3-of-5 avoids the incorrect C09 consensus but loses the correct C08 consensus. It also requires two additional model calls per question, increasing latency, quota consumption and potentially monetary cost. We would require deterministic verification before delivering customer-facing figures, regardless of the voting panel.
+
+**Q3 — What does C10 demonstrate?**
+
+C10 is another example of dangerous shared errors. In the 3-of-5 panel, the correct value 558980 and the incorrect value 119410 each receive two votes. The system abstains because neither reaches three. A third agreeing incorrect model would have produced a wrong consensus. We agree this should be mentioned in the report's limitations.
+
+**Q4 — Where is AI assistance declared?**
+
+Section 2.4 of `TD2/reports/td2.md` discloses AI assistance in coding and report preparation. A complete TD2-specific prompt log is not currently documented; it should be added if required for the assignment.
+
+### Final verification
+
+After the latest corrections, Pair A reran:
+
+- `python TD2/pair-A/td2_compare_votes.py --check`
+- `python TD2/pair-A/atelier-vote.py`
+
+Both commands passed. The results remain unchanged: **2-of-3 = 16 correct, 1 wrong, 3 abstentions; 3-of-5 = 17 correct, 0 wrong, 3 abstentions**.
+
+The code now also requires SQL evidence before voting and safely excludes malformed numerical proposals.
