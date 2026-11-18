@@ -34,7 +34,7 @@ _To complete._
 
 ## Authors' answer
 
-_Draft by Pair B (Marc Chen), prepared with AI assistance (Claude); to be validated by Yasmine and Mohamed._
+_Answer by Pair B, written by Marc Chen with AI assistance (see [`ai-assistance-marc.md`](../pair-b/ai-assistance-marc.md)) and validated by Yasmine Boukrouh and Mohamed Diawara._
 
 All three points concern [`pair-b/C09/delta-query.sql`](../pair-b/C09/delta-query.sql). `C09/README.md` is the Markdown index of the folder and contains no SQL, and `check_c09_csv.py` contains no SQL either: its Python `sum()` already returns 0 on an empty set.
 

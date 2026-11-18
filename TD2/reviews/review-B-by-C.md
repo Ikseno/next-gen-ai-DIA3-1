@@ -1,8 +1,9 @@
 # Review of Pair B by Pair C
 
 **Reviewers (at least two):** Raphaël Delavictoire, Dorian Courcelle (Pair C) — read and validated on 18 November 2026
-**Reviewed:** Pair B — wrong consensus: C08 in [`../pair-b/`](../pair-b/) (Yasmine), C09 in [`../wrong-consensus-C09/`](../wrong-consensus-C09/) (Marc Chen, Mohamed Diawara), section 3 of [`../reports/td2.md`](../reports/td2.md)
+**Reviewed:** Pair B — wrong consensus: C08 in [`../pair-b/`](../pair-b/) (Yasmine), C09 in [`../pair-b/C09/`](../pair-b/C09/) (Marc Chen, Mohamed Diawara), section 3 of [`../reports/td2.md`](../reports/td2.md)
 **Date:** 18 November 2026 (state of `main` at commit `7967fcd`)
+_Paths updated by Pair B after the C09 files moved from `wrong-consensus-C09/` to `pair-b/C09/` (commit `864ac6a`); the review's content is unchanged._
 
 
 Reference for the checks: Lecture 2 rules ([cm2](https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/latest/students/lectures/cm2-en.html), "Quorum and voting", "Evidence and reproducibility", "Wrong agreement", "Traces, logs and replay") and the TD 2 assignment.
@@ -10,7 +11,7 @@ Reference for the checks: Lecture 2 rules ([cm2](https://storage.googleapis.com/
 ## Files reviewed
 
 - `pair-b/`: `README.md`, `analyse.py`, `reference.sql`, `faulty-gpt-oss-20b.sql`, `faulty-dots.sql`, `delta.sql`, `delta-customers.csv`, `C08-models.csv`, `evidence.json`, `data/manifest.json`.
-- `wrong-consensus-C09/`: `part1-quorums.md`, `part2-sql-cause-marc.md`, `part3-delta-mohamed.md`, `delta-query.sql`, `delta-output.csv`, `check_c09_csv.py`.
+- `pair-b/C09/`: `part1-quorums.md`, `part2-sql-cause-marc.md`, `part3-delta-mohamed.md`, `delta-query.sql`, `delta-output.csv`, `check_c09_csv.py`.
 - Section 3 of `td2.md`.
 
 ## What we re-ran and the result
@@ -23,7 +24,7 @@ All runs were made on a scratch copy of the repository, so that the scripts coul
 | C08, with LF CSV files | same | ✅ Runs. Reference 605 580, both faulty queries 25 920, delta 579 660 = 605 580 − 25 920. The regenerated SQL files, `C08-models.csv` and `delta-customers.csv` are identical to the committed ones. |
 | C08 `evidence.json` | diff with the committed file | ⚠️ Only `source_sha256` of `traces-td1.csv` and `reference-td1.csv` differs, for the same CRLF reason. Hashed with LF endings, they match the committed values. |
 | C09, delta query | the 3 statements of `delta-query.sql`, read-only on `pair-b/data/boutique.sqlite` | ✅ Same 6 customers as `delta-output.csv` (C007, C009, C008, C002, C001, C003), total **487 980**. Boundary query: C004 and C005 are out, C003 is in. |
-| C09, independent check | `python3 TD2/wrong-consensus-C09/check_c09_csv.py TD2/pair-b/data` | ✅ Same 6 customers, `TOTAL 487980`, computed without SQL. |
+| C09, independent check | `python3 TD2/pair-b/C09/check_c09_csv.py TD2/pair-b/data` | ✅ Same 6 customers, `TOTAL 487980`, computed without SQL. |
 | Quorum counts, with Pair A's `vote_k_sur_n` | `atelier-vote.py --compare` (see [`review-A-by-C.md`](review-A-by-C.md)) | ✅ C08: 2-of-3 gives 605 580 (2 votes), 3-of-5 abstains (2). C09: 2-of-3 gives **0** (2 votes), 3-of-5 abstains (2). Identical to `part1-quorums.md` and to `pair-b/README.md`. |
 | Values and verdicts cited | `TD1/results/traces-td1.csv`, last attempt | ✅ C08: 20b and dots 25 920, north 1 188 090, 120b and qwen 605 580. C09: north and qwen 0, dots 369 240 (= 487 980 − 118 740, the revenue of C007), 120b and 20b 487 980. |
 
@@ -43,9 +44,9 @@ All runs were made on a scratch copy of the repository, so that the scripts coul
 |---|---|---|---|---|
 | 1 | `pair-b/analyse.py` l. 67; `pair-b/data/*.csv` | **The C08 evidence fails on Windows**, where most of the team works: git converts the CSV files to CRLF on checkout, so the hash assertion stops the script. The "reproduce" section of the README does not work as written in PowerShell. | **high** | Add a `.gitattributes` with `TD2/pair-b/data/*.csv -text` (and `*.sqlite binary`), then re-checkout. Alternatively, hash the content with line endings normalised. Re-run on a Windows clone. |
 | 2 | `pair-b/analyse.py` l. 62 and 113 | **Running the check overwrites the committed evidence**: the SQL files, `C08-models.csv`, `delta-customers.csv` and `evidence.json`. On Windows, `evidence.json` then changes (CRLF hashes), so a simple replay modifies the repository. A replay should test the code without changing the inputs (rule 66). | medium | Write to a temporary folder and compare with the committed files, or add a `--check` mode that only compares. |
-| 3 | `wrong-consensus-C09/part3-delta-mohamed.md`, "Reading the delta"; `part2-sql-cause-marc.md` l. 124 | "Both faulty queries select no customer" is what makes the delta exact. With `COALESCE(SUM(...), 0)`, a 0 could also mean customers selected with no orders (rule 19: a missing value is not zero). Part 2 states that `COUNT(DISTINCT c.customer_id)` gives 0 for Cohere and Qwen, but neither that query nor its output is stored, so we could not re-run it. | low | Store the two `COUNT(DISTINCT ...)` queries and their output next to `delta-query.sql`. |
-| 4 | `wrong-consensus-C09/check_c09_csv.py`, usage line; `part3-delta-mohamed.md` | The documented argument is `<kit-td1>/data`, a folder that is not in the repository. The script works with `TD2/pair-b/data`, which holds the same files, hash-checked. | low | Document `python3 TD2/wrong-consensus-C09/check_c09_csv.py TD2/pair-b/data`. |
-| 5 | `wrong-consensus-C09/` | The two faulty C09 queries (north and qwen) are quoted in `part2-sql-cause-marc.md`, but they are not stored as `.sql` files the way C08's are. The assignment asks for "both faulty SQL queries". | low | Add `faulty-north-mini-code.sql` and `faulty-qwen.sql`, copied from the `sql` column of the traces. |
+| 3 | `pair-b/C09/part3-delta-mohamed.md`, "Reading the delta"; `part2-sql-cause-marc.md` l. 124 | "Both faulty queries select no customer" is what makes the delta exact. With `COALESCE(SUM(...), 0)`, a 0 could also mean customers selected with no orders (rule 19: a missing value is not zero). Part 2 states that `COUNT(DISTINCT c.customer_id)` gives 0 for Cohere and Qwen, but neither that query nor its output is stored, so we could not re-run it. | low | Store the two `COUNT(DISTINCT ...)` queries and their output next to `delta-query.sql`. |
+| 4 | `pair-b/C09/check_c09_csv.py`, usage line; `part3-delta-mohamed.md` | The documented argument is `<kit-td1>/data`, a folder that is not in the repository. The script works with `TD2/pair-b/data`, which holds the same files, hash-checked. | low | Document `python3 TD2/pair-b/C09/check_c09_csv.py TD2/pair-b/data`. |
+| 5 | `pair-b/C09/` | The two faulty C09 queries (north and qwen) are quoted in `part2-sql-cause-marc.md`, but they are not stored as `.sql` files the way C08's are. The assignment asks for "both faulty SQL queries". | low | Add `faulty-north-mini-code.sql` and `faulty-qwen.sql`, copied from the `sql` column of the traces. |
 | 6 | `pair-b/README.md`, `part1-quorums.md` | Both still say "to be re-checked with Pair A's `vote_k_sur_n`". The re-check is now done (see the table above) and matches. | low | Replace the pending note with the result and a link to this review. |
 | 7 | `pair-b/data/` | The kit's data (`boutique.sqlite` and the CSV files) is copied into the repository. The `.gitignore` says the repository is public. | question | Check that the course allows redistributing the kit data. If not, keep only the manifest and the hashes, plus the kit path. |
 
@@ -58,7 +59,7 @@ All runs were made on a scratch copy of the repository, so that the scripts coul
 
 ## Authors' answer
 
-_Draft by Pair B (Marc Chen), prepared with AI assistance (Claude); statuses updated after the fixes; to be validated by Yasmine and Mohamed._
+_Answer by Pair B, written by Marc Chen with AI assistance (see [`ai-assistance-marc.md`](../pair-b/ai-assistance-marc.md)) and validated by Yasmine Boukrouh and Mohamed Diawara. Statuses updated after the fixes._
 
 | # | Answer | Status |
 |---|---|---|
