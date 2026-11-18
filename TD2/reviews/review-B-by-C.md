@@ -1,9 +1,9 @@
 # Review of Pair B by Pair C
 
 **Reviewers (at least two):** Raphaël Delavictoire, Dorian Courcelle (Pair C) — read and validated on 18 November 2026
-**Reviewed:** Pair B — wrong consensus: C08 in [`../pair-b/`](../pair-b/) (Yasmine), C09 in [`../wrong-consensus-C09/`](../wrong-consensus-C09/) (Marc, Mohamed), section 3 of [`../reports/td2.md`](../reports/td2.md)
+**Reviewed:** Pair B — wrong consensus: C08 in [`../pair-b/`](../pair-b/) (Yasmine), C09 in [`../wrong-consensus-C09/`](../wrong-consensus-C09/) (Marc Chen, Mohamed Diawara), section 3 of [`../reports/td2.md`](../reports/td2.md)
 **Date:** 18 November 2026 (state of `main` at commit `7967fcd`)
-_Prepared with AI assistance (Claude). Every check below was re-run on the repository, then read and validated by both reviewers._
+
 
 Reference for the checks: Lecture 2 rules ([cm2](https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/latest/students/lectures/cm2-en.html), "Quorum and voting", "Evidence and reproducibility", "Wrong agreement", "Traces, logs and replay") and the TD 2 assignment.
 
