@@ -8,7 +8,7 @@ Draft for section 4 of [`../reports/td2.md`](../reports/td2.md).
 | [`atelier-routage.py`](atelier-routage.py) | Kit simulator, unchanged |
 | [`output-before.jsonl`](output-before.jsonl) | `python3 atelier-routage.py` (the 7 kit scenarios) |
 | [`atelier-routage-adapted.py`](atelier-routage-adapted.py) | `RESOURCES` and `choose` adapted to our rule |
-| [`output-after.jsonl`](output-after.jsonl) | `python3 atelier-routage-adapted.py` (the 7 kit scenarios + 2 of ours) |
+| [`output-after.jsonl`](output-after.jsonl) | `python3 atelier-routage-adapted.py` (the 7 kit scenarios + 3 of ours) |
 
 ## What we changed in the simulator
 
@@ -19,6 +19,22 @@ Draft for section 4 of [`../reports/td2.md`](../reports/td2.md).
 - **Policy v2.1 (after review C-by-B)**: paid-route and abstention reasons now cite the TD 1 cells; each check carries `status` (simulated) and `on_failure` (no delivery: dashboard recomputed, customer abstains, payout to human review); an abstention carries `handover` (deterministic reference template or a person, outside the simulator); F2b + F3 combinations are level 2; the two-gpt-oss F2b quorum is removed. See [`../reviews/review-C-by-B.md`](../reviews/review-C-by-B.md), section "Authors' answer".
 - **Policy v2.2 (after review C-by-A)**: an unknown or missing `use` abstains to human review instead of raising `KeyError`; families are parsed in any order (`F1+F2` = `F2+F1`, level = strictest part); `cash` is always a float; the age reference is written as Pair B's predicate `date(ref,'-26 years') < birth_date <= date(ref,'-25 years')`, checked equal to the references of C02, C08, C09, C10 (at `order_date`) and C11 on `data/boutique.sqlite`. See [`../reviews/review-C-by-A.md`](../reviews/review-C-by-A.md).
 - **Decision log**: every result now carries `policy` (`pairC-v2.2`), a check id (`pairC-v2.2-rung-N`) and `ruled_out`, the list of resources not chosen with the reason ("level 1 below level 3 (TD 1: 5/8)", "unavailable (quota exhausted), refill in 60 min"), as in the lecture's decision log.
+
+## Quorum feasibility at execution
+
+The simulator selects a model route and names the required verification check.
+It does not execute the quorum or contact the providers.
+
+For an F1/F3 customer request, the executing system must verify that three
+distinct eligible models are available before performing a 2-of-3 quorum.
+Multiple routes to the same model do not count as independent votes.
+
+If a quorum cannot be assembled, the system must not deliver an unverified
+figure. It should wait when permitted and feasible, otherwise abstain and
+refer the request for further verification.
+
+This is an execution requirement, not a claim that the simulation already
+implements the full quorum workflow.
 
 ## Before / after
 

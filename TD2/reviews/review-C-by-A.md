@@ -181,3 +181,24 @@ _Awaiting Pair C's answers to questions 1–5 above. These findings were identif
 The remaining reproducible defect is the missing-family `KeyError`. The quorum-feasibility and schema observations concern robustness and integration beyond the predefined scenarios; they do not invalidate the reported simulation results.
 
 **Assessment:** Technically satisfactory for the TD2 routing-simulation scope, with minor follow-up corrections recommended before final sign-off. Pair A's second reviewer validation remains pending.
+
+## Technical follow-up after the final corrections
+
+The findings from this review were revisited after additional corrections to the routing simulator.
+
+| Finding | Final technical status | Resolution |
+|---|---|---|
+| 1. Missing `family` raises `KeyError` | Fixed | The simulator now uses `request.get("family")`, allowing missing and unsupported families to produce an abstention rather than an exception. |
+| 2. Quorum feasibility | Clarified | The README now explicitly states that the simulator selects and describes checks but does not execute them. An executing system must verify that three distinct eligible models are available before performing a 2-of-3 quorum. If the quorum cannot be assembled, it must not deliver an unverified result. |
+| 3. Inconsistent abstention schema | Fixed | Unsupported-family and unsupported-use results now contain `checks.status` and `checks.on_failure`, consistent with the regular decision records. |
+| 4. Incorrect scenario count | Fixed | The README now correctly identifies seven original scenarios and three additional scenarios. |
+
+### Regression verification
+
+The updated simulator was checked against the ten committed simulation scenarios. The routing decisions remain unchanged. The only recorded evidence difference is the addition of check metadata for the unsupported-family scenario.
+
+Additional tests confirm that missing or unsupported family and use fields produce abstentions with consistent check metadata.
+
+**Final technical assessment:** The reproducible implementation defects identified in this review have been corrected. Quorum execution remains outside the simulator's scope and is documented as an integration requirement. The TD2 routing simulations remain reproducible.
+
+This follow-up records the technical corrections; it does not constitute a separate absent team member's approval.

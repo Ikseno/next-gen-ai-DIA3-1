@@ -165,12 +165,18 @@ def choose(request, resources):
     level = family_level(request.get("family"))
     if level is None:
         return {"action": "abstain", "resource": None, "cash": 0.0, "policy": POLICY,
-                "checks": {"id": f"{POLICY}-human", "check": "human review", "why": ["unknown family"]},
-                "reason": f"family {request['family']!r} not covered by TD 1 C01-C20: no eligibility evidence",
+                "checks": {"id": f"{POLICY}-human", "check": "human review",
+                           "why": ["unknown family"],
+                           "status": "simulated: no automated check; unsupported request",
+                           "on_failure": "no delivery; human review required"},
+                "reason": f"family {request.get('family')!r} not covered by TD 1 C01-C20: no eligibility evidence",
                 "ruled_out": [{"id": r["id"], "why": "no TD 1 evidence for this family"} for r in resources]}
     if request.get("use") not in STAKES_RUNG:
         return {"action": "abstain", "resource": None, "cash": 0.0, "policy": POLICY,
-                "checks": {"id": f"{POLICY}-human", "check": "human review", "why": ["unknown use"]},
+                "checks": {"id": f"{POLICY}-human", "check": "human review",
+                           "why": ["unknown use"],
+                           "status": "simulated: no automated check; unsupported request",
+                           "on_failure": "no delivery; human review required"},
                 "reason": f"use {request.get('use')!r} is not one of {sorted(STAKES_RUNG)}: the stakes, so the check, are unknown",
                 "ruled_out": [{"id": r["id"], "why": "stakes unknown"} for r in resources]}
     eligible = [r for r in resources if r["level"] >= level]
