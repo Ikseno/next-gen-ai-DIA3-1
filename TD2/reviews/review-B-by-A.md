@@ -34,5 +34,15 @@ _To complete._
 
 ## Authors' answer
 
-_To complete by Pair B._
+_Draft by Pair B (Marc Chen), prepared with AI assistance (Claude); to be validated by Yasmine and Mohamed._
+
+All three points concern [`pair-b/C09/delta-query.sql`](../pair-b/C09/delta-query.sql). `C09/README.md` is the Markdown index of the folder and contains no SQL, and `check_c09_csv.py` contains no SQL either: its Python `sum()` already returns 0 on an empty set.
+
+| # (second table) | Answer | Status |
+|---|---|---|
+| 1 | Accepted and fixed. The header of `delta-query.sql` now quotes both faulty `WHERE` clauses and says why each one keeps nothing. The complete queries are stored verbatim in [`faulty-north-mini-code.sql`](../pair-b/C09/faulty-north-mini-code.sql) and [`faulty-qwen.sql`](../pair-b/C09/faulty-qwen.sql). | done |
+| 2 | Accepted and fixed. The total query of `delta-query.sql` now uses `COALESCE(SUM(o.quantity_product * p.price), 0)`. Re-run: 487 980, unchanged. The first table repeated the same point. | done |
+| 3 | Accepted and fixed. [`C09/README.md`](../pair-b/C09/README.md) now ends with a "Takeaway" paragraph. It explains that two different SQL mistakes produce the same empty filter, that two wrong models inside a 3-model panel outvote the correct one, and that age questions therefore need a deterministic check after the vote (`age-window-nonempty`). This is consistent with section 3.4 of `td2.md` and with Pair C's rule. The empty-filter evidence is stored in [`empty-filter-check.sql`](../pair-b/C09/empty-filter-check.sql) → [`empty-filter-check.csv`](../pair-b/C09/empty-filter-check.csv). | done |
+
+The review does not yet list reviewers, what was re-run, or what is correct. We will answer those sections once Pair A completes them.
 

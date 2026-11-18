@@ -1,6 +1,6 @@
 # Review of Pair A by Pair B
 
-**Reviewers (at least two):** Marc Chen (Pair B); second Pair B reviewer Yasmine Boukrouh and  Mehdi 
+**Reviewers (at least two):** Marc Chen (Pair B); second Pair B reviewer Yasmine Boukrouh and Mohamed Diawara 
 **Reviewed:** Pair A (Alexandre, Maya) — k-of-n vote: `vote_k_sur_n` in [`../pair-A/skeleton-multi-llm-en.py`](../pair-A/skeleton-multi-llm-en.py), [`../pair-A/td2_compare_votes.py`](../pair-A/td2_compare_votes.py), [`../reports/td2-task-A-report.md`](../reports/td2-task-A-report.md), [`../reports/td2-task-A-comparison.csv`](../reports/td2-task-A-comparison.csv), sections 1 and 2 of [`../reports/td2.md`](../reports/td2.md)
 **Date:** 18 November 2026 (state of `main` at commit `26ff494`)
 . Every check below was re-run on a clean copy of the repository; it must be read and validated by both reviewers before signing._
@@ -67,6 +67,21 @@ C10 abstains in both quorums, but for two different reasons. In 2-of-3, the thre
 | 7 | Report, section 3 and limits | The 2-of-3 **correct** consensus on **C19** rests on north-mini-code, whose value is correct by chance: its age test is wrong (see `TD1/results/pivot-td1.md`). The 3-of-5 quorum also contains two gpt-oss models, so it is not five independent families (slide 21). Neither point is stated. | low | Flag C19 as "correct by chance" in the table. Add one line to the limits about the two gpt-oss models. |
 | 8 | `vote_k_sur_n` | The vote does not normalise values. The integer 100 and the text `"100"` count as two different values, so the vote abstains. There is no effect in TD 2, because `td2_compare_votes.py` converts every value with `int()` first. Lecture 2 puts normalisation before the vote (slides 10–12). | low | State in the report that values are normalised to integer cents **before** the call, or check the type inside the function. |
 | 9 | CSV and report | No policy version is recorded. Lecture 2 versions policies (for example `p2`), so that a decision can be traced back to the rule in force. | low | Add a `policy` column, for example `2of3-fixed-v1` and `3of5-all-v1`. |
+
+### Follow-up after Pair A's updates (state of `main` at `ff0848b`)
+
+Pair A then wrote section 2 of `td2.md` (commit `59e7e37`) and consolidated its implementation (commit `1eeaf76`). We re-checked each issue against that version:
+
+| # | Status | Detail |
+|---|---|---|
+| 1 | ✅ fixed | Section 2 now gives the method, the results table (16/1/3 against 17/0/3), the four changed decisions and the limits. The Pair A row of section 1 says "Done". |
+| 2 | ⏳ open | The explanations in section 2.2 still give only the winning value. They do not give the other models' values and verdicts, or Qwen's HTTP 429 retry on C17 (see the table above). |
+| 3 | ✅ fixed | Only `pair-A/skeleton-multi-llm-en.py` remains, and it now rejects a non-integer k: re-run, `k = 2.0` and `k = True` → `ValueError`, `k = 2` → consensus. `td2_compare_votes.py` still reproduces the committed CSV exactly. |
+| 4 | ✅ fixed | `td2.md` section 2.4, `td2-task-A-report.md` and the docstring of `td2_compare_votes.py` now give `python TD2/pair-A/...`, which we checked from the repository root. |
+| 5 | ⏳ open | `td2-vote-synthetic.jsonl` is still UTF-16 LE. |
+| 6 | ⏳ open | The script still rewrites the committed CSV. |
+| 7 | ◐ partly fixed | Section 2.3 now says the two gpt-oss models are not independent. C19 is still not flagged as correct by chance. |
+| 8, 9 | ⏳ open | Low severity: no change needed for the TD 2 results. |
 
 ## Questions to the authors
 

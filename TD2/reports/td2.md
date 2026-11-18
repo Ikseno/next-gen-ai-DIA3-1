@@ -106,6 +106,8 @@ Identification and votes: [`part1-quorums.md`](../pair-b/C09/part1-quorums.md).
 
 **Independent check:** [`check_c09_csv.py`](../pair-b/C09/check_c09_csv.py) recomputes C09 from the CSV files without SQL (completed age by year, month and day) and finds the same six customers and 487 980.
 
+**Empty-filter check:** [`empty-filter-check.sql`](../pair-b/C09/empty-filter-check.sql) re-runs the two faulty `WHERE` clauses, stored verbatim in [`faulty-north-mini-code.sql`](../pair-b/C09/faulty-north-mini-code.sql) and [`faulty-qwen.sql`](../pair-b/C09/faulty-qwen.sql), with `COUNT(DISTINCT customer_id)`. Both keep **0 lines and 0 customers**, against 68 lines and 6 customers for the correct window ([output](../pair-b/C09/empty-filter-check.csv)), so their 0 is an empty filter.
+
 ### 3.2 Second case — C08: the shared wrong value wins no quorum
 
 Files: [`../pair-b/`](../pair-b/) (Yasmine Boukrouh). Question: customers **exactly 25 on 2026-09-24**. Reference **605 580** cents. gpt-oss-20b and Dots both return **25 920**: both filters keep only customers born **on 2001-09-24** (`>= '2001-09-24' AND < '2001-09-25'`, and `= '2001-09-24'`), instead of the whole window ]2000-09-24 ; 2001-09-24]. The delta query lists five omitted customers (C004, C005, C007, C008, C009) totalling **579 660 = 605 580 − 25 920** cents, none added. Both wrong models are **outside** the fixed panel: the 2-of-3 panel returns the correct 605 580 (gpt-oss-120b + Qwen), the 3-of-5 quorum abstains (605 580: 2 · 25 920: 2 · 1 188 090: 1). Reproduce everything with `python3 TD2/pair-b/analyse.py` (hash-checked data, independent Python/CSV check).
@@ -198,7 +200,7 @@ Among free resources, `choose` picks the least capable eligible one (key `(alloc
 **Pair B (wrong consensus):**
 - Two cases from one run per cell at temperature 0; they show the mechanism, not a probability that a quorum is wrong.
 - The vote counts were computed by hand from the stored answers, then re-run with Pair A's completed `vote_k_sur_n` on C08 and C09: identical decisions ([`check-votes-with-pair-A.py`](../pair-b/check-votes-with-pair-A.py), output [`votes-pair-A-method.jsonl`](../pair-b/votes-pair-A-method.jsonl)). The cross-check now uses the authoritative implementation and supporting files from `TD2/pair-A/`.
-- `TD2/pair-b/evidence.json` records SHA-256 hashes of the source files; they were recomputed on the repository's own files (LF line endings) — a checkout with CRLF line endings gives different text-file hashes, the database hash is unaffected.
+- `TD2/pair-b/evidence.json` records SHA-256 hashes of the source files. Text files are hashed with line endings normalised to LF and `.gitattributes` keeps the data files byte-identical, so `analyse.py` gives the same result on Windows (CRLF) and macOS/Linux (LF). `analyse.py` only checks by default and writes nothing (`--write` regenerates the evidence).
 
 **Pair A:** Implementation and 20-case comparison completed; see Section 2.
 

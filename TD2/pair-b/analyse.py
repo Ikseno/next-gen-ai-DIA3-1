@@ -1,5 +1,15 @@
-"""Reproduce Pair B evidence offline: python TD2/pair-b/analyse.py."""
+"""Reproduce Pair B evidence offline, from the repository root.
+
+    python TD2/pair-b/analyse.py           # check mode (default): recompute everything in memory
+                                           # and compare with the committed files; nothing is written
+    python TD2/pair-b/analyse.py --write   # regenerate the committed evidence files
+
+Text files are hashed with line endings normalised to LF, so the check gives the same
+result on a Windows checkout (CRLF) as on Linux or macOS (LF).
+"""
 import csv
+import io
+import sys
 import hashlib
 import json
 import sqlite3
@@ -15,11 +25,32 @@ def read_csv(path):
     with path.open(encoding='utf-8-sig', newline='') as handle:
         return list(csv.DictReader(handle))
 
-def write_csv(name, rows, fields):
-    with (HERE / name).open('w', encoding='utf-8', newline='') as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
-        writer.writeheader()
-        writer.writerows(rows)
+def csv_text(rows, fields):
+    buffer = io.StringIO(newline='')
+    writer = csv.DictWriter(buffer, fieldnames=fields)
+    writer.writeheader()
+    writer.writerows(rows)
+    return buffer.getvalue()
+
+def text_sha256(path):
+    """SHA-256 of a text file with CRLF normalised to LF (independent of the checkout)."""
+    return hashlib.sha256(path.read_bytes().replace(b'\r\n', b'\n')).hexdigest()
+
+def emit(outputs):
+    """Check mode compares with the committed files; --write regenerates them."""
+    if '--write' in sys.argv:
+        for name, text in outputs.items():
+            (HERE / name).write_bytes(text.encode('utf-8'))
+        print('written:', ', '.join(outputs))
+        return
+    norm = lambda b: b.replace(b'\r\n', b'\n').rstrip(b'\n')
+    different = [name for name, text in outputs.items()
+                 if not (HERE / name).exists() or norm((HERE / name).read_bytes()) != norm(text.encode('utf-8'))]
+    for name in outputs:
+        print(('DIFF ' if name in different else 'OK   ') + name)
+    if different:
+        sys.exit('check failed: the committed evidence differs from the recomputation (run with --write to regenerate)')
+    print('check passed: all committed evidence files are reproduced; nothing was written')
 
 def main():
     traces_path = ROOT / 'TD1/results/traces-td1.csv'
@@ -58,13 +89,12 @@ WHERE c.birth_date > '2000-09-24'
 GROUP BY c.customer_id, c.birth_date
 ORDER BY c.customer_id;""",
     }
-    for name, query in sql.items():
-        (HERE / name).write_text(query.rstrip() + '\n', encoding='utf-8')
+    outputs = {name: query.rstrip() + '\n' for name, query in sql.items()}
     manifest = json.loads((DATA / 'manifest.json').read_text())
     db = DATA / 'boutique.sqlite'
     assert hashlib.sha256(db.read_bytes()).hexdigest() == manifest['sqlite_file_sha256']
     for name, expected in manifest['csv_sha256'].items():
-        assert hashlib.sha256((DATA / name).read_bytes()).hexdigest() == expected
+        assert text_sha256(DATA / name) == expected, f'{name}: hash differs from manifest.json'
     with sqlite3.connect(db.as_uri() + '?mode=ro', uri=True) as connection:
         connection.row_factory = sqlite3.Row
         values = {name: connection.execute(query).fetchone()[0]
@@ -99,19 +129,20 @@ ORDER BY c.customer_id;""",
         decisions.append(dict(panel=label, n=len(members), k=threshold,
                               counts=dict(counts), consensus=consensus,
                               value=value if consensus else None, votes=votes))
-    write_csv('delta-customers.csv', delta, ['customer_id', 'birth_date', 'revenue_cents'])
-    write_csv('C08-models.csv', [{key: r[key] for key in ['provider', 'model_requested', 'value', 'reference', 'verdict']} for r in case],
-              ['provider', 'model_requested', 'value', 'reference', 'verdict'])
+    outputs['delta-customers.csv'] = csv_text(delta, ['customer_id', 'birth_date', 'revenue_cents'])
+    outputs['C08-models.csv'] = csv_text([{key: r[key] for key in ['provider', 'model_requested', 'value', 'reference', 'verdict']} for r in case],
+                                         ['provider', 'model_requested', 'value', 'reference', 'verdict'])
     evidence = dict(case_id='C08', nature='real, stored team TD1 traces; offline SQL replay',
                     source_attempt_rows=len(attempts), final_cells=len(traces),
                     shared_wrong_candidates=candidates, sql_values=values,
                     missing_customers=len(delta), delta_cents=579660,
                     independent_csv_reference=sum(totals.values()), independent_csv_delta=sum(omitted.values()),
-                    quorum_counts=decisions, pair_a_integration='Pending: compare with Pair A vote_k_sur_n implementation',
-                    source_sha256={str(path.relative_to(ROOT)).replace('\\', '/'): hashlib.sha256(path.read_bytes()).hexdigest()
+                    quorum_counts=decisions, pair_a_integration="Done: identical decisions with Pair A's vote_k_sur_n (see votes-pair-A-method.jsonl)",
+                    source_sha256={str(path.relative_to(ROOT)).replace('\\', '/'):
+                                   hashlib.sha256(path.read_bytes()).hexdigest() if path.suffix == '.sqlite' else text_sha256(path)
                                    for path in [traces_path, refs_path, db]})
-    (HERE / 'evidence.json').write_text(json.dumps(evidence, indent=2) + '\n', encoding='utf-8')
-    print(json.dumps(evidence, indent=2))
+    outputs['evidence.json'] = json.dumps(evidence, indent=2) + '\n'
+    emit(outputs)
 
 if __name__ == '__main__':
     main()

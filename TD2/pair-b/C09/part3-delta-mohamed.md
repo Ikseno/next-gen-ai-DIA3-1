@@ -19,7 +19,7 @@ File: [`delta-query.sql`](delta-query.sql), run read-only on the kit database, a
 | C003 | 2001-09-26 | 6 | 47900 |
 | **Total** | | **68** | **487980** |
 
-**Reading the delta.** Both faulty queries select no customer at all (they return 0). So the six customers above are all **missed**, none is wrongly **added**, and the gap is exactly **487980 − 0 = 487980 cents**: 118740 + 61330 + 99090 + 25920 + 135000 + 47900.
+**Reading the delta.** Both faulty queries select no customer at all: they return 0, and their own `WHERE` clauses keep 0 order lines and 0 customers ([`empty-filter-check.sql`](empty-filter-check.sql) → [`empty-filter-check.csv`](empty-filter-check.csv)). So the six customers above are all **missed**, none is wrongly **added**, and the gap is exactly **487980 − 0 = 487980 cents**: 118740 + 61330 + 99090 + 25920 + 135000 + 47900.
 
 **Boundaries.** The window is decided by the birthdays around 26 September:
 - C003, born 2001-09-26, turns 25 **on** the reference date → counted;

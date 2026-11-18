@@ -88,19 +88,20 @@ The faulty selection is a subset of the correct selection, so there are no wrong
 From the repository root, with Python 3.10 or later:
 
 ```powershell
-python .\TD2\pair-b\analyse.py      # Windows PowerShell
+python .\TD2\pair-b\analyse.py      # Windows PowerShell — check mode, writes nothing
 ```
 
 ```bash
-python3 TD2/pair-b/analyse.py         # macOS / Linux
+python3 TD2/pair-b/analyse.py         # macOS / Linux — check mode, writes nothing
+python3 TD2/pair-b/analyse.py --write # only to regenerate the evidence files on purpose
 ```
 
-Only the Python standard library is required. The script opens SQLite read-only, verifies the database and CSV SHA-256 hashes against the supplied manifest, executes the three complete revenue queries and the delta query, and checks the exact amounts. It separately joins `customers.csv`, `orders.csv` and `product.csv`, calculates completed ages with Python dates, and confirms both the reference total and every omitted customer's revenue without SQL. It regenerates the SQL files, [C08-models.csv](C08-models.csv), [delta-customers.csv](delta-customers.csv) and [evidence.json](evidence.json). No API credentials or network calls are needed.
+Only the Python standard library is required. The script opens SQLite read-only, verifies the database and CSV SHA-256 hashes against the supplied manifest, executes the three complete revenue queries and the delta query, and checks the exact amounts. It separately joins `customers.csv`, `orders.csv` and `product.csv`, calculates completed ages with Python dates, and confirms both the reference total and every omitted customer's revenue without SQL. By default it **only checks**: it recomputes the SQL files, [C08-models.csv](C08-models.csv), [delta-customers.csv](delta-customers.csv) and [evidence.json](evidence.json) in memory, compares them with the committed files and prints `OK`/`DIFF` for each, without writing anything. `--write` regenerates them. Text files are hashed with line endings normalised to LF, and [`.gitattributes`](../../.gitattributes) keeps the data files byte-identical, so the check passes on a Windows checkout too. No API credentials or network calls are needed.
 
 The data files are copied unchanged from the course kit, seed 20260925. Database SHA-256: `0077e235adc2ca647b484e3083c98a6d7cae3ef3655ce366a299caf13398fec2`. Source trace and reference hashes are recorded in `evidence.json`.
 
 ## Conclusion and limits
 
-Two models can share the same age-boundary mistake while producing syntactically valid SQL. Quorum agreement is evidence of agreement, not a guarantee of truth. An independent deterministic reference and a query isolating the missing rows establish the error here. This single batch does not measure a general quorum error probability. The vote counts have been re-checked with Pair A's `vote_k_sur_n` ([`votes-pair-A-method.jsonl`](votes-pair-A-method.jsonl)). Still pending: the cross-review of Pair B by Pairs A and C ([`../reviews/`](../reviews/)).
+Two models can share the same age-boundary mistake while producing syntactically valid SQL. Quorum agreement is evidence of agreement, not a guarantee of truth. An independent deterministic reference and a query isolating the missing rows establish the error here. This single batch does not measure a general quorum error probability. The vote counts have been re-checked with Pair A's `vote_k_sur_n` ([`votes-pair-A-method.jsonl`](votes-pair-A-method.jsonl)). Cross-review of Pair B by Pairs A and C, with Pair B's answers: [`../reviews/review-B-by-A.md`](../reviews/review-B-by-A.md), [`../reviews/review-B-by-C.md`](../reviews/review-B-by-C.md).
 
 
