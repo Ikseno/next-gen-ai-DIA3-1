@@ -1,0 +1,6 @@
+provider,model_requested,value,reference,verdict
+openrouter,cohere/north-mini-code:free,1188090,605580,incorrect
+groq,qwen/qwen3.8-27b,605580,605580,correct
+groq,openai/gpt-oss-20b,25920,605580,incorrect
+openrouter,dots-studio/dots-3-note-preview:free,25920,605580,incorrect
+groq,openai/gpt-oss-120b,605580,605580,correct

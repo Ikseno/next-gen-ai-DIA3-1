@@ -13,7 +13,11 @@ _Method, 2-of-3 vs 3-of-5 table for C01–C20, explanation of each changed decis
 
 ## 3. Step 2 — Wrong consensus (Pair B)
 
-_Case ID, models, shared wrong value, reference, quorum results, SQL root cause, delta query and its output._
+Pair B analyses **C08**, a real shared wrong answer in the team's stored TD1 traces. GPT-OSS 20B and Dots both return **25,920 cents**, whereas the independently checked reference is **605,580 cents**. Both faulty queries select only customers born on `2001-09-24`, rather than all customers aged 25 on `2026-09-24` (birth dates strictly after `2000-09-24` and on or before `2001-09-24`).
+
+The executed delta query identifies five omitted customers whose revenue totals **579,660 cents**, exactly `605,580 - 25,920`. The fixed **2-of-3** panel returns the correct value with two votes; the **3-of-5** quorum abstains (two correct votes, two votes for 25,920, one for 1,188,090). The shared wrong value wins neither quorum.
+
+Full diagnosis, complete SQL queries, customer-level evidence, source hashes and independent CSV checking: **[Pair B analysis](../pair-b/README.md)**. Reproduce offline with `python TD2/pair-b/analyse.py` from the repository root. SQLite execution and the independent Python/CSV calculation agree. **Pending:** verify the vote counts with Pair A's completed method and complete the internal team cross-review.
 
 ## 4. Step 3 — Routing rule (Pair C)
 
@@ -28,5 +32,5 @@ _To complete._
 | Pair | Members | Step |
 |---|---|---|
 | A | Alexandre, Maya | k-of-n vote |
-| B | Yasmine, Marc, Mehdy | wrong consensus |
+| B | Yasmine Boukrouh, Marc, Mehdy | wrong consensus; C08 analysis and evidence prepared with AI assistance; team review pending |
 | C | Dorian et Raphael | routing rule |

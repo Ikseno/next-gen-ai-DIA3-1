@@ -1,0 +1,74 @@
+{
+  "case_id": "C08",
+  "nature": "real, stored team TD1 traces; offline SQL replay",
+  "source_attempt_rows": 106,
+  "final_cells": 100,
+  "shared_wrong_candidates": [
+    {
+      "case_id": "C08",
+      "value": 25920,
+      "models": [
+        "openai/gpt-oss-20b",
+        "dots-studio/dots-3-note-preview:free"
+      ]
+    },
+    {
+      "case_id": "C09",
+      "value": 0,
+      "models": [
+        "cohere/north-mini-code:free",
+        "qwen/qwen3.8-27b"
+      ]
+    },
+    {
+      "case_id": "C10",
+      "value": 119410,
+      "models": [
+        "qwen/qwen3.8-27b",
+        "dots-studio/dots-3-note-preview:free"
+      ]
+    }
+  ],
+  "sql_values": {
+    "reference.sql": 605580,
+    "faulty-gpt-oss-20b.sql": 25920,
+    "faulty-dots.sql": 25920
+  },
+  "missing_customers": 5,
+  "delta_cents": 579660,
+  "independent_csv_reference": 605580,
+  "independent_csv_delta": 579660,
+  "quorum_counts": [
+    {
+      "panel": "2-of-3",
+      "n": 3,
+      "k": 2,
+      "counts": {
+        "1188090": 1,
+        "605580": 2
+      },
+      "consensus": true,
+      "value": 605580,
+      "votes": 2
+    },
+    {
+      "panel": "3-of-5",
+      "n": 5,
+      "k": 3,
+      "counts": {
+        "1188090": 1,
+        "605580": 2,
+        "25920": 2
+      },
+      "consensus": false,
+      "value": null,
+      "votes": 2
+    }
+  ],
+  "pair_a_integration": "Pending: compare with Pair A vote_k_sur_n implementation",
+  "source_sha256": {
+    "TD1/results/traces-td1.csv": "066a20fca81dadbeb5ae0cc07639452940e2532ad46950b7dc002bcc8c540125",
+    "TD1/reference-td1.csv": "7d943bc07da93f5ff016c2734871cd767cf79974353bf776b8fcd82f1101cb49",
+    "TD2/pair-b/data/boutique.sqlite": "0077e235adc2ca647b484e3083c98a6d7cae3ef3655ce366a299caf13398fec2"
+  }
+}
