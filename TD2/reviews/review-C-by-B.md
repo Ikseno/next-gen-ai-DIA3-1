@@ -62,7 +62,7 @@ A 2-of-3 customer check on F1/F3 is **not itself an assignment violation**: Step
 
 ## Authors' answer
 
-**From Pair C (Raphaël Delavictoire; to be confirmed by Dorian Courcelle).** Thank you: every point is accepted. The simulator is now policy `pairC-v2.1`; `output-after.jsonl` was regenerated (10 scenarios: one was added for the F2b dashboard case, so the re-run should expect 10 decisions, not 9). Later changes after the review by Pair A are in version `pairC-v2.2`.
+**From Pair C (Raphaël Delavictoire, Dorian Courcelle).** Thank you: every point is accepted. The simulator is now policy `pairC-v2.1`; `output-after.jsonl` was regenerated (10 scenarios: one was added for the F2b dashboard case, so the re-run should expect 10 decisions, not 9). Later changes after the review by Pair A are in version `pairC-v2.2`.
 
 | ID | Answer | Where |
 |---|---|---|

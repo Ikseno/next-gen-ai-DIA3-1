@@ -33,7 +33,7 @@ _To complete._
 
 ## Authors' answer
 
-**From Pair C (Raphaël Delavictoire; to be confirmed by Dorian Courcelle).** Thank you. Points 1 and 2 concern Pair B's C09 files, not Pair C; we leave them to Pair B. Points 3 to 6 are accepted and fixed in policy `pairC-v2.2` of [`atelier-routage-adapted.py`](../pair-C/atelier-routage-adapted.py); [`output-after.jsonl`](../pair-C/output-after.jsonl) was regenerated (10 scenarios): running `python3 TD2/pair-C/atelier-routage-adapted.py` reproduces it exactly.
+**From Pair C (Raphaël Delavictoire, Dorian Courcelle).** Thank you. Points 1 and 2 concern Pair B's C09 files, not Pair C; we leave them to Pair B. Points 3 to 6 are accepted and fixed in policy `pairC-v2.2` of [`atelier-routage-adapted.py`](../pair-C/atelier-routage-adapted.py); [`output-after.jsonl`](../pair-C/output-after.jsonl) was regenerated (10 scenarios): running `python3 TD2/pair-C/atelier-routage-adapted.py` reproduces it exactly.
 
 | # | Answer |
 |---|---|
