@@ -81,3 +81,17 @@ Other change made at the same time, after Lecture 2 (final version): "none" is r
 ## Review conclusion
 
 The published simulations reproduce and all family rates match the team's traces. Request clarification/correction of the evidence in reasons, deterministic fallback scope and F2b family diversity before final approval.
+
+## Technical follow-up — fixes verified on Windows
+
+18 November 2026, Codex-assisted follow-up on Yasmine's Windows machine, based on `8156c0e`. The original findings above refer to the earlier snapshot; the current routing policy is `pairC-v2.2`.
+
+- **C1 resolved:** the rule's two TD1 links now resolve through `../../TD1/`.
+- **C2 resolved:** urgent paid-route and budget-abstention reasons cite the family evidence and exact case IDs.
+- **C3 resolved:** the rule explicitly distinguishes normal comparison from deterministic-only handover outside the simulator; the budget-exhausted decision records the handover.
+- **C4 resolved:** the former two-GPT-OSS F2b quorum is replaced by a deterministic reference. The new F2b dashboard scenario records that reference.
+- **C5 resolved for this simulator:** supported-family decisions name the simulated check and no-delivery failure behaviour. Unknown families abstain explicitly; no execution of the named checks by the simulator is claimed.
+
+Reran both published simulators and compared parsed JSON with the committed outputs: **7/7 original and 10/10 adapted scenarios match**. Additional assertions check C2 evidence, C3 handover, C4's deterministic age reference and C5 failure records. All passed; no saved output was regenerated. The earlier nine-scenario result remains historical.
+
+**Technical conclusion:** C1–C5 are addressed in the current files. This closes the technical change requests from this review; it does not fabricate human signatures or claim that simulated delivery checks have run against a live request.
