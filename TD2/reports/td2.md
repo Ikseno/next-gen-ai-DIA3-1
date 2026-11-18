@@ -5,7 +5,14 @@ Inputs: TD 1 outputs in [`TD1/`](../../TD1/) — no new network batch. Work file
 
 ## 1. What we attempted and what we completed
 
-_To complete._
+| Step | Pair | Status | Evidence |
+|---|---|---|---|
+| 1. k-of-n vote, 2-of-3 vs 3-of-5 on C01–C20 | A | _to complete by Pair A_ | |
+| 2. Wrong consensus | B | Done: two real cases from the TD 1 traces, C09 (wrong consensus wins the fixed panel) and C08 (wins no quorum), each with SQL cause, delta query and independent check | [section 3](#3-step-2--wrong-consensus-pair-b) |
+| 3. Routing rule and simulator | C | _to complete by Pair C_ | |
+| Cross-review between pairs | all | _to complete_ (review of C by B: drafted) | [section 7](#7-cross-review-between-pairs) |
+
+Inputs are the TD 1 outputs only ([`TD1/`](../../TD1/)); no new model call was made. The prompts are unchanged since TD 1 ([`TD1/prompt/prompts-en.md`](../../TD1/prompt/prompts-en.md)).
 
 ## 2. Step 1 — k-of-n vote (Pair A)
 
@@ -13,11 +20,51 @@ _Method, 2-of-3 vs 3-of-5 table for C01–C20, explanation of each changed decis
 
 ## 3. Step 2 — Wrong consensus (Pair B)
 
-Pair B analyses **C08**, a real shared wrong answer in the team's stored TD1 traces. GPT-OSS 20B and Dots both return **25,920 cents**, whereas the independently checked reference is **605,580 cents**. Both faulty queries select only customers born on `2001-09-24`, rather than all customers aged 25 on `2026-09-24` (birth dates strictly after `2000-09-24` and on or before `2001-09-24`).
+Pair B found three shared wrong values in the 100 final cells of TD 1 (C08: 25 920, C09: 0, C10: 119 410) and analysed two of them, which show the two possible outcomes for a quorum.
 
-The executed delta query identifies five omitted customers whose revenue totals **579,660 cents**, exactly `605,580 - 25,920`. The fixed **2-of-3** panel returns the correct value with two votes; the **3-of-5** quorum abstains (two correct votes, two votes for 25,920, one for 1,188,090). The shared wrong value wins neither quorum.
+### 3.1 Main case — C09: the shared wrong value wins the fixed panel
 
-Full diagnosis, complete SQL queries, customer-level evidence, source hashes and independent CSV checking: **[Pair B analysis](../pair-b/README.md)**. Reproduce offline with `python TD2/pair-b/analyse.py` from the repository root. SQLite execution and the independent Python/CSV calculation agree. **Pending:** verify the vote counts with Pair A's completed method and complete the internal team cross-review.
+Files: [`../wrong-consensus-C09/`](../wrong-consensus-C09/) (Marc Chen, Mehdy). Question: customers **exactly 25 on 2026-09-26**, all their orders. Reference **487 980** cents.
+
+| Model | Value | Verdict | | Quorum | Votes | Decision |
+|---|---:|---|---|---|---|---|
+| gpt-oss-120b (panel) | 487 980 | correct | | **2-of-3** (120b, Cohere, Qwen) | 0: 2 · 487 980: 1 | **consensus on 0 — wrong** |
+| Cohere north-mini-code (panel) | **0** | incorrect | | **3-of-5** (all five) | 487 980: 2 · 0: 2 · 369 240: 1 | **abstention** |
+| Qwen 3.8 27B (panel) | **0** | incorrect | | | | |
+| gpt-oss-20b | 487 980 | correct | | | | |
+| Dots 3 Note | 369 240 | incorrect | | | | |
+
+Identification and votes: [`part1-quorums.md`](../wrong-consensus-C09/part1-quorums.md).
+
+**SQL root cause** ([`part2-sql-cause-marc.md`](../wrong-consensus-C09/part2-sql-cause-marc.md)) — two different bugs that both produce an empty filter, which `COALESCE(SUM(...), 0)` turns into 0:
+- **Cohere** computes `('2026-09-26' - birth_date) / 365`: SQLite subtracts the leading years of the two strings (25), then integer division gives 0, so `0 = 25` is false for every customer. (Its two other predicates alone would give 487 980, but only by luck: they use 365-day years, a window shifted by 6 days.)
+- **Qwen** computes the age at the **order date** instead of 2026-09-26 (the C10 convention), and its two month-day conditions contradict each other (`x >= b AND x < b`), so no row matches.
+
+**Delta query** ([`part3-delta-mehdy.md`](../wrong-consensus-C09/part3-delta-mehdy.md), [`delta-query.sql`](../wrong-consensus-C09/delta-query.sql)): the six customers born in ]2000-09-26 ; 2001-09-26] — C007 118 740, C009 61 330, C008 99 090, C002 25 920, C001 135 000, C003 47 900 — are all missed, none is wrongly added: **487 980 − 0 = 487 980 cents**. Boundary: C003 (born 2001-09-26) is in, C005 (born 2000-09-26, already 26) is out.
+
+**Independent check:** [`check_c09_csv.py`](../wrong-consensus-C09/check_c09_csv.py) recomputes C09 from the CSV files without SQL (completed age by year, month and day) and finds the same six customers and 487 980.
+
+### 3.2 Second case — C08: the shared wrong value wins no quorum
+
+Files: [`../pair-b/`](../pair-b/) (Yasmine Boukrouh). Question: customers **exactly 25 on 2026-09-24**. Reference **605 580** cents. gpt-oss-20b and Dots both return **25 920**: both filters keep only customers born **on 2001-09-24** (`>= '2001-09-24' AND < '2001-09-25'`, and `= '2001-09-24'`), instead of the whole window ]2000-09-24 ; 2001-09-24]. The delta query lists five omitted customers (C004, C005, C007, C008, C009) totalling **579 660 = 605 580 − 25 920** cents, none added. Both wrong models are **outside** the fixed panel: the 2-of-3 panel returns the correct 605 580 (gpt-oss-120b + Qwen), the 3-of-5 quorum abstains (605 580: 2 · 25 920: 2 · 1 188 090: 1). Reproduce everything with `python3 TD2/pair-b/analyse.py` (hash-checked data, independent Python/CSV check).
+
+### 3.3 Reading with Lecture 2 (correlated errors)
+
+| Lecture 2 notion | What our two cases show |
+|---|---|
+| **Diagnosis: access / invalid SQL / wrong value** | All four faulty answers are **wrong values**: HTTP 200, one attempt, SQL that runs. "A query that runs is not proof of a correct result." |
+| **One model, one vote; failures do not shrink the panel** | One stored answer per model (last attempt), each with its stored SQL; no model failed on C08 or C09, so n = 3 and n = 5 throughout. |
+| **Mix families** | The agreeing models come from **different families** (C09: Cohere and Qwen; C08: OpenAI gpt-oss-20b and Dots) and wrote **different SQL**, yet returned the same wrong value — like the lecture's pilot case C11 (two families, two queries, both 0). Distinct families lower the risk of a shared error; they do not remove it. |
+| **Stricter k: more abstentions, not more truth** | Going from 2-of-3 to 3-of-5 turns the C09 wrong consensus into an abstention, not into the right value. Had a third model shared the 0, the error would have passed with k = 3 too: a shared mistake passes with any k. |
+| **Three checks in order: format, meaning, correctness** | All values pass the **format** check (integer cents). Qwen's C09 fails on **meaning**: it computes the age at the order date, i.e. answers another question (C10's) — "a vote must never choose between values describing different things". Cohere's C09 and both C08 answers fail on **correctness** (wrong age window). |
+| **Choose checks that see the cause** | Re-asking the same or a stronger model adds no new information. The checks that see the cause here are **deterministic, by code**: recomputing the age window (SQL date window or the CSV script), rejecting a 0 when the window contains customers, and a boundary test on known birthdays. |
+| **Lab vs. real life** | We could prove the error only because the lab has an answer key. Without it, the evidence would be distinct families + a deterministic check + samples verified by an exact query, as above. Two cases measure the mechanism, not an error rate. |
+
+### 3.4 Consequence for checking
+
+- **Agreement is not correctness.** Whether a shared wrong value wins depends on **who sits in the panel** (C09: both wrong models in the fixed panel → wrong consensus; C08: both outside → no effect).
+- **A wider quorum abstains instead of being wrong** (3-of-5 on C08 and C09): safer, but it gives no answer, and every launched call is still paid.
+- **For age questions shown to a customer or paid out, the check runs after the vote and is deterministic** (age-window recomputation, `COUNT(DISTINCT customer_id)` sanity rule, boundary test). This is the check Pair C's routing rule requires for these uses (section 4). A check in error means no delivery.
 
 ## 4. Step 3 — Routing rule (Pair C)
 
@@ -86,12 +133,27 @@ Among free resources, `choose` picks the least capable eligible one (key `(alloc
 - Prices and quotas in the simulator are scenario inputs (Groq prices of 2026-10-05, fixed token envelope), not measurements.
 - Decision for TD 3: no free model answers F2 or F2b alone, so the checking cost of age questions is the cost of the deterministic reference, not of a quorum.
 
-_Other pairs: to complete._
+**Pair B (wrong consensus):**
+- Two cases from one run per cell at temperature 0; they show the mechanism, not a probability that a quorum is wrong.
+- The vote counts were computed from the stored answers with the assignment's rules; they still have to be re-run with Pair A's `vote_k_sur_n` once it is in the repository.
+- `TD2/pair-b/evidence.json` records SHA-256 hashes of the source files; they were recomputed on the repository's own files (LF line endings) — a checkout with CRLF line endings gives different text-file hashes, the database hash is unaffected.
+
+_Pair A: to complete._
 
 ## 6. Who did what
 
 | Pair | Members | Step |
 |---|---|---|
 | A | Alexandre, Maya | k-of-n vote |
-| B | Yasmine Boukrouh, Marc, Mehdy | wrong consensus; C08 analysis and evidence prepared with AI assistance; team review pending |
+| B | Yasmine Boukrouh, Marc Chen, Mehdy (Mohamed Diawara) | wrong consensus — C08 (Yasmine: identification, SQL cause, delta, `analyse.py`); C09 (Marc: SQL root cause; Mehdy: identification and quorums, delta query, independent CSV check, assembly of section 3). Prepared with AI assistance (Yasmine: Codex; Marc and Mehdy: Claude); every figure re-run on the database. |
 | C | Raphael Delavictoire, Dorian Courcelle | routing rule; rule, simulator adaptation and analysis prepared with AI assistance (Claude); outputs reproduced by the pair; review of the rule pending |
+
+## 7. Cross-review between pairs
+
+Each pair is reviewed by the two other pairs (at least two reviewers each): six reviews in [`../reviews/`](../reviews/).
+
+| Reviewed | by A | by B | by C |
+|---|---|---|---|
+| A — vote | — | [review](../reviews/review-A-by-B.md) | [review](../reviews/review-A-by-C.md) |
+| B — wrong consensus | [review](../reviews/review-B-by-A.md) | — | [review](../reviews/review-B-by-C.md) |
+| C — routing rule | [review](../reviews/review-C-by-A.md) | [review](../reviews/review-C-by-B.md) | — |

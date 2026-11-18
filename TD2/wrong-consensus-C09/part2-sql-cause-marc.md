@@ -72,7 +72,7 @@ So **0 is the value any empty filter produces**, and two independent bugs natura
 
 ## How to reproduce the decomposition
 
-Open the database with `sqlite3 -readonly data/boutique.sqlite`. Then, for each predicate (or combination), run:
+From the repository root, open the database with `sqlite3 -readonly TD2/pair-b/data/boutique.sqlite` (same file as the kit's `data/boutique.sqlite`). Then, for each predicate (or combination), run:
 
 ```sql
 SELECT COUNT(*) AS lines, COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents

@@ -67,8 +67,8 @@
   ],
   "pair_a_integration": "Pending: compare with Pair A vote_k_sur_n implementation",
   "source_sha256": {
-    "TD1/results/traces-td1.csv": "066a20fca81dadbeb5ae0cc07639452940e2532ad46950b7dc002bcc8c540125",
-    "TD1/reference-td1.csv": "7d943bc07da93f5ff016c2734871cd767cf79974353bf776b8fcd82f1101cb49",
+    "TD1/results/traces-td1.csv": "81cdb2750ee59aff2a6b6087dc23e290bb159863d3376343fce9d7cfdeb375b9",
+    "TD1/reference-td1.csv": "d316d860bde55f905c08ef87dd0c447d663b661ff6e1032390163f057f6b8473",
     "TD2/pair-b/data/boutique.sqlite": "0077e235adc2ca647b484e3083c98a6d7cae3ef3655ce366a299caf13398fec2"
   }
 }
