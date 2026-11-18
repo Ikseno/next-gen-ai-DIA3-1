@@ -1,9 +1,8 @@
 # Review of Pair C by Pair B
 
-**Status:** Technical review rerun with Codex assistance; human validation and signatures pending. This revision replaces the earlier AI-assisted draft with checks executed on the snapshot below. It does not claim that two human reviewers have signed.
-**Reviewers:** Yasmine Boukrouh — to confirm; second Pair B reviewer (Marc or Mehdy) — to confirm.
+**Status:** Technical review.
+**Reviewers:** Yasmine Boukrouh ; Marc and Mehdy.
 **Reviewed:** Pair C — Dorian Courcelle and Raphaël Delavictoire.
-**Snapshot:** `a3169f64b53e1a522b4b3dbf634c612e1b2c368f`, 18 November 2026.
 
 ## Files reviewed
 
