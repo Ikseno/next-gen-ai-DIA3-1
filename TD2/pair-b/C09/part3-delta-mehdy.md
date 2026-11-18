@@ -5,7 +5,7 @@ Reference: **487980** (`TD1/reference-td1.csv`, identical to the official value)
 
 ## Delta query
 
-File: [`delta-query.sql`](delta-query.sql), run read-only on the kit database, also in the repository as [`../pair-b/data/boutique.sqlite`](../pair-b/data/boutique.sqlite) (SHA-256 `0077e235…3398fec2`, same as the kit). Output: [`delta-output.csv`](delta-output.csv).
+File: [`delta-query.sql`](delta-query.sql), run read-only on the kit database, also in the repository as [`../data/boutique.sqlite`](../data/boutique.sqlite) (SHA-256 `0077e235…3398fec2`, same as the kit). Output: [`delta-output.csv`](delta-output.csv).
 
 "Exactly 25 on 2026-09-26" means the 25th birthday is on or before that day and the 26th is after it, i.e. **2000-09-26 < birth_date ≤ 2001-09-26**. The query lists every customer in that window with the revenue of all their orders:
 
@@ -33,7 +33,7 @@ No customer aged 25 on that date has zero orders, so the list is complete.
 [`check_c09_csv.py`](check_c09_csv.py) recomputes C09 **without SQL**: it reads the three CSV files of the kit and computes completed age with year, month and day (`age = year diff − (birthday not reached yet)`).
 
 ```bash
-python3 TD2/wrong-consensus-C09/check_c09_csv.py TD2/pair-b/data
+python3 TD2/pair-b/C09/check_c09_csv.py TD2/pair-b/data
 ```
 
 It returns the same six customers and the same total, **487980**. The delta query (date window) and this script (year/month-day arithmetic) use two different formulations of the same convention and agree with the reference query.

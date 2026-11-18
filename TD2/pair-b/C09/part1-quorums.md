@@ -1,8 +1,8 @@
 # TD 2 — Pair B, part 1: identification and quorum verdict on C09
 
 **Question C09:** revenue excluding VAT, in euro cents, of the customers who are exactly 25 years old on the reference date **2026-09-26** (all their orders).
-**Reference:** **487 980** cents ([`TD1/reference-td1.csv`](../../TD1/reference-td1.csv), identical to the official TD 1 value).
-**Source:** final attempt of each model in [`TD1/results/traces-td1.csv`](../../TD1/results/traces-td1.csv) — one attempt per model on C09, all HTTP 200, `nature = real`.
+**Reference:** **487 980** cents ([`TD1/reference-td1.csv`](../../../TD1/reference-td1.csv), identical to the official TD 1 value).
+**Source:** final attempt of each model in [`TD1/results/traces-td1.csv`](../../../TD1/results/traces-td1.csv) — one attempt per model on C09, all HTTP 200, `nature = real`.
 
 ## The five answers
 
@@ -27,7 +27,7 @@ Rules of the assignment: only executed proposals with a value vote; k is a stric
 
 **Families.** Cohere and Qwen come from two different makers and wrote two different queries (see part 2): as in Lecture 2's pilot case C11, distinct families lower the risk of a shared error but do not remove it.
 
-**Reading.** C09 is a true wrong consensus: the fixed 2-of-3 panel *returns* the wrong value. Widening the panel to five models with k = 3 turns it into an abstention — safer, but no answer. Compare with C08 ([`../pair-b/`](../pair-b/)), where the shared wrong value (25 920, gpt-oss-20b and Dots) wins **neither** quorum because both wrong models are outside the fixed panel: whether a shared error wins depends on **who is in the panel**, not only on how many models agree.
+**Reading.** C09 is a true wrong consensus: the fixed 2-of-3 panel *returns* the wrong value. Widening the panel to five models with k = 3 turns it into an abstention — safer, but no answer. Compare with C08 ([`../`](../)), where the shared wrong value (25 920, gpt-oss-20b and Dots) wins **neither** quorum because both wrong models are outside the fixed panel: whether a shared error wins depends on **who is in the panel**, not only on how many models agree.
 
 Part 2 (SQL root cause): [`part2-sql-cause-marc.md`](part2-sql-cause-marc.md) · Part 3 (delta query and independent check): [`part3-delta-mehdy.md`](part3-delta-mehdy.md).
 
