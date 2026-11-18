@@ -1,0 +1,357 @@
+{
+  "reviewed_commit": "a3169f64b53e1a522b4b3dbf634c612e1b2c368f",
+  "source_attempt_rows": 106,
+  "final_cells": 100,
+  "rates": {
+    "F1": {
+      "openai/gpt-oss-120b": "6/6",
+      "openai/gpt-oss-20b": "6/6",
+      "qwen/qwen3.8-27b": "6/6",
+      "cohere/north-mini-code:free": "6/6",
+      "dots-studio/dots-3-note-preview:free": "6/6"
+    },
+    "F3": {
+      "openai/gpt-oss-120b": "4/4",
+      "openai/gpt-oss-20b": "4/4",
+      "qwen/qwen3.8-27b": "4/4",
+      "cohere/north-mini-code:free": "4/4",
+      "dots-studio/dots-3-note-preview:free": "4/4"
+    },
+    "F2": {
+      "openai/gpt-oss-120b": "4/4",
+      "openai/gpt-oss-20b": "1/4",
+      "qwen/qwen3.8-27b": "3/4",
+      "cohere/north-mini-code:free": "0/4",
+      "dots-studio/dots-3-note-preview:free": "2/4"
+    },
+    "F2b": {
+      "openai/gpt-oss-120b": "1/1",
+      "openai/gpt-oss-20b": "1/1",
+      "qwen/qwen3.8-27b": "0/1",
+      "cohere/north-mini-code:free": "0/1",
+      "dots-studio/dots-3-note-preview:free": "0/1"
+    },
+    "F2+F1/F3": {
+      "openai/gpt-oss-120b": "4/4",
+      "openai/gpt-oss-20b": "4/4",
+      "qwen/qwen3.8-27b": "1/4",
+      "cohere/north-mini-code:free": "2/4",
+      "dots-studio/dots-3-note-preview:free": "3/4"
+    },
+    "F2b+F1": {
+      "openai/gpt-oss-120b": "1/1",
+      "openai/gpt-oss-20b": "1/1",
+      "qwen/qwen3.8-27b": "1/1",
+      "cohere/north-mini-code:free": "0/1",
+      "dots-studio/dots-3-note-preview:free": "0/1"
+    }
+  },
+  "routing": [
+    {
+      "script": "atelier-routage.py",
+      "scenarios": 7,
+      "saved_output_matches": true,
+      "results": [
+        {
+          "scenario": "simple",
+          "nature": "simulation",
+          "request": {
+            "difficulty": 1,
+            "high_impact": false,
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "run",
+            "resource": "small-free",
+            "cash": 0,
+            "checks": "read-only execution and value check",
+            "reason": "eligible included capacity"
+          }
+        },
+        {
+          "scenario": "complex",
+          "nature": "simulation",
+          "request": {
+            "difficulty": 3,
+            "high_impact": false,
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "run",
+            "resource": "senior-subscription",
+            "cash": 0,
+            "checks": "read-only execution and value check",
+            "reason": "eligible included capacity"
+          }
+        },
+        {
+          "scenario": "deferrable",
+          "nature": "simulation",
+          "request": {
+            "difficulty": 3,
+            "high_impact": false,
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "defer",
+            "resource": "senior-subscription",
+            "cash": 0,
+            "checks": "read-only execution and value check",
+            "reason": "recheck availability at wake-up",
+            "wake_in_minutes": 60
+          }
+        },
+        {
+          "scenario": "urgent",
+          "nature": "simulation",
+          "request": {
+            "difficulty": 3,
+            "high_impact": false,
+            "can_wait": false,
+            "deadline_minutes": 5,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "run",
+            "resource": "senior-api",
+            "cash": 0.3,
+            "checks": "read-only execution and value check",
+            "reason": "available route within the authorised budget"
+          }
+        },
+        {
+          "scenario": "budget exhausted",
+          "nature": "simulation",
+          "request": {
+            "difficulty": 3,
+            "high_impact": false,
+            "can_wait": false,
+            "deadline_minutes": 120,
+            "budget": 0
+          },
+          "result": {
+            "action": "abstain",
+            "resource": null,
+            "cash": 0,
+            "checks": "read-only execution and value check",
+            "reason": "no eligible resource within deadline and budget"
+          }
+        },
+        {
+          "scenario": "high impact",
+          "nature": "simulation",
+          "request": {
+            "difficulty": 3,
+            "high_impact": true,
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "run",
+            "resource": "senior-subscription",
+            "cash": 0,
+            "checks": "source verification and human review",
+            "reason": "eligible included capacity"
+          }
+        },
+        {
+          "scenario": "unknown capability",
+          "nature": "simulation",
+          "request": {
+            "difficulty": 4,
+            "high_impact": false,
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "abstain",
+            "resource": null,
+            "cash": 0,
+            "checks": "read-only execution and value check",
+            "reason": "no eligible resource within deadline and budget"
+          }
+        }
+      ]
+    },
+    {
+      "script": "atelier-routage-adapted.py",
+      "scenarios": 9,
+      "saved_output_matches": true,
+      "results": [
+        {
+          "scenario": "simple",
+          "nature": "simulation",
+          "request": {
+            "family": "F1",
+            "use": "dashboard",
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "run",
+            "resource": "dots-3-note-free",
+            "cash": 0,
+            "checks": "none (every model 100% on F1/F3 in TD 1)",
+            "reason": "cheapest eligible included capacity for level 1; TD 1: E: F1 6/6 (C01 C04-C07 C20), F3 4/4 (C03 C12-C14); F2 2/4 (C08 C09 wrong), F2b 0/1 (C10)"
+          }
+        },
+        {
+          "scenario": "complex",
+          "nature": "simulation",
+          "request": {
+            "family": "F2",
+            "use": "dashboard",
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "run",
+            "resource": "gpt-oss-120b-groq-free",
+            "cash": 0,
+            "checks": "none (gpt-oss-120b 4/4 on F2 in TD 1), value logged as unchecked",
+            "reason": "cheapest eligible included capacity for level 3; TD 1: A: 20/20, F2 4/4 (C02 C08 C09 C11), combined 5/5 (C15-C19), F2b 1/1 (C10)"
+          }
+        },
+        {
+          "scenario": "deferrable",
+          "nature": "simulation",
+          "request": {
+            "family": "F2",
+            "use": "dashboard",
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "defer",
+            "resource": "gpt-oss-120b-groq-free",
+            "cash": 0,
+            "checks": "none (gpt-oss-120b 4/4 on F2 in TD 1), value logged as unchecked",
+            "reason": "free quota exhausted, refill before deadline; recheck availability at wake-up (TD 1: all six HTTP 429 recovered on attempt 2); TD 1: A: 20/20, F2 4/4 (C02 C08 C09 C11), combined 5/5 (C15-C19), F2b 1/1 (C10)",
+            "wake_in_minutes": 60
+          }
+        },
+        {
+          "scenario": "urgent",
+          "nature": "simulation",
+          "request": {
+            "family": "F2",
+            "use": "dashboard",
+            "can_wait": false,
+            "deadline_minutes": 5,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "run",
+            "resource": "gpt-oss-120b-groq-dev",
+            "cash": 0.000278,
+            "checks": "none (gpt-oss-120b 4/4 on F2 in TD 1), value logged as unchecked",
+            "reason": "paid route within the authorised budget; TD 1: A, same model as gpt-oss-120b-groq-free"
+          }
+        },
+        {
+          "scenario": "budget exhausted",
+          "nature": "simulation",
+          "request": {
+            "family": "F2",
+            "use": "dashboard",
+            "can_wait": false,
+            "deadline_minutes": 120,
+            "budget": 0
+          },
+          "result": {
+            "action": "abstain",
+            "resource": null,
+            "cash": 0,
+            "checks": "none (gpt-oss-120b 4/4 on F2 in TD 1), value logged as unchecked",
+            "reason": "no level-3 resource within deadline and budget"
+          }
+        },
+        {
+          "scenario": "high impact",
+          "nature": "simulation",
+          "request": {
+            "family": "F2",
+            "use": "payout",
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "run",
+            "resource": "gpt-oss-120b-groq-free",
+            "cash": 0,
+            "checks": "deterministic reference (age window date(birth,'+25 years') <= ref < date(birth,'+26 years'); no quorum: shared wrong values on C08, C09, C10) + human review",
+            "reason": "cheapest eligible included capacity for level 3; TD 1: A: 20/20, F2 4/4 (C02 C08 C09 C11), combined 5/5 (C15-C19), F2b 1/1 (C10)"
+          }
+        },
+        {
+          "scenario": "unknown capability",
+          "nature": "simulation",
+          "request": {
+            "family": "F4",
+            "use": "dashboard",
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "abstain",
+            "resource": null,
+            "cash": 0,
+            "checks": "human review",
+            "reason": "family 'F4' not covered by TD 1 C01-C20: no eligibility evidence"
+          }
+        },
+        {
+          "scenario": "age at order, customer",
+          "nature": "simulation",
+          "request": {
+            "family": "F2b+F1",
+            "use": "customer",
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "run",
+            "resource": "gpt-oss-20b-groq-free",
+            "cash": 0,
+            "checks": "deterministic reference (age window date(birth,'+25 years') <= order_date < date(birth,'+26 years'); no quorum: shared wrong values on C08, C09, C10)",
+            "reason": "cheapest eligible included capacity for level 2; TD 1: B: F1 6/6, F3 4/4, F2b 1/1 (C10) and C18 correct; F2 1/4 (C02 C08 C11 wrong)"
+          }
+        },
+        {
+          "scenario": "product, customer, OpenRouter down",
+          "nature": "simulation",
+          "request": {
+            "family": "F3",
+            "use": "customer",
+            "can_wait": true,
+            "deadline_minutes": 120,
+            "budget": 0.3
+          },
+          "result": {
+            "action": "run",
+            "resource": "qwen3.8-27b-groq-free",
+            "cash": 0,
+            "checks": "2-of-3 quorum of the three cheapest available models among dots-3-note, north-mini-code, qwen3.8-27b (Groq free), gpt-oss-20b (all 10/10 on C01 C03-C07 C12-C14 C20)",
+            "reason": "cheapest eligible included capacity for level 1; TD 1: D: F1 6/6, F3 4/4; F2 3/4 (C09 wrong), F2b 0/1 (C10 wrong)"
+          }
+        }
+      ]
+    }
+  ],
+  "urgent_simulated_usd": 0.0002775,
+  "paid_reason_has_explicit_case_ids": false
+}

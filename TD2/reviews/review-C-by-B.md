@@ -1,53 +1,70 @@
 # Review of Pair C by Pair B
 
-**Reviewers (at least two):** _Pair B members who validate this review — to sign: Yasmine Boukrouh, Marc Chen, Mehdy (Mohamed Diawara)_
-**Reviewed:** Pair C (Dorian Courcelle, Raphaël Delavictoire) — routing rule: [`../pair-C/`](../pair-C/), section 4 of [`../reports/td2.md`](../reports/td2.md)
-**Date:** 18 November 2026
-_Draft prepared with AI assistance (Claude); every check below was re-run on the repository and must be confirmed by the reviewers before signing._
+**Status:** Technical review rerun with Codex assistance; human validation and signatures pending. This revision replaces the earlier AI-assisted draft with checks executed on the snapshot below. It does not claim that two human reviewers have signed.
+**Reviewers:** Yasmine Boukrouh — to confirm; second Pair B reviewer (Marc or Mehdy) — to confirm.
+**Reviewed:** Pair C — Dorian Courcelle and Raphaël Delavictoire.
+**Snapshot:** `a3169f64b53e1a522b4b3dbf634c612e1b2c368f`, 18 November 2026.
 
 ## Files reviewed
 
-[`routing-rule-C.md`](../pair-C/routing-rule-C.md), [`atelier-routage.py`](../pair-C/atelier-routage.py), [`atelier-routage-adapted.py`](../pair-C/atelier-routage-adapted.py), [`output-before.jsonl`](../pair-C/output-before.jsonl), [`output-after.jsonl`](../pair-C/output-after.jsonl), [`pair-C/README.md`](../pair-C/README.md), section 4 of `td2.md`.
+`TD2/pair-C/{README.md,routing-rule-C.md,atelier-routage.py,atelier-routage-adapted.py,output-before.jsonl,output-after.jsonl}`, section 4 of `TD2/reports/td2.md`, and the team's TD1 merged traces and references. The assignment's Step 3 consistency constraint is the acceptance criterion; optional suggestions below are distinguished from failures.
 
-## What we re-ran and the result
+## What was re-run
 
-| Check | Command / source | Result |
-|---|---|---|
-| Simulator before adaptation | `python3 TD2/pair-C/atelier-routage.py` | Same 7 decisions as `output-before.jsonl` ✅ |
-| Simulator after adaptation | `python3 TD2/pair-C/atelier-routage-adapted.py` | Same 9 decisions as `output-after.jsonl` ✅ |
-| Rates by family (table 4.1) | final attempt per cell in `TD1/results/model-question-comparison-en.csv` | All 30 rates match (e.g. F2: north 0/4, dots 2/4, gpt-oss-20b 1/4, gpt-oss-120b 4/4, qwen 3/4; F2b C10: only gpt-oss-20b and gpt-oss-120b correct) ✅ |
-| Paid cost of the "urgent" scenario | 650 × 0.15 / 10⁶ + 300 × 0.60 / 10⁶ | 0.0002775 USD, shown as 0.000278 ✅ |
-| Shared wrong values cited (C08, C09, C10) | `TD1/results/model-question-comparison-en.csv` | 25,920 / 0 / 119,410, agreeing models correct ✅ |
+From the repository root: `python TD2/reviews/checks-C-by-B.py`. [checks-C-by-B.json](checks-C-by-B.json) records the full outputs and recomputed family rates.
+
+| Check | Result |
+|---|---|
+| Original routing simulator | All 7 decisions exactly match `output-before.jsonl`, after parsing JSON. |
+| Adapted routing simulator | All 9 decisions exactly match `output-after.jsonl`, after parsing JSON. |
+| Family rates | All 30 cells match independent recomputation from the final attempt per provider/model/question in the 106-row merged CSV (100 final cells). |
+| Retry handling | Rates are final-attempt rates, not first-attempt reliability. They do not establish future quota recovery. |
+| Urgent paid route | 650 input and 300 output tokens at 0.15/0.60 USD per million = 0.0002775 USD, rounded to 0.000278. This is a simulated budget estimate, not a measured provider cost. |
+| Unknown family | F4 explicitly abstains rather than borrowing unsupported eligibility. |
+
+Recomputed rates, in the same model order as the rule:
+
+| Family | North | Dots | GPT-OSS 20B | GPT-OSS 120B | Qwen |
+|---|---|---|---|---|---|
+| F1 | 6/6 | 6/6 | 6/6 | 6/6 | 6/6 |
+| F3 | 4/4 | 4/4 | 4/4 | 4/4 | 4/4 |
+| F2 | 0/4 | 2/4 | 1/4 | 4/4 | 3/4 |
+| F2b | 0/1 | 0/1 | 1/1 | 1/1 | 0/1 |
+| F2 + F1/F3 | 2/4 | 3/4 | 4/4 | 4/4 | 1/4 |
+| F2b + F1 | 0/1 | 0/1 | 1/1 | 1/1 | 1/1 |
 
 ## What is correct
 
-- The **consistency constraint** of the assignment is respected: a single free model with no check is used only for an internal dashboard and only when that model was 100 % on the family (F1/F3 any model 10/10; F2 gpt-oss-120b 4/4 + 4/4 combined). For F2b (one case), "none" is refused and a quorum is required.
-- Every model choice cites TD 1 cells, and every `reason` in the adapted simulator names them (traceable decisions).
-- The priority analysis of `choose` reads the branches correctly (included capacity `cash == 0` is listed before resources to wait for) and gives a concrete reversal condition (scarce subscription allocation still needed by level-3 requests, or overage charges).
-- The rule draws the right conclusion from the C09 wrong consensus: no quorum alone for customer or payout figures on age questions.
-- It follows Lecture 2's principle **"difficulty chooses the model, stakes choose the check"**: the family sets the first model, the use (dashboard / customer / payout) sets the check, and the two are not mixed.
-- It applies **"filter, then the cheapest good enough"** (rule C of the lecture) and never silently falls back to a weaker model for F2: when nothing eligible is available it waits for the refill or abstains.
+- The rule limits unchecked single-model answers to low-stakes dashboards and families where the chosen model scored 100% on the observed batch. Customer and payout uses require a quorum or deterministic check, as the assignment requires.
+- The exact family cells and rates support the proposed eligibility. Keeping C19's correct-by-chance caveat is useful; the observed verdict should not be silently changed when calculating the empirical rate.
+- Availability is synthetic scenario input and the script makes no provider calls. Free and paid routes are distinguished.
+- The original priority is correctly explained: available included capacity precedes waiting for an exhausted free route; a concrete reversal condition is preserving scarce allocation for later urgent or high-difficulty requests.
+- The OpenRouter-down product scenario chooses Qwen because all free routes have zero immediate cash cost and the tie-breaker selects the lowest eligible capability level before GPT-OSS 20B. This is explained in `pair-C/README.md`; the earlier review's question on this point is answered by the existing code and README.
 
-## Issues found
+## Issues and requested clarifications
 
-| # | File / cell | Issue | Severity | Suggested fix |
+| ID | File / line or cell | Finding | Severity | Suggested action |
 |---|---|---|---|---|
-| 1 | `routing-rule-C.md`, first line | Links to `../TD1/results/...` are broken since the move to one folder per TD (they resolve to `TD2/TD1/`). | low | Replace `../TD1/` by `../../TD1/`. |
-| 2 | Rule, F2b row | First model gpt-oss-20b rests on **one** cell (C10), and gpt-oss-20b is only 1/4 on F2 (C02, C08, C11 wrong). A question misclassified as F2b instead of F2 would go to a weak model. | medium | Say how a question is classified (age "on a date" vs "at the order") and route to gpt-oss-120b (1/1 on F2b, 4/4 on F2) when the classification is uncertain. |
-| 3 | Rule, F2 "customer" and "payout" columns | "Deterministic reference" computes the answer without any model. The role of the model is then unclear: is its value compared with the reference (and what happens on disagreement), or is the model skipped? | medium | State: model value compared with the deterministic value; disagreement → abstain (customer) or human review (payout). |
-| 4 | Table 4.1, north-mini-code combined 2/4 | One of the two correct cells (C19) is correct **by chance** (wrong age rule: keeps C003 aged 24, drops C005 aged 25). Counting it as evidence overstates north on age. | low | Already flagged "(C19 by chance)"; also exclude it when choosing a first model (north is never chosen for F2, so the rule itself is unaffected). |
-| 6 | Rule, F1/F3 "figure shown to a customer" | Lecture 2's case *low difficulty / high stakes* uses **5 models, quorum 3 of 5 and a deterministic check**; the rule uses a 2-of-3 quorum without a deterministic check. Our C09 case shows a 2-of-3 panel can adopt a shared wrong value. | medium | Either align on the lecture (3-of-5 + deterministic period/product template), or justify 2-of-3 by the 10/10 rate of every model on F1/F3. |
-| 7 | Rule, F2b "dashboard" quorum | The quorum is gpt-oss-20b + gpt-oss-120b + qwen: **two models of the same family** (OpenAI gpt-oss). Lecture 2: a panel should mix families, since models of one family share mistakes. | medium | Replace one gpt-oss model by a model of another family, or state the risk. |
-| 8 | Simulator, `checks` field | Lecture 2's incident: "a check in error means no delivery" and "the check belongs to the request, not to the route". The adapted `choose` returns a `checks` text but nothing shows what happens if that check fails. | low | Add one line in the rule: a failed or erroring check → abstain (customer) or human review (payout), whatever the route used. |
-| 5 | Rates | Qwen's C16–C20 are final values obtained **after an HTTP 429 retry**; the rate counts them like first attempts. | low | Add one line: the rate is on the final attempt; 5 of Qwen's cells needed a retry, which matters for the F2 fallback that relies on waiting for the Groq refill. |
+| C1 | `routing-rule-C.md:3` | Both source links use `../TD1/`, which resolves inside TD2 and is broken. | low | Use `../../TD1/`. |
+| C2 | `atelier-routage-adapted.py:54–62,112,114`; urgent and budget-exhausted scenarios | Paid-route reasons identify only a model alias (`A, same model ...`), and the abstention reason contains no TD1 cells. Step 3 explicitly asks for the justifying cells in every decision's reason. | medium | Carry the family/case evidence into paid-route and abstention reasons, rather than relying on readers following an alias. |
+| C3 | `routing-rule-C.md:38–39`; adapted `choose:108–114` | The written age fallback includes running the deterministic reference alone. The simulator has no deterministic resource or branch: the budget-exhausted F2 scenario abstains although the rule offers this fallback. | medium | State that deterministic fallback is outside this simulator, or model it explicitly and regenerate outputs. Clarify whether the reference replaces the model or compares against it. |
+| C4 | `routing-rule-C.md:39`; `atelier-routage-adapted.py:67` | The F2b dashboard panel contains both GPT-OSS 20B and 120B, which are the same family. This weakens the distinct-family principle and makes two agreeing votes potentially correlated. | medium | Prefer distinct families, or explicitly justify this exception and retain a deterministic check. Do not claim independence of the two GPT-OSS votes. |
+| C5 | Rule's customer/payout checks; simulator `checks` field | Checks are described as strings, not executed; disagreement, check failure and unavailable checker behaviour are not specified. This is acceptable for a routing simulator, but not evidence that a delivered amount was checked. | clarification | Define no delivery on unresolved check failure; state the customer abstention / payout review path and label simulated checks clearly. |
 
-## Questions to the authors
+## Questions to Pair C
 
-1. In the "product, customer, OpenRouter down" scenario, why is qwen (most expensive paid price) preferred over gpt-oss-20b for the run? Is it because the Groq free tier is used, so price does not apply?
-2. For F1/F3 payout, the deterministic period/product template replaces the model entirely: should the rule still call a model at all for these families when the use is a payout?
-3. How would the rule handle a question that combines age **at the order** with a product list (F2b + F3), not seen in TD 1?
-4. Lecture 2 recommends a **shadow test** before using a new model: how would a sixth model enter the rule?
+1. Is the deterministic-reference-only fallback implemented elsewhere, or intentionally excluded from this simulation? Please align the written rule and the simulated scope.
+2. What is the rule for an ambiguous F2 versus F2b question, or an unseen F2b + product combination? The simulator abstains for unrecognised strings; specify whether this is the intended classification policy.
+3. Can the paid/abstention reasons cite the actual family cases, and can you justify or revise the two-GPT-OSS F2b quorum?
+
+## Corrections to the earlier draft review
+
+A 2-of-3 customer check on F1/F3 is **not itself an assignment violation**: Step 3 permits a quorum or a deterministic check; it does not mandate 3-of-5 plus deterministic checking for every customer figure. The earlier concern may be a conservative policy suggestion, not a compliance defect. The Qwen-versus-20B free-route choice is already explained in the README. No claim of checking extra Lecture 2 material is made in this revision.
 
 ## Authors' answer
 
-_To complete by Pair C._
+Pending — to be completed by Pair C. The existing explanation of the Qwen tie-breaker is acknowledged above; no new author reply is invented.
+
+## Review conclusion
+
+The published simulations reproduce and all family rates match the team's traces. Request clarification/correction of the evidence in reasons, deterministic fallback scope and F2b family diversity before final approval. At least two Pair B members must validate and sign the review.
