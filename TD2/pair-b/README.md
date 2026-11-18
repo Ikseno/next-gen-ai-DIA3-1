@@ -40,7 +40,7 @@ The two models agreeing on the wrong value are GPT-OSS 20B and Dots. Agreement b
 
 These counts were derived directly from the five stored answers, then reproduced in `analyse.py`. The reference is used **after** the vote to assess correctness, never to select an answer. For 3-of-5, both 605,580 and 25,920 have two votes; neither reaches three. The shared wrong value therefore wins neither required quorum. Expanding the panel changes a correct consensus into an abstention in this case. More voters do not automatically yield a usable answer.
 
-**Integration pending:** check these same counts with Pair A's completed `vote_k_sur_n` method when it is available. This package does not claim that this group cross-check has already happened.
+**Checked with Pair A's method:** the same counts were re-run with Pair A's completed `vote_k_sur_n` (`python3 TD2/pair-b/check-votes-with-pair-A.py`, output [`votes-pair-A-method.jsonl`](votes-pair-A-method.jsonl)): 2-of-3 gives a consensus on 605,580 with 2 votes (gpt-oss-120b + Qwen), 3-of-5 abstains with a highest count of 2. Identical to the hand count.
 
 ## SQL cause
 
@@ -101,6 +101,6 @@ The data files are copied unchanged from the course kit, seed 20260925. Database
 
 ## Conclusion and limits
 
-Two models can share the same age-boundary mistake while producing syntactically valid SQL. Quorum agreement is evidence of agreement, not a guarantee of truth. An independent deterministic reference and a query isolating the missing rows establish the error here. This single batch does not measure a general quorum error probability. Still pending: re-checking the vote counts with Pair A's `vote_k_sur_n` once it is in the repository, and the cross-review of Pair B by Pairs A and C ([`../reviews/`](../reviews/)).
+Two models can share the same age-boundary mistake while producing syntactically valid SQL. Quorum agreement is evidence of agreement, not a guarantee of truth. An independent deterministic reference and a query isolating the missing rows establish the error here. This single batch does not measure a general quorum error probability. The vote counts have been re-checked with Pair A's `vote_k_sur_n` ([`votes-pair-A-method.jsonl`](votes-pair-A-method.jsonl)). Still pending: the cross-review of Pair B by Pairs A and C ([`../reviews/`](../reviews/)).
 
 

@@ -31,4 +31,4 @@ Rules of the assignment: only executed proposals with a value vote; k is a stric
 
 Part 2 (SQL root cause): [`part2-sql-cause-marc.md`](part2-sql-cause-marc.md) · Part 3 (delta query and independent check): [`part3-delta-mehdy.md`](part3-delta-mehdy.md).
 
-*Counts computed from the stored answers with the assignment's rules; to be re-checked with Pair A's `vote_k_sur_n` once it is in the repository.*
+*Counts computed by hand from the stored answers with the assignment's rules, then **re-run with Pair A's completed `vote_k_sur_n`**: identical decisions (2-of-3: consensus on 0 with 2 votes, Cohere + Qwen; 3-of-5: abstention, highest count 2). Script and output: [`check-votes-with-pair-A.py`](../check-votes-with-pair-A.py) → [`votes-pair-A-method.jsonl`](../votes-pair-A-method.jsonl).*

@@ -40,7 +40,7 @@ It returns the same six customers and the same total, **487980**. The delta quer
 
 ## Consequence for checking
 
-- **A vote cannot catch this error.** In the fixed 2-of-3 panel, Cohere and Qwen agree on 0 and outvote gpt-oss-120b (487980): the quorum returns a **wrong consensus**. Agreement between models is not evidence of correctness when they share the same kind of mistake (here, an age computed without the month-day test).
+- **A vote cannot catch this error.** In the fixed 2-of-3 panel, Cohere and Qwen agree on 0 and outvote gpt-oss-120b (487980): the quorum returns a **wrong consensus**. Agreement between models is not evidence of correctness: here the two models make **two different mistakes** (Cohere does arithmetic on date strings and divides by 365; Qwen computes the age at the order date with a self-contradictory month-day window, see [`part2-sql-cause-marc.md`](part2-sql-cause-marc.md)) that both produce an **empty filter**, which `COALESCE(SUM(...), 0)` turns into the same value 0.
 - **Checks that would have detected it:**
   1. a **sanity rule**: an age question on a non-empty customer set that returns 0 is suspicious; count the selected customers (`COUNT(DISTINCT customer_id)`) and reject 0 when the window contains customers;
   2. a **deterministic recomputation** of the age filter (date window or the CSV script above) compared with the model's value;

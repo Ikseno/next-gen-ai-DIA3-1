@@ -8,7 +8,7 @@ Inputs: TD 1 outputs in [`TD1/`](../../TD1/) — no new network batch. Work file
 | Step | Pair | Status | Evidence |
 |---|---|---|---|
 | 1. k-of-n vote, 2-of-3 vs 3-of-5 on C01–C20 | A | _to complete by Pair A_ | |
-| 2. Wrong consensus | B | Done: two real cases from the TD 1 traces, C09 (wrong consensus wins the fixed panel) and C08 (wins no quorum), each with SQL cause, delta query and independent check | [section 3](#3-step-2--wrong-consensus-pair-b) |
+| 2. Wrong consensus | B | Done: two real cases from the TD 1 traces, C09 (wrong consensus wins the fixed panel) and C08 (wins no quorum), each with SQL cause, delta query and independent check; vote counts re-checked with Pair A's `vote_k_sur_n` | [section 3](#3-step-2--wrong-consensus-pair-b) |
 | 3. Routing rule and simulator | C | _to complete by Pair C_ | |
 | Cross-review between pairs | all | _to complete_ (review of C by B: drafted) | [section 7](#7-cross-review-between-pairs) |
 
@@ -135,7 +135,7 @@ Among free resources, `choose` picks the least capable eligible one (key `(alloc
 
 **Pair B (wrong consensus):**
 - Two cases from one run per cell at temperature 0; they show the mechanism, not a probability that a quorum is wrong.
-- The vote counts were computed from the stored answers with the assignment's rules; they still have to be re-run with Pair A's `vote_k_sur_n` once it is in the repository.
+- The vote counts were computed by hand from the stored answers, then re-run with Pair A's completed `vote_k_sur_n` on C08 and C09: identical decisions ([`check-votes-with-pair-A.py`](../pair-b/check-votes-with-pair-A.py), output [`votes-pair-A-method.jsonl`](../pair-b/votes-pair-A-method.jsonl)). The script copies `TD2/skeleton-multi-llm-en.py` next to `pair-A/sandbox_sqlite.py` in a temporary folder, because the completed skeleton does not run from `TD2/` on its own.
 - `TD2/pair-b/evidence.json` records SHA-256 hashes of the source files; they were recomputed on the repository's own files (LF line endings) — a checkout with CRLF line endings gives different text-file hashes, the database hash is unaffected.
 
 _Pair A: to complete._
