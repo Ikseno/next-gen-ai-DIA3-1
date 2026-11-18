@@ -10,12 +10,12 @@ All figures below are computed from the files of this repository. Every model ca
 | Step | Status | Evidence |
 |---|---|---|
 | Machine preparation and access check | Done before the session | `check_access.py` output kept by each member (5/5 models OK for C on 16 and 21 October) |
-| 1. Twenty reference queries | Done: 20/20 queries written and run on `data/boutique.sqlite`, cross-checked by a second member, values recomputed independently twice (see section 5) | [`reference-td1.csv`](../reference-td1.csv) |
-| 2. Five model batches (100 base cells) | Done: 100/100 cells with a final answer, 6 retries | [`trace/`](../trace/), [`state/`](../state/), merged in [`results/traces-td1.csv`](../results/traces-td1.csv) and [`results/traces-td1.jsonl`](../results/traces-td1.jsonl) |
-| 3. Trace reading and explanations | Done for the 100 cells | [`explanation/`](../explanation/), [`results/model-question-comparison-en.csv`](../results/model-question-comparison-en.csv) |
-| 3. Five-model summary | Done | [`results/five-model-summary-en.csv`](../results/five-model-summary-en.csv) |
-| Prompt as used | Done, verified against the traces | [`prompt/prompts-en.md`](../prompt/prompts-en.md) |
-| 4. Plenary | No oral presentation this session; models x questions view ready | [`results/pivot-td1.md`](../results/pivot-td1.md) |
+| 1. Twenty reference queries | Done: 20/20 queries written and run on `data/boutique.sqlite`, cross-checked by a second member, values recomputed independently twice (see section 5) | [`reference-td1.csv`](../TD1/reference-td1.csv) |
+| 2. Five model batches (100 base cells) | Done: 100/100 cells with a final answer, 6 retries | [`trace/`](../TD1/trace/), [`state/`](../TD1/state/), merged in [`results/traces-td1.csv`](../TD1/results/traces-td1.csv) and [`results/traces-td1.jsonl`](../TD1/results/traces-td1.jsonl) |
+| 3. Trace reading and explanations | Done for the 100 cells | [`explanation/`](../TD1/explanation/), [`results/model-question-comparison-en.csv`](../TD1/results/model-question-comparison-en.csv) |
+| 3. Five-model summary | Done | [`results/five-model-summary-en.csv`](../TD1/results/five-model-summary-en.csv) |
+| Prompt as used | Done, verified against the traces | [`prompt/prompts-en.md`](../TD1/prompt/prompts-en.md) |
+| 4. Plenary | No oral presentation this session; models x questions view ready | [`results/pivot-td1.md`](../TD1/results/pivot-td1.md) |
 
 ## 2. What worked
 
@@ -93,7 +93,7 @@ Final verdicts over the 100 cells: 79 correct, 20 incorrect value, 1 invalid SQL
   | Maya Bourrey | C03, C12, C13 | Alexandre Flavigny |
   | Yasmine Boukrouh | C14, C19 | Maya Bourrey |
 
-  In addition, two independent recomputations agree with all 20 values of [`reference-td1.csv`](../reference-td1.csv): Dorian recomputed every value with a Python script reading the three CSV files without SQL (completed age by month and day), see [`contribution-dorian-A.md`](contribution-dorian-A.md); Yasmine wrote her own 20 SQL queries and a CSV-based check in a separate local run, and her 20 values are identical to ours ([her reference file](https://github.com/Ikseno/next-gen-ai-DIA3-1/blob/3b0a4894b6e778a91ceee3df4d93f43680e10069/td1-local-run/td1/reference-td1.csv), [cross-check record](https://github.com/Ikseno/next-gen-ai-DIA3-1/blob/3b0a4894b6e778a91ceee3df4d93f43680e10069/td1-local-run/td1/reference-crosscheck.json)). Comparison with the instructor's answer key: to be recorded at the end of the session.
+  In addition, two independent recomputations agree with all 20 values of [`reference-td1.csv`](../TD1/reference-td1.csv): Dorian recomputed every value with a Python script reading the three CSV files without SQL (completed age by month and day), see [`contribution-dorian-A.md`](contribution-dorian-A.md); Yasmine wrote her own 20 SQL queries and a CSV-based check in a separate local run, and her 20 values are identical to ours ([her reference file](https://github.com/Ikseno/next-gen-ai-DIA3-1/blob/3b0a4894b6e778a91ceee3df4d93f43680e10069/td1-local-run/td1/reference-td1.csv), [cross-check record](https://github.com/Ikseno/next-gen-ai-DIA3-1/blob/3b0a4894b6e778a91ceee3df4d93f43680e10069/td1-local-run/td1/reference-crosscheck.json)). **Answer key:** the 20 values are identical to the official TD 1 reference values published on the course site (*TD 1 reference values*, pack `2026-11-18-students-5`).
 - Final verdict = last attempt of each cell; every attempt is kept in the raw traces.
 - Index and prices come from the kit (portfolio snapshot of 28 September, Groq Developer prices of 5 October). Cohere and Dots have no documented paid route for the exact same model: N/A, not $0.
 - One run per cell at temperature 0, on 20 questions: this supports a routing hypothesis for this task, not a general ranking. The highest public index (Qwen, 33.7) is not the best model here; gpt-oss-120b (index 11.6) is, and its paid route is cheaper than Qwen's.
@@ -115,7 +115,7 @@ Final verdicts over the 100 cells: 79 correct, 20 incorrect value, 1 invalid SQL
 
 Several consolidation files were built in parallel by more than one member (merged traces, comparison CSV); the versions kept in `results/` were checked against the five raw trace files (see the README replay check). The git history records who uploaded each file.
 
-**AI assistance.** Declared per member in the README (section *AI assistance*), in [`prompt/ai-assistance/`](../prompt/ai-assistance/) and in the contribution notes: Dorian, Raphaël, Mohamed and Marc used Claude; Alexandre used ChatGPT (and Codex, Claude for references); Yasmine used Codex (queries, cross-check, runner changes, consolidation and her report, see her contribution note); **Maya used no AI assistant**. Every value and explanation kept in the deliverables was checked against the traces and the database by the member responsible.
+**AI assistance.** Declared per member in the README (section *AI assistance*), in [`prompt/ai-assistance/`](../TD1/prompt/ai-assistance/) and in the contribution notes: Dorian, Raphaël, Mohamed and Marc used Claude; Alexandre used ChatGPT (and Codex, Claude for references); Yasmine used Codex (queries, cross-check, runner changes, consolidation and her report, see her contribution note); **Maya used no AI assistant**. Every value and explanation kept in the deliverables was checked against the traces and the database by the member responsible.
 
 ## 7. Next steps and help needed
 

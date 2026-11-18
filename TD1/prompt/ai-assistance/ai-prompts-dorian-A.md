@@ -14,7 +14,7 @@
 | Batch A | Gave the command; read the Groq Free limits; diagnosed the Ctrl+C interruption after C01; proposed `--pause 8` from the tokens measured on C01 | I ran the batch myself: 20/20 correct, 1 attempt each |
 | Explanations A | Read the 20 returned SQL queries and drafted [`explanations-A.csv`](../../explanation/explanations-A.csv) | Checked each row against `trace/traces-A.csv` |
 | Group traces | Summarised batches B to E; checked one `prompt_sha256` per question across models; found the wrong agreements on C08, C09 and C10 | Cross-read with the operators' explanation files |
-| Documentation | Drafted the model-prompt file with the fingerprint check, the root `.gitignore`, the README merge after a conflict, my [contribution note](../../reports/contribution-dorian-A.md) and the link and access-check fixes in [`td1.md`](../../reports/td1.md) | Reviewed before each commit |
+| Documentation | Drafted the model-prompt file with the fingerprint check, the root `.gitignore`, the README merge after a conflict, my [contribution note](../../../reports/contribution-dorian-A.md) and the link and access-check fixes in [`td1.md`](../../../reports/td1.md) | Reviewed before each commit |
 | Repository review | Compared the repository with the assessment sheet and the hand-in page. Found an erroneous report draft and an Excel-corrupted trace merge; ran an offline `--replay` of the five state files (100/100 verdicts reproduced); audited the full git history for leaked secrets | Relayed to the group; corrections made and pushed |
 
 ## 2. AI-assistance requests — clarified technical formulations

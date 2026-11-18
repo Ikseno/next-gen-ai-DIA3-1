@@ -29,21 +29,31 @@ Seven members for eight roles: F and G are held by the same person. Roles rotate
 
 ## Repository layout
 
+One folder per session; the session reports stay in `reports/` (`reports/td1.md`, `reports/td2.md`, `reports/td3.md`), as required by the hand-in page.
+
+| Folder | Content |
+|---|---|
+| `TD1/` | TD 1 (21 October): references, traces, explanations, comparison, summary, prompts |
+| `TD2/` | TD 2 (18 November): k-of-n vote, wrong consensus, routing rule |
+| `reports/` | Session reports and individual contribution notes |
+
+### TD 1 files
+
 | Path | Content |
 |---|---|
-| `reference-td1.csv` | **Deliverable 1.** The 20 reference queries and integer values, with the member who wrote each query (`author`) and the member who checked it (`checked_by`) |
-| `results/traces-td1.csv`, `results/traces-td1.jsonl` | **Deliverable 2.** Every attempt of the five batches, errors and retries included, with the original measurements (106 lines; the JSONL is the five state files concatenated) |
-| `results/model-question-comparison-en.csv` | **Deliverable 3.** One final row per model and question (100 rows) with the explanation of each result |
-| `results/five-model-summary-en.csv` | **Deliverable 4.** The five models: public index, dated prices, access used, results by question family, limits |
-| `prompt/prompts-en.md` | **Deliverable 5.** The prompt sent to the models (system message and user template), verbatim, with the fingerprint of each question |
-| `results/pivot-td1.md` | Models x questions view of the comparison |
-| `trace/traces-X.csv` | Raw traces of operator X (A to E), as produced by the skeleton |
-| `state/state-X.jsonl` | State files of the runs (one line per attempt) |
-| `explanation/explanations-X.csv` | Explanation of every final result of model X, written by its operator |
-| `prompt/ai-assistance/` | AI-assistance disclosure: prompts each member sent to an AI assistant, and what was checked |
+| `TD1/reference-td1.csv` | **Deliverable 1.** The 20 reference queries and integer values, with the member who wrote each query (`author`) and the member who checked it (`checked_by`) |
+| `TD1/results/traces-td1.csv`, `TD1/results/traces-td1.jsonl` | **Deliverable 2.** Every attempt of the five batches, errors and retries included, with the original measurements (106 lines; the JSONL is the five state files concatenated) |
+| `TD1/results/model-question-comparison-en.csv` | **Deliverable 3.** One final row per model and question (100 rows) with the explanation of each result |
+| `TD1/results/five-model-summary-en.csv` | **Deliverable 4.** The five models: public index, dated prices, access used, results by question family, limits |
+| `TD1/prompt/prompts-en.md` | **Deliverable 5.** The prompt sent to the models (system message and user template), verbatim, with the fingerprint of each question |
+| `TD1/results/pivot-td1.md` | Models x questions view of the comparison |
+| `TD1/trace/traces-X.csv` | Raw traces of operator X (A to E), as produced by the skeleton |
+| `TD1/state/state-X.jsonl` | State files of the runs (one line per attempt) |
+| `TD1/explanation/explanations-X.csv` | Explanation of every final result of model X, written by its operator |
+| `TD1/prompt/ai-assistance/` | AI-assistance disclosure: prompts each member sent to an AI assistant, and what was checked |
 | `reports/td1.md` | Session report of the sub-group |
 | `reports/contribution-*.md` | Individual contribution of each of the seven members |
-| `skeleton-multi-llm-en.py` | The kit's orchestrator, unchanged (identical to the 14 October kit) |
+| `TD1/skeleton-multi-llm-en.py` | The kit's orchestrator, unchanged (identical to the 14 October kit) |
 
 ## AI assistance (declared)
 
@@ -51,11 +61,11 @@ AI-assisted work is accepted in this module when it is declared, the prompts are
 
 | Member | Assistant | Where it is declared |
 |---|---|---|
-| Dorian Courcelle (A) | Claude | [`prompt/ai-assistance/ai-prompts-dorian-A.md`](prompt/ai-assistance/ai-prompts-dorian-A.md) (verbatim originals in [`reports/contribution-dorian-A.md`](reports/contribution-dorian-A.md), section 6) |
-| Raphaël Delavictoire (B) | Claude | [`prompt/ai-assistance/ai-prompts-Raphael-B.md`](prompt/ai-assistance/ai-prompts-Raphael-B.md) |
-| Mohamed Diawara (C) | Claude | [`prompt/ai-assistance/ai-prompts-mohamed-C.md`](prompt/ai-assistance/ai-prompts-mohamed-C.md) |
-| Marc Chen (D) | Claude | [`prompt/ai-assistance/ai-prompts-marc-D.md`](prompt/ai-assistance/ai-prompts-marc-D.md) |
-| Alexandre Flavigny (E) | ChatGPT (and Codex, Claude for references) | [`prompt/ai-assistance/ai-prompts-alexandre-E.md`](prompt/ai-assistance/ai-prompts-alexandre-E.md) |
+| Dorian Courcelle (A) | Claude | [`TD1/prompt/ai-assistance/ai-prompts-dorian-A.md`](TD1/prompt/ai-assistance/ai-prompts-dorian-A.md) (verbatim originals in [`reports/contribution-dorian-A.md`](reports/contribution-dorian-A.md), section 6) |
+| Raphaël Delavictoire (B) | Claude | [`TD1/prompt/ai-assistance/ai-prompts-Raphael-B.md`](TD1/prompt/ai-assistance/ai-prompts-Raphael-B.md) |
+| Mohamed Diawara (C) | Claude | [`TD1/prompt/ai-assistance/ai-prompts-mohamed-C.md`](TD1/prompt/ai-assistance/ai-prompts-mohamed-C.md) |
+| Marc Chen (D) | Claude | [`TD1/prompt/ai-assistance/ai-prompts-marc-D.md`](TD1/prompt/ai-assistance/ai-prompts-marc-D.md) |
+| Alexandre Flavigny (E) | ChatGPT (and Codex, Claude for references) | [`TD1/prompt/ai-assistance/ai-prompts-alexandre-E.md`](TD1/prompt/ai-assistance/ai-prompts-alexandre-E.md) |
 | Maya Bourrey (F + G) | **No AI assistant used** | — |
 | Yasmine Boukrouh (H) | Codex | [`reports/contribution-yasmine-boukrouh.md`](reports/contribution-yasmine-boukrouh.md), section *AI assistance disclosure* |
 
@@ -67,10 +77,10 @@ From the extracted `kit-td1` folder of the 14 October kit, with this repository 
 python3 -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\Activate.ps1
 python3 -m pip install requests
 python3 verify-data.py                                    # data integrity, last object "ok": true
-cp ../next-gen-ai-DIA3-1/reference-td1.csv .              # our checked references
+cp ../next-gen-ai-DIA3-1/TD1/reference-td1.csv .              # our checked references
 
 # Replay the stored SQL offline (no key, no network): re-executes each model's SQL and recomputes the verdicts
-python3 skeleton-multi-llm-en.py --replay ../next-gen-ai-DIA3-1/results/traces-td1.jsonl --state replay-td1.jsonl --out replay-td1.csv
+python3 skeleton-multi-llm-en.py --replay ../next-gen-ai-DIA3-1/TD1/results/traces-td1.jsonl --state replay-td1.jsonl --out replay-td1.csv
 
 # Re-run a model for real (needs the keys exported in the shell; counts against the account allowance)
 export GROQ_API_KEY="..."; export OPENROUTER_API_KEY="..."
@@ -96,8 +106,10 @@ Completed: 20 references; 100 base cells (60 Groq, 40 OpenRouter), all executed;
 
 Every failure is on an age question; all period and product-only questions are correct for all five models.
 
-Replay check: re-executing the stored SQL of `results/traces-td1.jsonl` offline against `reference-td1.csv` (command above) gives the same scores (20, 17, 12, 15, 15).
+Replay check: re-executing the stored SQL of `TD1/results/traces-td1.jsonl` offline against `TD1/reference-td1.csv` (command above) gives the same scores (20, 17, 12, 15, 15).
 
-**Open blocks:** comparison of the references with the instructor's answer key (end of session); member preparing TD 2 to be designated; access-check count and OpenRouter allowance of operator E not recorded (missing measurement).
+**Reference check:** the 20 values of `TD1/reference-td1.csv` are identical to the official TD 1 reference values published on the course site (pack `2026-11-18-students-5`).
+
+**Open blocks (TD 1):** access-check count and OpenRouter allowance of operator E not recorded (missing measurement).
 Wrong agreements kept for TD 2: C08 (B and E both 25920, reference 605580), C10 (D and E both 119410, reference 558980), C09 (C and D both 0, reference 487980).
 

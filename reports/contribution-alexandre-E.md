@@ -11,7 +11,7 @@ I prepared my local TD 1 environment in VS Code on Windows, using the supplied `
 
 During the reference stage, I was assigned **C07, C11 and C20**. I participated in preparing and checking the reference SQL and revenue values, paying particular attention to the assignment's conventions: revenue in euro cents excluding VAT, half-open date intervals, and completed age where applicable. I also reviewed the group's reference file before the model evaluation. The reference values were established independently of the outputs of the models being evaluated.
 
-**Evidence:** [`reference-td1.csv`](../reference-td1.csv).
+**Evidence:** [`reference-td1.csv`](../TD1/reference-td1.csv).
 
 ## 2. Running model E — Dots 3 Note Preview
 
@@ -29,7 +29,7 @@ python skeleton-multi-llm-en.py --run --models openrouter:dots-studio/dots-3-not
 
 Reusing the state file preserved C01 without making a duplicate request. The resulting batch contains **20 real API attempts covering C01–C20**, with **20 HTTP 200 responses**, **no retries**, and **no SQL-invalid or rejected responses**. I retained both the raw CSV trace and JSONL state file without replacing them with simulated results.
 
-**Evidence:** [`trace/traces-E.csv`](../trace/traces-E.csv) and [`state/state-E.jsonl`](../state/state-E.jsonl).
+**Evidence:** [`trace/traces-E.csv`](../TD1/trace/traces-E.csv) and [`state/state-E.jsonl`](../TD1/state/state-E.jsonl).
 
 ## 3. Trace interpretation and failure analysis
 
@@ -47,13 +47,13 @@ I examined the SQL generated for each incorrect question, compared its filters a
 
 I also noted a **limitation on C19**: its numerical value agrees with the reference, but its age predicate is incomplete. This illustrates why a `correct` numerical verdict does not necessarily establish that the SQL is generally correct.
 
-The resulting 20 question-level explanations are available in [`explanation/explanations-E.csv`](../explanation/explanations-E.csv). The group incorporated the Model E results into [`results/model-question-comparison-en.csv`](../results/model-question-comparison-en.csv).
+The resulting 20 question-level explanations are available in [`explanation/explanations-E.csv`](../TD1/explanation/explanations-E.csv). The group incorporated the Model E results into [`results/model-question-comparison-en.csv`](../TD1/results/model-question-comparison-en.csv).
 
 ## 4. Verification and contribution to group documentation
 
 I performed **both manual and AI-assisted verification**. I personally reviewed the generated SQL, date and age conditions, reference values, recorded trace fields and failure explanations. AI assistance helped me cross-check the analyses, identify possible logical errors and draft clear explanations; I reviewed the resulting material myself before sharing it. The actual Model E evaluations were real API calls made by the course script, not responses simulated by a separate assistant.
 
-I created the shared GitHub repository, compiled the members' reference lines into the group's [`reference-td1.csv`](../reference-td1.csv) and uploaded it, and uploaded the five-model summary prepared by Yasmine. I provided my trace, state and explanation files for the subgroup's consolidation. I also reviewed how my Model E outcomes appeared in the final comparison and five-model summary, and inspected the common system and user prompts in `skeleton-multi-llm-en.py`. The group's experimental prompts are documented in [`prompt/prompts-en.md`](../prompt/prompts-en.md); my AI-assistance disclosure is in [`prompt/ai-assistance/ai-prompts-alexandre-E.md`](../prompt/ai-assistance/ai-prompts-alexandre-E.md).
+I created the shared GitHub repository, compiled the members' reference lines into the group's [`reference-td1.csv`](../TD1/reference-td1.csv) and uploaded it, and uploaded the five-model summary prepared by Yasmine. I provided my trace, state and explanation files for the subgroup's consolidation. I also reviewed how my Model E outcomes appeared in the final comparison and five-model summary, and inspected the common system and user prompts in `skeleton-multi-llm-en.py`. The group's experimental prompts are documented in [`prompt/prompts-en.md`](../TD1/prompt/prompts-en.md); my AI-assistance disclosure is in [`prompt/ai-assistance/ai-prompts-alexandre-E.md`](../TD1/prompt/ai-assistance/ai-prompts-alexandre-E.md).
 
 The merging of all five models' files and preparation of the subgroup-wide summary were collaborative tasks handled by other assigned members; I do not claim to have run their models or authored their analyses.
 

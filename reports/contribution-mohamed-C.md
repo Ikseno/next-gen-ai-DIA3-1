@@ -1,7 +1,7 @@
 # TD 1 — Individual contribution: Mohamed Diawara (role C)
 
 **Model operated:** `openrouter:cohere/north-mini-code:free` (Cohere North Mini Code, OpenRouter free route)
-**References assigned:** C01, C02, C15 (in the group's [`reference-td1.csv`](../reference-td1.csv))
+**References assigned:** C01, C02, C15 (in the group's [`reference-td1.csv`](../TD1/reference-td1.csv))
 **Cross-check:** I re-ran and checked Dorian's references (C04, C08, C16); mine were checked by Yasmine.
 
 ## 1. Preparation
@@ -15,7 +15,7 @@
 - One test call on C01 (12:13 Paris, correct), then C02–C20 with the same `--state` file (12:14–12:17 UTC).
 - **20 initial calls, 0 retry, 0 HTTP error.** Median latency 2.9 s; 11,194 prompt tokens and 2,848 completion tokens in total; native cost 0 on every line (free route).
 - OpenRouter allowance after the batch: 22 used, **28 remaining** out of 50 (14:19 Paris).
-- Files: [`trace/traces-C.csv`](../trace/traces-C.csv), [`state/state-C.jsonl`](../state/state-C.jsonl).
+- Files: [`trace/traces-C.csv`](../TD1/trace/traces-C.csv), [`state/state-C.jsonl`](../TD1/state/state-C.jsonl).
 
 ## 3. Results and explanations
 
@@ -33,18 +33,18 @@
 | C18 | incorrect (too high) | No upper age bound (older customers kept); day extracted as `'9-'` |
 | C19 | correct **by chance** | Month-year compared instead of month-day: keeps C003 (24), drops C005 (25); neither bought product d in September |
 
-Each cause was checked with small SQLite queries (e.g. `substr` positions, text subtraction, `||` precedence) before being recorded in [`explanation/explanations-C.csv`](../explanation/explanations-C.csv), one row for each of the 20 questions.
+Each cause was checked with small SQLite queries (e.g. `substr` positions, text subtraction, `||` precedence) before being recorded in [`explanation/explanations-C.csv`](../TD1/explanation/explanations-C.csv), one row for each of the 20 questions.
 
 ## 4. Group work
 
 - Proposed the split of the 20 references and of the roles A–H for seven members.
-- Merged the five trace files into [`results/traces-td1.csv`](../results/traces-td1.csv) and [`results/traces-td1.jsonl`](../results/traces-td1.jsonl) (106 lines; Maya made a parallel merge, same rows), built [`results/model-question-comparison-en.csv`](../results/model-question-comparison-en.csv) (100 rows) and [`results/pivot-td1.md`](../results/pivot-td1.md); checked that every question has one prompt fingerprint across the five models.
+- Merged the five trace files into [`results/traces-td1.csv`](../TD1/results/traces-td1.csv) and [`results/traces-td1.jsonl`](../TD1/results/traces-td1.jsonl) (106 lines; Maya made a parallel merge, same rows), built [`results/model-question-comparison-en.csv`](../TD1/results/model-question-comparison-en.csv) (100 rows) and [`results/pivot-td1.md`](../TD1/results/pivot-td1.md); checked that every question has one prompt fingerprint across the five models.
 - Checked the other explanation files, the five-model summary and the prompt file against the traces; added the C19 limit to the summary.
 - Repository: README, kit `.gitignore`, layout (`results/`, `reports/`, `prompt/`), merge conflicts, consolidation of the group report [`td1.md`](td1.md).
 
 ## 5. AI assistance
 
-Claude was used for setup, trace reading, explanation drafts, file merging, checks and documentation. Prompts and the split between the assistant's work and my checks: [`prompt/ai-assistance/ai-prompts-mohamed-C.md`](../prompt/ai-assistance/ai-prompts-mohamed-C.md).
+Claude was used for setup, trace reading, explanation drafts, file merging, checks and documentation. Prompts and the split between the assistant's work and my checks: [`prompt/ai-assistance/ai-prompts-mohamed-C.md`](../TD1/prompt/ai-assistance/ai-prompts-mohamed-C.md).
 
 ## 6. What I take from it, next steps
 
