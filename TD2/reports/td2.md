@@ -27,6 +27,6 @@ _To complete._
 
 | Pair | Members | Step |
 |---|---|---|
-| A | _to complete_ | k-of-n vote |
-| B | _to complete_ | wrong consensus |
-| C | _to complete_ | routing rule |
+| A | Alexandre, Maya | k-of-n vote |
+| B | Yasmine, Marc, Mehdy | wrong consensus |
+| C | Dorian et Raphael | routing rule |
