@@ -151,33 +151,38 @@ Portfolio, cheapest first: north-mini-code and dots-3-note (OpenRouter free, no 
 
 ### 4.2 The rule
 
-A question with an age condition is routed as F2 or F2b, whatever else it contains. A combination takes the rule of its strictest part.
+A question with an age condition is routed as F2 or F2b, whatever else it contains. A combination takes the rule of its strictest part. If the age reference (a given date or the order date) is not stated, the question is sent back for clarification.
+
+**Principle (policy `pairC-v2.2`, after Lecture 2 and the reviews by Pairs B and A):** difficulty chooses the model, stakes choose the check. The use alone sets the starting check (dashboard: format check by code; customer: 2-of-3 quorum of distinct families; payout: deterministic reference + human review). The TD 1 evidence can only raise it: format only needs the chosen model at 100 % on at least 3 cells, and on age families the quorum is replaced by the deterministic reference. The reference is compared with the model's value; a failed or erroring check means no delivery (dashboard recomputed, customer abstains, payout to human review).
 
 | Family | First model | Internal dashboard | Figure shown to a customer | Amount paid out | Fallback |
 |---|---|---|---|---|---|
-| **F1**, **F3** | dots-3-note (free), 10/10 | none (every model 10/10) | 2-of-3 quorum of the three cheapest available models among dots, north, qwen, gpt-oss-20b (all 10/10) | deterministic reference (period / product SQL template) | north → qwen (Groq free) → gpt-oss-20b → wait for refill if deferrable → abstain |
-| **F2** | gpt-oss-120b, 4/4 (and 4/4 combined) | none (100 % in TD 1), value logged as unchecked | deterministic reference: age window `date(birth,'+25 years') <= ref < date(birth,'+26 years')` | deterministic reference + human review | No other model is 100 % on F2. Wait for the Groq refill if deferrable (the six HTTP 429 of TD 1 all recovered on attempt 2), else paid Groq route, else deterministic reference alone, else abstain |
-| **F2b** | gpt-oss-20b, 1/1 (gpt-oss-120b 1/1 too) | 2-of-3 quorum gpt-oss-20b + gpt-oss-120b + qwen ("none" refused: one case only) | deterministic reference, age computed at `order_date` | deterministic reference + human review | gpt-oss-120b → wait for refill → deterministic reference alone → abstain |
+| **F1**, **F3** | dots-3-note (free), 10/10 | format check only, by code (every model 10/10) | 2-of-3 quorum of the three cheapest available models among dots, north, qwen, gpt-oss-20b (all 10/10) | deterministic reference + human review (period / product SQL template) | north → qwen (Groq free) → gpt-oss-20b → wait for refill if deferrable → abstain |
+| **F2** | gpt-oss-120b, 4/4 (and 4/4 combined) | format check only, by code (gpt-oss-120b 8/8 on F2 and combined) | deterministic reference: age window `date(ref,'-26 years') < birth_date <= date(ref,'-25 years')` (same predicate as Pair B) | deterministic reference + human review | No other model is 100 % on F2. Wait for the Groq refill if deferrable (the six HTTP 429 of TD 1 all recovered on attempt 2), else paid Groq route within budget, else abstain from the model route and hand over to the deterministic reference template or a person (outside the simulator) |
+| **F2b** (also F2b + F3) | gpt-oss-20b, 1/1 (gpt-oss-120b 1/1 too) | deterministic reference, age at `order_date` (gpt-oss-20b 2/2 only: too thin for format only; no quorum on age) | deterministic reference, age computed at `order_date` | deterministic reference + human review | gpt-oss-120b → wait for refill if deferrable → paid Groq route → abstain and hand over (outside the simulator) |
 
 dots-3-note goes before north-mini-code for F1/F3 (both free) because north produced the only invalid SQL of TD 1 (C11) and a value correct by chance (C19). No quorum is accepted for customer or payout figures on age questions, because of the shared wrong values above.
 
 ### 4.3 Simulator: before and after adaptation
 
-`python3 TD2/pair-C/atelier-routage.py` gives [`output-before.jsonl`](../pair-C/output-before.jsonl). In [`atelier-routage-adapted.py`](../pair-C/atelier-routage-adapted.py), `RESOURCES` holds our five models: the free routes used in TD 1, plus the Groq paid route for gpt-oss-20b, gpt-oss-120b and qwen. The cash for one request assumes 650 input + 300 output tokens; the largest TD 1 cell used 1,333 tokens. Eligibility levels come from 4.1: level 1 = F1/F3, level 2 = F2b, level 3 = F2, and each model gets the highest level it passed entirely. Each `reason` cites the TD 1 cells. `choose` keeps the kit's priority order, but the request now gives a family and a use, and the check comes from the rule table. Output: [`output-after.jsonl`](../pair-C/output-after.jsonl), reproduced identically on Windows by the pair.
+`python3 TD2/pair-C/atelier-routage.py` gives [`output-before.jsonl`](../pair-C/output-before.jsonl). In [`atelier-routage-adapted.py`](../pair-C/atelier-routage-adapted.py), `RESOURCES` holds our five models: the free routes used in TD 1, plus the Groq paid route for gpt-oss-20b, gpt-oss-120b and qwen. The cash for one request assumes 650 input + 300 output tokens; the largest TD 1 cell used 1,333 tokens. Eligibility levels come from 4.1: level 1 = F1/F3, level 2 = F2b, level 3 = F2, and each model gets the highest level it passed entirely. Each `reason` cites the TD 1 cells. `choose` keeps the kit's priority order, but the request now gives a family and a use, and the check follows the principle above. Each decision logs `policy`, a check id with `status` and `on_failure`, the `reason` with its TD 1 cells (paid route and abstention included), and `ruled_out`: every resource not chosen, with why (for example "level 1 below level 3 (TD 1: 5/8)"). An abstention adds `handover`. Output: [`output-after.jsonl`](../pair-C/output-after.jsonl), reproduced identically on Windows by the pair.
 
 | Scenario | Before (kit) | After (our rule) |
 |---|---|---|
-| simple | run `small-free` | run dots-3-note (free), no check (F1 6/6) |
-| complex | run `senior-subscription` | run gpt-oss-120b (Groq free), no check, logged as unchecked |
+| simple | run `small-free` | run dots-3-note (free), format check only (10/10) |
+| complex | run `senior-subscription` | run gpt-oss-120b (Groq free), format check only (8/8) |
 | deferrable | defer `senior-subscription`, 60 min | defer gpt-oss-120b (Groq free quota exhausted), 60 min |
 | urgent | run `senior-api`, 0.30 USD | run gpt-oss-120b on the paid route, 0.000278 USD |
 | budget exhausted | abstain | abstain: no level-3 route at 0 USD |
 | high impact | run `senior-subscription`, source check and human review | run gpt-oss-120b, age-window reference and human review |
 | unknown capability | abstain | abstain: family F4 has no TD 1 evidence |
+| *age at order, dashboard* (added) | — | run gpt-oss-20b (Groq free), deterministic reference at `order_date` (2/2 too thin for format only) |
 | *age at order, customer* (added) | — | run gpt-oss-20b (Groq free), reference computed at `order_date` |
 | *product, customer, OpenRouter down* (added) | — | run qwen (Groq free), 2-of-3 quorum of available level-1 models |
 
 Among free resources, `choose` picks the least capable eligible one (key `(allocation, level, id)`). This keeps gpt-oss-120b, the only level-3 model, free for F2 questions.
+
+The cross-review by Pair B (C1 to C5, [`review-C-by-B.md`](../reviews/review-C-by-B.md)) led to version `pairC-v2.1`; the review by Pair A (unknown use, family order, cash type, age predicate, [`review-C-by-A.md`](../reviews/review-C-by-A.md)) to `pairC-v2.2`. The answers are in those files.
 
 ### 4.4 Why `choose` runs on an available subscription before deferring for an exhausted free resource
 

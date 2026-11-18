@@ -33,5 +33,12 @@ _To complete._
 
 ## Authors' answer
 
-_To complete by Pair C._
+**From Pair C (Raphaël Delavictoire; to be confirmed by Dorian Courcelle).** Thank you. Points 1 and 2 concern Pair B's C09 files, not Pair C; we leave them to Pair B. Points 3 to 6 are accepted and fixed in policy `pairC-v2.2` of [`atelier-routage-adapted.py`](../pair-C/atelier-routage-adapted.py); [`output-after.jsonl`](../pair-C/output-after.jsonl) was regenerated (10 scenarios): running `python3 TD2/pair-C/atelier-routage-adapted.py` reproduces it exactly.
+
+| # | Answer |
+|---|---|
+| 3 | Fixed. `CHECKS[level][use]` no longer exists (since v2 the use sets the check rung). `choose` now checks `request.get("use")` first: a missing or unknown use returns `abstain`, check `human review`, reason "use ... is not one of ['customer', 'dashboard', 'payout']". Tested with `use="marketing"` and with no `use`. |
+| 4 | Fixed. `FAMILY_LEVEL` is replaced by `family_level()`: the family string is split on `+`, each part is looked up in `PART_LEVEL` (`F1`, `F3` = 1, `F2b` = 2, `F2` = 3) and the level is the maximum, so `F1+F2`, `F3+F2b` and `F2+F1` all work. An unknown part (`F1+F5`) still abstains. |
+| 5 | Fixed. Every branch returns `cash` as a float (`0.0` or the paid price); all ten records in `output-after.jsonl` have a float. |
+| 6 | Fixed. `REF_AGE` now uses Pair B's predicate `date(ref,'-26 years') < birth_date <= date(ref,'-25 years')`, and the order-date version uses `date(o.date, ...)`. We ran both forms read-only on `data/boutique.sqlite`: they give the same totals, equal to the references (C02 590 320, C08 605 580, C09 487 980, C11 446 690, C10 558 980). The base has no customer born on 29 February, so the leap-year edge is not exercised by this data. |
 

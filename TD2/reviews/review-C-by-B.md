@@ -62,7 +62,21 @@ A 2-of-3 customer check on F1/F3 is **not itself an assignment violation**: Step
 
 ## Authors' answer
 
-Pending — to be completed by Pair C. The existing explanation of the Qwen tie-breaker is acknowledged above; no new author reply is invented.
+**From Pair C (Raphaël Delavictoire; to be confirmed by Dorian Courcelle).** Thank you: every point is accepted. The simulator is now policy `pairC-v2.1`; `output-after.jsonl` was regenerated (10 scenarios: one was added for the F2b dashboard case, so the re-run should expect 10 decisions, not 9). Later changes after the review by Pair A are in version `pairC-v2.2`.
+
+| ID | Answer | Where |
+|---|---|---|
+| C1 | Fixed: both links now use `../../TD1/`. | `routing-rule-C.md`, line 3 |
+| C2 | Fixed: the paid resources carry the full TD 1 evidence of their model (no more alias), and the abstention reason lists the cells of the level and the eligible models with their rates, e.g. "level-3 cells C02 C08 C09 C11 C15 C16 C17 C19: eligible in TD 1 = gpt-oss-120b-groq-free 8/8, gpt-oss-120b-groq-dev 8/8". | `RESOURCES`, last branch of `choose` |
+| C3 | Aligned: the deterministic-reference-only fallback is **outside** the simulator. `choose` abstains from the model route and returns a `handover` field ("the deterministic reference query if a template exists for this exact question, otherwise a person"). The rule now says that the reference is **compared with** the model's value in the normal path and **replaces** it only in this hand-over. | `routing-rule-C.md` ("What deterministic reference means here"), `choose` |
+| C4 | Revised: the F2b dashboard quorum with two gpt-oss models is removed. On age families the quorum rung is replaced by the deterministic reference (shared wrong values C08, C09, C10), and gpt-oss-20b has only 2 F2b cells, too few for format only. The only remaining quorum (F1/F3, customer) draws from four different makers. | `check_for`, `routing-rule-C.md` ("Panel diversity") |
+| C5 | Specified: each `checks` record now has `status` ("simulated: named here, executed by code before delivery") and `on_failure`: a failed or erroring check means no delivery; dashboard recomputed at the next run, customer abstains ("no verified figure yet"), payout goes to human review. | `ON_FAILURE`, `check_for` |
+
+**Q1:** see C3: intentionally excluded from the simulation, now stated in the rule and in every abstention record.
+**Q2:** a reference date in the question means F2; age at the time of each order means F2b; if the text does not say which, the question is sent back for clarification (no model call). Unseen combinations take their strictest part: `F2b+F3` and `F2b+F1+F3` are now level 2 in `FAMILY_LEVEL`; anything outside C01–C20 still abstains.
+**Q3:** yes for the reasons (C2); the two-gpt-oss quorum is removed (C4).
+
+Other change made at the same time, after Lecture 2 (final version): "none" is replaced by "format check by code", the use alone sets the starting check and the TD 1 evidence can only raise it, and each decision logs `policy`, the check id and `ruled_out` (every resource not chosen, with why).
 
 ## Review conclusion
 
