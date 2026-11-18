@@ -10,7 +10,7 @@ Inputs: TD 1 outputs in [`TD1/`](../../TD1/) — no new network batch. Work file
 | 1. k-of-n vote, 2-of-3 vs 3-of-5 on C01–C20 | A | Done: implementation, tests and 20-case comparison completed | [section 2](#2-step-1--k-of-n-vote-pair-a) |
 | 2. Wrong consensus | B | Done: two real cases from the TD 1 traces, C09 (wrong consensus wins the fixed panel) and C08 (wins no quorum), each with SQL cause, delta query and independent check; vote counts re-checked with Pair A's `vote_k_sur_n` | [section 3](#3-step-2--wrong-consensus-pair-b) |
 | 3. Routing rule and simulator | C | Done: routing policy and simulations completed; 7 original and 10 adapted scenarios reproduced | [section 4](#4-step-3--routing-rule-pair-c) |
-| Cross-review between pairs | all | All six reviews written; remaining author follow-ups and human validations pending | [section 7](#7-cross-review-between-pairs) |
+| Cross-review between pairs | all | All six reviews written and answered | [section 7](#7-cross-review-between-pairs) |
 
 Inputs are the TD 1 outputs only ([`TD1/`](../../TD1/)); no new model call was made. The prompts are unchanged since TD 1 ([`TD1/prompt/prompts-en.md`](../../TD1/prompt/prompts-en.md)).
 

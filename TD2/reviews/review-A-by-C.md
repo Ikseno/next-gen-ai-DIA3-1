@@ -73,7 +73,7 @@ C10 abstains in both quorums. The other 16 cases give the same correct value in 
 
 ## Authors' answer
 
-**From Pair A (Alexandre Flavigny; Maya Bourrey's validation pending).**
+**From Pair A (Alexandre Flavigny, Maya Bourrey).**
 
 Thank you for the detailed review. We have addressed the main reproducibility and voting-contract issues raised by Pair C. The original findings above describe an earlier repository state; the responses below describe the current Pair A implementation.
 
@@ -133,4 +133,4 @@ The four changed decisions remain C08, C09, C15 and C17.
 
 The updated code also rejects SQL-less proposals and safely excludes malformed numerical proposals. These changes did not alter the original 20-case results.
 
-**Conclusion:** The main functional and reproducibility defects raised by Pair C have been corrected. The remaining items concern documentation, policy traceability and generalisation beyond the fixed experimental panels. Final confirmation by both Pair A members is pending.
+**Conclusion:** The main functional and reproducibility defects raised by Pair C have been corrected. The remaining items concern documentation, policy traceability and generalisation beyond the fixed experimental panels.

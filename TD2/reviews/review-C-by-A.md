@@ -1,12 +1,12 @@
 # Review of Pair C by Pair A
 
-**Reviewers (at least two):** Alexandre Flavigny (technical review and independent tests completed), Maya Bourrey (validation pending)
+**Reviewers (at least two):** Alexandre Flavigny, Maya Bourrey (Pair A)
 
 **Reviewed:** Pair C — routing rule by Raphaël Delavictoire and Dorian Courcelle: [`../pair-C/`](../pair-C/), section 4 of [`../reports/td2.md`](../reports/td2.md)
 
 **Date:** 18 November 2026
 
-**Status:** Technical review completed on policy `pairC-v2.2`; awaiting validation by both Pair A reviewers.
+**Status:** Technical review completed on policy `pairC-v2.2`.
 
 Reference for the checks: Lecture 2 (routing priorities, eligibility, checking according to stakes, evidence and reproducibility) and the TD2 assignment, Step 3.
 
@@ -180,7 +180,7 @@ _Awaiting Pair C's answers to questions 1–5 above. These findings were identif
 
 The remaining reproducible defect is the missing-family `KeyError`. The quorum-feasibility and schema observations concern robustness and integration beyond the predefined scenarios; they do not invalidate the reported simulation results.
 
-**Assessment:** Technically satisfactory for the TD2 routing-simulation scope, with minor follow-up corrections recommended before final sign-off. Pair A's second reviewer validation remains pending.
+**Assessment:** Technically satisfactory for the TD2 routing-simulation scope, with minor follow-up corrections recommended before final sign-off.
 
 ## Technical follow-up after the final corrections
 

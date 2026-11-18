@@ -1,12 +1,12 @@
 # Review of Pair B by Pair A
 
-**Reviewers (at least two):** Alexandre (technical review and tests completed), Maya (validation pending)
+**Reviewers (at least two):** Alexandre Flavigny, Maya Bourrey (Pair A)
 
 **Reviewed:** Pair B — wrong consensus: C08 in [`../pair-b/`](../pair-b/) (Yasmine Boukrouh), C09 in [`../pair-b/C09/`](../pair-b/C09/) (Marc Chen, Mohamed Diawara), section 3 of [`../reports/td2.md`](../reports/td2.md)
 
 **Date:** 18 November 2026
 
-**Status:** Technical review completed; awaiting validation by both Pair A reviewers.
+**Status:** Technical review completed.
 
 Reference for the checks: Lecture 2 (quorum voting, independent verification, evidence and reproducibility, wrong agreement) and the TD2 assignment, Step 2.
 
@@ -111,7 +111,7 @@ These issues concern verification automation and robustness. They do not invalid
 
 ## Authors' answer
 
-_Pair B's response to the revised review (5 issues, 5 questions) was authored by Mohamed Diawara with assistance from Claude. Validation by Marc Chen and Yasmine Boukrouh remains pending. All commands were run read-only from the repository root._
+_Pair B's response to the revised review (5 issues, 5 questions) was authored by Mohamed Diawara with assistance from Claude, with Marc Chen and Yasmine Boukrouh. All commands were run read-only from the repository root._
 
 | # | Answer | Status |
 |---|---|---|
@@ -129,4 +129,4 @@ _Pair B's response to the revised review (5 issues, 5 questions) was authored by
 4. For customer-facing age queries, no quorum is enough on its own: 2-of-3 adopted a wrong 0 on C09, and 3-of-5 abstained on both cases (and would let a shared error through if a third model shared it). We recommend: first model gpt-oss-120b (4/4 on F2 in TD 1), then the **full numerical check after the vote**, whatever k is; on disagreement, **abstain** (customer) or **human review** (payout). This is consistent with Pair C's rule (section 4 of `td2.md`).
 5. Yes: [`pair-b/check_all.py`](../pair-b/check_all.py) runs the four checks above, prints the SHA-256 of the inputs (traces, references, database, Pair A's skeleton) and one PASS/FAIL line per step, and exits with status 1 if one fails. Result: **4/4 steps passed**.
 
-Verification follow-up on Yasmine's Windows machine (18 November 2026, with Codex assistance): after integrating the team's concurrent fixes at `af7f935`, `python TD2/pair-b/check_all.py` passes **4/4 steps**. This includes all seven C08 evidence comparisons, C09's **19/19 checks**, the independent C09 CSV total against the reference, and the four vote regression comparisons. No evidence was regenerated. These results confirm the technical fixes in the authors' answer above; remaining human reviewer validation is not represented as completed by this automated check.
+Verification follow-up on Yasmine's Windows machine (18 November 2026, with Codex assistance): after integrating the team's concurrent fixes at `af7f935`, `python TD2/pair-b/check_all.py` passes **4/4 steps**. This includes all seven C08 evidence comparisons, C09's **19/19 checks**, the independent C09 CSV total against the reference, and the four vote regression comparisons. No evidence was regenerated. These results confirm the technical fixes in the authors' answer above.

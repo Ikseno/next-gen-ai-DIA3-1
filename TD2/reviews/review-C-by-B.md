@@ -1,7 +1,7 @@
 # Review of Pair C by Pair B
 
 **Status:** Technical review.
-**Reviewers:** Yasmine Boukrouh ; Marc and Mohamed.
+**Reviewers:** Yasmine Boukrouh, Marc Chen, Mohamed Diawara (Pair B)
 **Reviewed:** Pair C — Dorian Courcelle and Raphaël Delavictoire.
 
 ## Files reviewed

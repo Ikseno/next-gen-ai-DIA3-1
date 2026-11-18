@@ -1,9 +1,10 @@
 # Review of Pair A by Pair B
 
-**Reviewers (at least two):** Marc Chen (Pair B); second Pair B reviewer Yasmine Boukrouh and Mohamed Diawara 
+**Reviewers (at least two):** Marc Chen, Yasmine Boukrouh, Mohamed Diawara (Pair B)
 **Reviewed:** Pair A (Alexandre, Maya) — k-of-n vote: `vote_k_sur_n` in [`../pair-A/skeleton-multi-llm-en.py`](../pair-A/skeleton-multi-llm-en.py), [`../pair-A/td2_compare_votes.py`](../pair-A/td2_compare_votes.py), [`../reports/td2-task-A-report.md`](../reports/td2-task-A-report.md), [`../reports/td2-task-A-comparison.csv`](../reports/td2-task-A-comparison.csv), sections 1 and 2 of [`../reports/td2.md`](../reports/td2.md)
 **Date:** 18 November 2026 (state of `main` at commit `26ff494`)
-. Every check below was re-run on a clean copy of the repository; it must be read and validated by both reviewers before signing._
+
+_Every check below was re-run on a clean copy of the repository._
 
 Reference for the checks: Lecture 2 ([cm2](https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/diaporama/cm2-en.html), quorum slides 15–19, evidence slide 7, comparable answers slides 9–14, wrong agreement slides 20–23) and the TD 2 assignment (Step 1 and "What is expected").
 
@@ -92,9 +93,7 @@ Pair A then wrote section 2 of `td2.md` (commit `59e7e37`) consolidated its impl
 
 ## Authors' answer
 
-## Authors' answer
-
-**From Pair A (Alexandre Flavigny; Maya Bourrey's validation pending).** Thank you for the detailed review. We addressed the implementation and reproducibility issues while preserving the original experimental protocol and results. The historical findings above refer to earlier repository states.
+**From Pair A (Alexandre Flavigny, Maya Bourrey).** Thank you for the detailed review. We addressed the implementation and reproducibility issues while preserving the original experimental protocol and results. The historical findings above refer to earlier repository states.
 
 ### Responses to the findings
 
