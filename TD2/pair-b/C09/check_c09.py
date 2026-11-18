@@ -115,6 +115,9 @@ def main():
         ('negative case: true 0, age 80 on 2026-09-26 (nobody in the window)', 0, '2026-09-26', 80, 'accept', 'accept'),
         ('C09 gpt-oss-120b = 487980 (right)', 487980, '2026-09-26', 25, 'not applicable', 'accept'),
         ('C09 Dots = 369240 (wrong, non-zero)', 369240, '2026-09-26', 25, 'not applicable', 'reject'),
+        ('C08 gpt-oss-20b / Dots = 25920 (wrong, non-zero)', 25920, '2026-09-24', 25, 'not applicable', 'reject'),
+        ('C08 Cohere = 1188090 (wrong, non-zero)', 1188090, '2026-09-24', 25, 'not applicable', 'reject'),
+        ('C08 gpt-oss-120b / Qwen = 605580 (right)', 605580, '2026-09-24', 25, 'not applicable', 'accept'),
     ]
     for name, value, ref_day, a, exp_gate, exp_full in cases:
         gate = age_window_nonempty(db, value, ref_day, a)

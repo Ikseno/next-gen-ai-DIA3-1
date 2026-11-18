@@ -7,6 +7,8 @@ One folder for the pair, two cases:
 | **C09** (main case) | [`C09/`](C09/) | Marc, Mohamed | the shared wrong value 0 **wins** the fixed 2-of-3 panel; 3-of-5 abstains |
 | **C08** | this folder (below) | Yasmine | the shared wrong value 25 920 wins **no** quorum |
 
+**Verify everything (C08, C09, votes) in one read-only command:** `python3 TD2/pair-b/check_all.py` (4/4 steps passed).
+
 ---
 
 ## Case C08 — shared wrong answer

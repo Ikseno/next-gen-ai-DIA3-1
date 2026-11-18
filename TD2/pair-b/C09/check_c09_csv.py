@@ -9,6 +9,7 @@ import argparse, csv, os, sys
 from datetime import date
 
 DEFAULT_DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data')
+REFERENCE_CSV = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'TD1', 'reference-td1.csv')
 
 
 def age(born, on):
@@ -31,6 +32,8 @@ def revenue_by_customer(data_dir, ref_day=date(2026, 9, 26), target_age=25):
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--data', default=DEFAULT_DATA, help='folder holding product.csv, customers.csv and orders.csv')
+    parser.add_argument('--expected', type=int, default=None,
+                        help='expected total in cents (default: C09 in TD1/reference-td1.csv)')
     parser.add_argument('legacy_data', nargs='?', help=argparse.SUPPRESS)  # old positional form, still accepted
     args = parser.parse_args()
     data_dir = args.legacy_data or args.data
@@ -40,7 +43,15 @@ def main():
     rows = revenue_by_customer(data_dir)
     for c, (b, rev) in rows.items():
         print(c, b, rev)
-    print('TOTAL', sum(rev for _, rev in rows.values()))
+    total = sum(rev for _, rev in rows.values())
+    print('TOTAL', total)
+    expected = args.expected
+    if expected is None:
+        expected = next(int(r['revenue_cents']) for r in csv.DictReader(open(REFERENCE_CSV, newline='', encoding='utf-8'))
+                        if r['case_id'] == 'C09')
+    if total != expected:
+        sys.exit(f'FAIL: total {total} differs from the expected {expected}')
+    print(f'OK: total equals the expected {expected}')
 
 
 if __name__ == '__main__':

@@ -111,22 +111,20 @@ These issues concern verification automation and robustness. They do not invalid
 
 ## Authors' answer
 
-<<<<<<< HEAD
-_Answer by Pair B, written by Mohamed Diawara with AI assistance (Claude), to be validated by Marc Chen and Yasmine Boukrouh._
+_Answer by Pair B to the revised review (5 issues, 5 questions), written by Mohamed Diawara with AI assistance (Claude), to be validated by Marc Chen and Yasmine Boukrouh. All commands run from the repository root, read-only._
 
 | # | Answer | Status |
 |---|---|---|
-| 1 | Accepted and fixed. New [`pair-b/C09/check_c09.py`](../pair-b/C09/check_c09.py): one command, **read-only** (it writes nothing). It checks the data against `manifest.json` (line endings normalised, so it also passes on Windows), re-runs `faulty-north-mini-code.sql` and `faulty-qwen.sql` (both 0), the delta query (compared with `delta-output.csv`) and the empty-filter check (compared with `empty-filter-check.csv`), and recomputes C09 without SQL. `python3 TD2/pair-b/C09/check_c09.py` → **16/16 checks OK**, exit code 0. | done |
-| 2 | Accepted and fixed. `check_c09_csv.py` now uses `argparse`, defaults to `TD2/pair-b/data`, accepts `--data <folder>` (the old positional form still works) and stops with a clear message if a CSV file is missing, instead of an `IndexError`. | done |
-| 3 | Accepted and fixed. The gate `age-window-nonempty` is now **executable and tested** in `check_c09.py`, on positive and negative cases: Cohere 0 → reject, Qwen 0 → reject (6 customers with orders in the window), a true 0 (age 80, empty window) → accept. As you point out, a non-empty window does not verify a non-zero total, so the two checks are kept separate: the gate only judges a 0, and a **full numerical check** (recompute the window's revenue by code, compare with the value) judges every value — gpt-oss-120b 487 980 → accept, Dots 369 240 → reject. | done |
+| 1 | Accepted and fixed. New [`pair-b/C09/check_c09.py`](../pair-b/C09/check_c09.py): one read-only command. It checks the data against `manifest.json` (line endings normalised, so it passes on Windows), re-runs `faulty-north-mini-code.sql` and `faulty-qwen.sql` (both 0), the delta query (compared with `delta-output.csv`), the empty-filter check (compared with `empty-filter-check.csv`), recomputes C09 without SQL, and exits with status 1 if any comparison fails. Result: **19/19 checks OK**. | done |
+| 2 | Accepted and fixed. [`check-votes-with-pair-A.py`](../pair-b/check-votes-with-pair-A.py) is now a **regression test**: each of the four decisions (C08/C09 × 2-of-3/3-of-5) is compared with the committed `votes-pair-A-method.jsonl` (consensus, value, votes, models); it prints `OK`/`DIFF` and exits with status 1 if one changed. Result: 4/4 decisions unchanged. | done |
+| 3 | Accepted and fixed. `check_c09_csv.py` compares its total with the expected value (by default C09 in `TD1/reference-td1.csv`, or `--expected <cents>`) and exits with an explicit `FAIL` when they differ (tested with `--expected 1`). | done |
+| 4 | Accepted and fixed. `check_c09_csv.py` now uses `argparse` (`--data`, default `TD2/pair-b/data`; the old positional form still works) and stops with a clear message if a CSV file is missing. | done |
+| 5 | Accepted and fixed. The gate `age-window-nonempty` is executable and tested in `check_c09.py`, **separately** from a full numerical check (recompute the age window's revenue by code and compare). Tested on C09 (Cohere 0 and Qwen 0 → gate reject; gpt-oss-120b 487 980 → full check accept; Dots 369 240 → full check reject), on **C08** (gpt-oss-20b/Dots 25 920 and Cohere 1 188 090 → full check reject; gpt-oss-120b/Qwen 605 580 → accept) and on a **genuinely empty window** (age 80 → a 0 is accepted). | done |
 
 **Answers to the questions**
 
-1. Yes: `python3 TD2/pair-b/C09/check_c09.py` (C09) mirrors `python3 TD2/pair-b/analyse.py` (C08). Both are read-only by default.
-2. The gate `age-window-nonempty` only rejects suspicious zeros (Lecture 2: a missing value is not zero — a 0 can hide an empty filter). The complete revenue is verified by the separate full numerical check, which recomputes the age window by code; it is the check required before delivery for customer-facing or paid-out age figures.
-3. Without a deterministic reference, we would not deliver an age figure on a vote alone (C09 shows a 2-of-3 panel adopting a wrong value): **abstain** for a customer-facing figure, **mandatory human review** for a payout, and at most an unchecked value logged as such for an internal dashboard. A different panel lowers the risk (distinct families) but, as C09 shows with two families agreeing on 0, it does not remove it.
-=======
-_Awaiting Pair B's response to the revised findings and questions._
-
-Pair B's responses to the earlier draft have already been considered. Previously corrected issues are acknowledged above rather than repeated as open findings. The current review should be validated by both Pair A reviewers before final sign-off.
->>>>>>> 781adbcdccb32320b9d4fc19943eabd3e860d102
+1. Yes: `python3 TD2/pair-b/C09/check_c09.py` is the C09 equivalent of `analyse.py`.
+2. Yes, done (issue 2).
+3. `age-window-nonempty` is only a **preliminary sanity check** on zeros (Lecture 2: a missing value is not zero; a 0 can hide an empty filter). It is never sufficient to deliver a figure. Non-zero aggregates, wrong or right, are verified by the **full numerical check**, which recomputes the age window's revenue by code; that check is what decides delivery.
+4. For customer-facing age queries, no quorum is enough on its own: 2-of-3 adopted a wrong 0 on C09, and 3-of-5 abstained on both cases (and would let a shared error through if a third model shared it). We recommend: first model gpt-oss-120b (4/4 on F2 in TD 1), then the **full numerical check after the vote**, whatever k is; on disagreement, **abstain** (customer) or **human review** (payout). This is consistent with Pair C's rule (section 4 of `td2.md`).
+5. Yes: [`pair-b/check_all.py`](../pair-b/check_all.py) runs the four checks above, prints the SHA-256 of the inputs (traces, references, database, Pair A's skeleton) and one PASS/FAIL line per step, and exits with status 1 if one fails. Result: **4/4 steps passed**.
