@@ -10,7 +10,7 @@
 
 ## What was re-run
 
-From the repository root: `python TD2/reviews/checks-C-by-B.py`. [checks-C-by-B.json](checks-C-by-B.json) records the full outputs and recomputed family rates.
+The checks below were run offline from the repository root: both simulators (`python TD2/pair-C/atelier-routage.py`, `python TD2/pair-C/atelier-routage-adapted.py`), compared with the committed outputs, and the family rates recomputed from the final attempt per cell of `TD1/results/traces-td1.csv`.
 
 | Check | Result |
 |---|---|
