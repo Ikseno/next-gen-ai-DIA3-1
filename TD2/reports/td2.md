@@ -7,7 +7,7 @@ Inputs: TD 1 outputs in [`TD1/`](../../TD1/) — no new network batch. Work file
 
 | Step | Pair | Status | Evidence |
 |---|---|---|---|
-| 1. k-of-n vote, 2-of-3 vs 3-of-5 on C01–C20 | A | _to complete by Pair A_ | |
+| 1. k-of-n vote, 2-of-3 vs 3-of-5 on C01–C20 | A | Done: implementation, tests and 20-case comparison completed | [section 2](#2-step-1--k-of-n-vote-pair-a) |
 | 2. Wrong consensus | B | Done: two real cases from the TD 1 traces, C09 (wrong consensus wins the fixed panel) and C08 (wins no quorum), each with SQL cause, delta query and independent check; vote counts re-checked with Pair A's `vote_k_sur_n` | [section 3](#3-step-2--wrong-consensus-pair-b) |
 | 3. Routing rule and simulator | C | _to complete by Pair C_ | |
 | Cross-review between pairs | all | _to complete_ (review of C by B: drafted) | [section 7](#7-cross-review-between-pairs) |
@@ -16,7 +16,69 @@ Inputs are the TD 1 outputs only ([`TD1/`](../../TD1/)); no new model call was m
 
 ## 2. Step 1 — k-of-n vote (Pair A)
 
-_Method, 2-of-3 vs 3-of-5 table for C01–C20, explanation of each changed decision._
+### 2.1 Implementation and experimental protocol
+
+Pair A (Alexandre and Maya) implemented `Orchestrateur.vote_k_sur_n` and compared two predefined voting configurations using the recorded TD1 traces for C01–C20, without making new model calls.
+
+- **2-of-3:** GPT-OSS 120B, Cohere North Mini Code and Qwen 27B, with `k = 2`.
+- **3-of-5:** all five TD1 models (GPT-OSS 120B, GPT-OSS 20B, Cohere North Mini Code, Qwen 27B and Dots 3 Note), with `k = 3`.
+
+The voting algorithm applies a strict-majority threshold (`n // 2 < k <= n`), with one vote per distinct `(provider, model_requested)` pair. Duplicate model identities are rejected. Failed or unavailable models remain part of the original panel size but do not vote. Missing values are never interpreted as zero.
+
+The offline comparison uses the final recorded attempt for each model and question. Only successful answers with an integer value and an associated SQL query are eligible to vote. Reference values are used **only after the vote** to determine whether the accepted result is correct.
+
+If no value reaches the fixed quorum, the system abstains. It never lowers the threshold retrospectively or invents an answer. Abstentions require independent verification or human review before any result can be delivered.
+
+### 2.2 Experimental results
+
+| Outcome | 2-of-3 | 3-of-5 |
+|---|---:|---:|
+| Correct consensus | 16 | 17 |
+| Incorrect consensus | 1 | 0 |
+| Abstention | 3 | 3 |
+| **Total** | **20** | **20** |
+
+Four decisions changed between the two configurations:
+
+| Case | 2-of-3 | 3-of-5 | Explanation |
+|---|---|---|---|
+| C08 | Correct: 605,580 | Abstention | Two votes support the correct value, but three are required in the larger panel. |
+| C09 | Incorrect: 0 | Abstention | Cohere and Qwen agree on the wrong value, while the reference is 487,980. Their two votes do not reach the larger quorum. |
+| C15 | Abstention | Correct: 168,680 | Three models agree in the larger panel, reaching the quorum. |
+| C17 | Abstention | Correct: 258,180 | Three models agree in the larger panel, reaching the quorum. |
+
+The remaining 16 cases produced unchanged decisions.
+
+### 2.3 Interpretation and limitations
+
+The 3-of-5 configuration avoids the incorrect C09 consensus and recovers correct answers for C15 and C17, but loses the correct C08 consensus. Increasing both the panel size and the threshold therefore changes the balance between accepted answers, errors and abstentions.
+
+A quorum establishes agreement, **not correctness**. C09 demonstrates that different model families can produce the same incorrect value through different SQL mistakes, as analysed by Pair B in Section 3.
+
+The five-model panel also contains two GPT-OSS models from the same family, so its votes are not fully independent. Furthermore, the experiment changes both panel composition and quorum threshold; it cannot isolate the effect of changing `k` alone.
+
+These results describe only 20 recorded TD1 questions and do not establish general error rates. Accepted answers still require appropriate independent checks before delivery.
+
+### 2.4 Reproducibility
+
+The experiments use `TD1/results/traces-td1.csv` and `TD1/reference-td1.csv`. No new model calls were made.
+
+Run from the repository root:
+
+```powershell
+python TD2/pair-A/atelier-vote.py
+python TD2/pair-A/td2_compare_votes.py
+```
+
+Evidence:
+
+- [`../pair-A/td2_compare_votes.py`](../pair-A/td2_compare_votes.py) — comparison script.
+- [`td2-task-A-comparison.csv`](td2-task-A-comparison.csv) — detailed 20-case results.
+- [`td2-vote-synthetic.jsonl`](td2-vote-synthetic.jsonl) — synthetic voting tests.
+- [`td2-vote-real.jsonl`](td2-vote-real.jsonl) — real-trace tests.
+- [`td2-task-A-report.md`](td2-task-A-report.md) — supplementary Pair A report.
+
+AI assistance was used in coding and report preparation. The experimental results were obtained by running the offline scripts against the recorded TD1 traces.
 
 ## 3. Step 2 — Wrong consensus (Pair B)
 
@@ -138,7 +200,7 @@ Among free resources, `choose` picks the least capable eligible one (key `(alloc
 - The vote counts were computed by hand from the stored answers, then re-run with Pair A's completed `vote_k_sur_n` on C08 and C09: identical decisions ([`check-votes-with-pair-A.py`](../pair-b/check-votes-with-pair-A.py), output [`votes-pair-A-method.jsonl`](../pair-b/votes-pair-A-method.jsonl)). The script copies `TD2/skeleton-multi-llm-en.py` next to `pair-A/sandbox_sqlite.py` in a temporary folder, because the completed skeleton does not run from `TD2/` on its own.
 - `TD2/pair-b/evidence.json` records SHA-256 hashes of the source files; they were recomputed on the repository's own files (LF line endings) — a checkout with CRLF line endings gives different text-file hashes, the database hash is unaffected.
 
-_Pair A: to complete._
+**Pair A:** Implementation and 20-case comparison completed; see Section 2.
 
 ## 6. Who did what
 
