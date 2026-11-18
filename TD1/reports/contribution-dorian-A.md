@@ -2,7 +2,7 @@
 
 Sub-group DIA3-1, session of 21 October 2026, pack `2026-10-14-students-1`.
 Role: operator A, model `groq:openai/gpt-oss-120b`. All figures below come from
-[`trace/traces-A.csv`](../TD1/trace/traces-A.csv) and [`state/state-A.jsonl`](../TD1/state/state-A.jsonl).
+[`trace/traces-A.csv`](../trace/traces-A.csv) and [`state/state-A.jsonl`](../state/state-A.jsonl).
 
 ## 1. Preparation (before 14:00)
 
@@ -13,8 +13,8 @@ Role: operator A, model `groq:openai/gpt-oss-120b`. All figures below come from
 
 ## 2. Step 1 - References
 
-- Wrote references **C04, C08, C16** (see the members table in the [README](../README.md)).
-- The 20 group references in [`reference-td1.csv`](../TD1/reference-td1.csv) were re-checked by an independent method: every SQL query was run read-only on `boutique.sqlite`, and every value was recomputed by a separate Python script that reads the three CSV files (no SQL) and computes completed age by month and day. **20/20 values identical** (including the two zero cases C06 and C14 and the one-day window C07). No customer is born on 29 February, so no leap-year ambiguity applies. This check was done with AI assistance (see section 6); no model answer was used as a reference value.
+- Wrote references **C04, C08, C16** (see the members table in the [README](../../README.md)).
+- The 20 group references in [`reference-td1.csv`](../reference-td1.csv) were re-checked by an independent method: every SQL query was run read-only on `boutique.sqlite`, and every value was recomputed by a separate Python script that reads the three CSV files (no SQL) and computes completed age by month and day. **20/20 values identical** (including the two zero cases C06 and C14 and the one-day window C07). No customer is born on 29 February, so no leap-year ambiguity applies. This check was done with AI assistance (see section 6); no model answer was used as a reference value.
 - - Cross-check in the group's circle: C04, C08 and C16 were checked by Mohamed; I checked Raphaël's references (C05, C09, C17).
 
 ## 3. Step 2 - Batch A (20 cells)
@@ -44,7 +44,7 @@ python skeleton-multi-llm-en.py --run --models groq:openai/gpt-oss-120b --state 
 
 ## 4. Step 3 - Reading the traces
 
-- Wrote [`explanation/explanations-A.csv`](../TD1/explanation/explanations-A.csv): 20 rows, all `correct`, `cause_category = none`. As there is no failure to explain, each row states from the returned SQL how the convention was applied.
+- Wrote [`explanation/explanations-A.csv`](../explanation/explanations-A.csv): 20 rows, all `correct`, `cause_category = none`. As there is no failure to explain, each row states from the returned SQL how the convention was applied.
 - Finding: gpt-oss-120b is correct on the 11 age questions with **three different, all valid, methods**:
   - anniversary window `date(birth_date,'+25 years') <= ref < date(birth_date,'+26 years')` (C02, C11, C16, C19);
   - year difference minus `(ref mm-dd < birth mm-dd)` (C08, C15);
@@ -57,7 +57,7 @@ python skeleton-multi-llm-en.py --run --models groq:openai/gpt-oss-120b --state 
 ## 5. Repository work
 
 - Pushed the raw files of batch A (`trace/traces-A.csv`, `state/state-A.jsonl`) and `explanations-A.csv`.
-- Wrote the verbatim prompt file (now [`prompt/prompts-en.md`](../TD1/prompt/prompts-en.md)). The system message and user template are extracted from the kit's `build_prompt()`; the `prompt_sha256` of each question is recomputed from that text and matches every line of the five trace files (20/20 questions).
+- Wrote the verbatim prompt file (now [`prompt/prompts-en.md`](../prompt/prompts-en.md)). The system message and user template are extracted from the kit's `build_prompt()`; the `prompt_sha256` of each question is recomputed from that text and matches every line of the five trace files (20/20 questions).
 - Added the kit's `.gitignore` at the root (keys, `.env`, `.venv`, caches and `ready-for-td1.txt` stay out of the public repository).
 - README: drafted a first version, then resolved the merge conflict with the teammate's README pushed at the same time (commit `0e07d97`). I kept their version as the base and added the database hash, my environment, the TD 1 status table and the wrong agreements.
 - Reviewed the repository against the assessment sheet and the hand-in page, and reported to the group:

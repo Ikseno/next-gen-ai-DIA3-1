@@ -29,13 +29,12 @@ Seven members for eight roles: F and G are held by the same person. Roles rotate
 
 ## Repository layout
 
-One folder per session; the session reports stay in `reports/` (`reports/td1.md`, `reports/td2.md`, `reports/td3.md`), as required by the hand-in page.
+One folder per session. Each folder holds that session's files and its report: `TD1/reports/td1.md`, `TD2/reports/td2.md`, `TD3/reports/td3.md`.
 
 | Folder | Content |
 |---|---|
-| `TD1/` | TD 1 (21 October): references, traces, explanations, comparison, summary, prompts |
-| `TD2/` | TD 2 (18 November): k-of-n vote, wrong consensus, routing rule |
-| `reports/` | Session reports and individual contribution notes |
+| `TD1/` | TD 1 (21 October): references, traces, explanations, comparison, summary, prompts, report and individual contributions (`TD1/reports/`) |
+| `TD2/` | TD 2 (18 November): k-of-n vote, wrong consensus, routing rule, report (`TD2/reports/td2.md`) |
 
 ### TD 1 files
 
@@ -51,8 +50,8 @@ One folder per session; the session reports stay in `reports/` (`reports/td1.md`
 | `TD1/state/state-X.jsonl` | State files of the runs (one line per attempt) |
 | `TD1/explanation/explanations-X.csv` | Explanation of every final result of model X, written by its operator |
 | `TD1/prompt/ai-assistance/` | AI-assistance disclosure: prompts each member sent to an AI assistant, and what was checked |
-| `reports/td1.md` | Session report of the sub-group |
-| `reports/contribution-*.md` | Individual contribution of each of the seven members |
+| `TD1/reports/td1.md` | TD 1 session report of the sub-group |
+| `TD1/reports/contribution-*.md` | Individual contribution of each of the seven members |
 | `TD1/skeleton-multi-llm-en.py` | The kit's orchestrator, unchanged (identical to the 14 October kit) |
 
 ## AI assistance (declared)
@@ -61,13 +60,13 @@ AI-assisted work is accepted in this module when it is declared, the prompts are
 
 | Member | Assistant | Where it is declared |
 |---|---|---|
-| Dorian Courcelle (A) | Claude | [`TD1/prompt/ai-assistance/ai-prompts-dorian-A.md`](TD1/prompt/ai-assistance/ai-prompts-dorian-A.md) (verbatim originals in [`reports/contribution-dorian-A.md`](reports/contribution-dorian-A.md), section 6) |
+| Dorian Courcelle (A) | Claude | [`TD1/prompt/ai-assistance/ai-prompts-dorian-A.md`](TD1/prompt/ai-assistance/ai-prompts-dorian-A.md) (verbatim originals in [`TD1/reports/contribution-dorian-A.md`](TD1/reports/contribution-dorian-A.md), section 6) |
 | Raphaël Delavictoire (B) | Claude | [`TD1/prompt/ai-assistance/ai-prompts-Raphael-B.md`](TD1/prompt/ai-assistance/ai-prompts-Raphael-B.md) |
 | Mohamed Diawara (C) | Claude | [`TD1/prompt/ai-assistance/ai-prompts-mohamed-C.md`](TD1/prompt/ai-assistance/ai-prompts-mohamed-C.md) |
 | Marc Chen (D) | Claude | [`TD1/prompt/ai-assistance/ai-prompts-marc-D.md`](TD1/prompt/ai-assistance/ai-prompts-marc-D.md) |
 | Alexandre Flavigny (E) | ChatGPT (and Codex, Claude for references) | [`TD1/prompt/ai-assistance/ai-prompts-alexandre-E.md`](TD1/prompt/ai-assistance/ai-prompts-alexandre-E.md) |
 | Maya Bourrey (F + G) | **No AI assistant used** | — |
-| Yasmine Boukrouh (H) | Codex | [`reports/contribution-yasmine-boukrouh.md`](reports/contribution-yasmine-boukrouh.md), section *AI assistance disclosure* |
+| Yasmine Boukrouh (H) | Codex | [`TD1/reports/contribution-yasmine-boukrouh.md`](TD1/reports/contribution-yasmine-boukrouh.md), section *AI assistance disclosure* |
 
 ## Reproduce
 

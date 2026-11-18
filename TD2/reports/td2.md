@@ -1,7 +1,7 @@
 # TD 2 report — The quorum, then the routing rule
 
 **Class DIA 3, sub-group 1 (DIA3-1)** · Session of 18 November 2026 · Course pack `2026-11-18-students-5`
-Inputs: TD 1 outputs in [`../TD1/`](../TD1/) — no new network batch. Work files: [`../TD2/`](../TD2/).
+Inputs: TD 1 outputs in [`TD1/`](../../TD1/) — no new network batch. Work files: [`TD2/`](../).
 
 ## 1. What we attempted and what we completed
 

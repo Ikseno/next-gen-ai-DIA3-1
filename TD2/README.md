@@ -1,6 +1,6 @@
 # TD 2 — The quorum, then the routing rule
 
-Session of 18 November 2026, pack `2026-11-18-students-5`. Inputs: the TD 1 outputs in [`../TD1/`](../TD1/) (no new network batch). Report: [`../reports/td2.md`](../reports/td2.md).
+Session of 18 November 2026, pack `2026-11-18-students-5`. Inputs: the TD 1 outputs in [`../TD1/`](../TD1/) (no new network batch). Report: [`reports/td2.md`](reports/td2.md).
 
 | Pair | Step | Expected files in this folder |
 |---|---|---|
