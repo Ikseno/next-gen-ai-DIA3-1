@@ -1,0 +1,4 @@
+{"case": "C08", "quorum": "2-of-3 fixed panel", "n": 3, "k": 2, "decision": {"consensus": true, "value": 605580, "votes": 2, "models": ["groq:openai/gpt-oss-120b", "groq:qwen/qwen3.8-27b"]}, "reference": 605580, "matches_reference": true}
+{"case": "C08", "quorum": "3-of-5 all models", "n": 5, "k": 3, "decision": {"consensus": false, "value": null, "votes": 2, "models": []}, "reference": 605580, "matches_reference": null}
+{"case": "C09", "quorum": "2-of-3 fixed panel", "n": 3, "k": 2, "decision": {"consensus": true, "value": 0, "votes": 2, "models": ["openrouter:cohere/north-mini-code:free", "groq:qwen/qwen3.8-27b"]}, "reference": 487980, "matches_reference": false}
+{"case": "C09", "quorum": "3-of-5 all models", "n": 5, "k": 3, "decision": {"consensus": false, "value": null, "votes": 2, "models": []}, "reference": 487980, "matches_reference": null}

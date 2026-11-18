@@ -65,7 +65,7 @@
       "votes": 2
     }
   ],
-  "pair_a_integration": "Pending: compare with Pair A vote_k_sur_n implementation",
+  "pair_a_integration": "Done: identical decisions with Pair A's vote_k_sur_n (see votes-pair-A-method.jsonl)",
   "source_sha256": {
     "TD1/results/traces-td1.csv": "81cdb2750ee59aff2a6b6087dc23e290bb159863d3376343fce9d7cfdeb375b9",
     "TD1/reference-td1.csv": "d316d860bde55f905c08ef87dd0c447d663b661ff6e1032390163f057f6b8473",
