@@ -1,17 +1,17 @@
-# Pair B — Wrong consensus (Yasmine Boukrouh, Marc Chen, Mehdy)
+# Pair B — Wrong consensus (Yasmine Boukrouh, Marc Chen, Mohamed)
 
 One folder for the pair, two cases:
 
 | Case | Where | Who | Outcome |
 |---|---|---|---|
-| **C09** (main case) | [`C09/`](C09/) | Marc, Mehdy | the shared wrong value 0 **wins** the fixed 2-of-3 panel; 3-of-5 abstains |
+| **C09** (main case) | [`C09/`](C09/) | Marc, Mohamed | the shared wrong value 0 **wins** the fixed 2-of-3 panel; 3-of-5 abstains |
 | **C08** | this folder (below) | Yasmine | the shared wrong value 25 920 wins **no** quorum |
 
 ---
 
 ## Case C08 — shared wrong answer
 
-Author: Yasmine Boukrouh (Pair B). Pair B also analyses a second case, **C09**, in [`C09/`](C09/) (Marc Chen, Mehdy). Internal check within Pair B: `analyse.py` re-run from the repository root on 18 November (Mehdy, with AI assistance) — every figure below reproduced.
+Author: Yasmine Boukrouh (Pair B). Pair B also analyses a second case, **C09**, in [`C09/`](C09/) (Marc Chen, Mohamed). Internal check within Pair B: `analyse.py` re-run from the repository root on 18 November (Mohamed, with AI assistance) — every figure below reproduced.
 
 ## Source and scope
 

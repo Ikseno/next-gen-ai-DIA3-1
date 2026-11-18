@@ -29,6 +29,6 @@ Rules of the assignment: only executed proposals with a value vote; k is a stric
 
 **Reading.** C09 is a true wrong consensus: the fixed 2-of-3 panel *returns* the wrong value. Widening the panel to five models with k = 3 turns it into an abstention — safer, but no answer. Compare with C08 ([`../`](../)), where the shared wrong value (25 920, gpt-oss-20b and Dots) wins **neither** quorum because both wrong models are outside the fixed panel: whether a shared error wins depends on **who is in the panel**, not only on how many models agree.
 
-Part 2 (SQL root cause): [`part2-sql-cause-marc.md`](part2-sql-cause-marc.md) · Part 3 (delta query and independent check): [`part3-delta-mehdy.md`](part3-delta-mehdy.md).
+Part 2 (SQL root cause): [`part2-sql-cause-marc.md`](part2-sql-cause-marc.md) · Part 3 (delta query and independent check): [`part3-delta-mohamed.md`](part3-delta-mohamed.md).
 
 *Counts computed by hand from the stored answers with the assignment's rules, then **re-run with Pair A's completed `vote_k_sur_n`**: identical decisions (2-of-3: consensus on 0 with 2 votes, Cohere + Qwen; 3-of-5: abstention, highest count 2). Script and output: [`check-votes-with-pair-A.py`](../check-votes-with-pair-A.py) → [`votes-pair-A-method.jsonl`](../votes-pair-A-method.jsonl).*

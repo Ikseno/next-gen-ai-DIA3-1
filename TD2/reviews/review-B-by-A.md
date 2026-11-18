@@ -1,7 +1,7 @@
 # Review of Pair B by Pair A
 
 **Reviewers (at least two):** _names_
-**Reviewed:** Pair B — wrong consensus: C08 in [`../pair-b/`](../pair-b/) (Yasmine), C09 in [`../pair-b/C09/`](../pair-b/C09/) (Marc, Mehdy)
+**Reviewed:** Pair B — wrong consensus: C08 in [`../pair-b/`](../pair-b/) (Yasmine), C09 in [`../pair-b/C09/`](../pair-b/C09/) (Marc, Mohamed)
 **Date:** 18 November 2026
 
 ## Files reviewed

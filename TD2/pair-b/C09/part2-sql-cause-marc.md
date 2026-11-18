@@ -121,7 +121,7 @@ So **0 is the value any empty filter produces**, and two independent bugs natura
 - Checks that bring **no new information** (slide 22): asking Cohere or Qwen again (same model, temperature 0, same prompt), or asking a stronger model that reads the same question. Adding voters only adds votes: the 3-of-5 quorum avoids the error by abstaining, but it does not find the right value.
 - A check that **does** bring new information: recompute in code what the SQL actually selected.
 - Both bugs end the same way: the filter keeps no customer. The answer alone cannot show this, so the check has to look at what the SQL selected.
-- In code, re-run the model's own `WHERE` with `COUNT(DISTINCT c.customer_id)` instead of the `SUM`. Cohere gives 0 and Qwen gives 0, yet the database has 6 customers aged 25 on 2026-09-26 (see Mehdy's delta, `part3-delta-mehdy.md`).
+- In code, re-run the model's own `WHERE` with `COUNT(DISTINCT c.customer_id)` instead of the `SUM`. Cohere gives 0 and Qwen gives 0, yet the database has 6 customers aged 25 on 2026-09-26 (see Mohamed's delta, `part3-delta-mohamed.md`).
 - **Proposed rule** for the type "amount for an age group": deliver a value of 0 only if a code check confirms that no customer falls in the age window. Otherwise, reject the answer, so it gets no vote.
 - Log the check with its identifier and result, for example `check=age-window-nonempty result=fail` (slides 37 and 38).
 - **Reaching the threshold is not the same as delivering (slide 19).** With this check, the 2-of-3 panel still reaches k = 2 on 0, but the required check fails. Nothing is delivered, so the wrong consensus never reaches the user.

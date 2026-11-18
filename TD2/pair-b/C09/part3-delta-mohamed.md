@@ -1,4 +1,4 @@
-# Step 2 — part 3: delta query and independent check (Mehdy)
+# Step 2 — part 3: delta query and independent check (Mohamed)
 
 Case **C09**: revenue excl. VAT, in cents, of the customers who are exactly 25 years old on **2026-09-26** (all their orders).
 Reference: **487980** (`TD1/reference-td1.csv`, identical to the official value). Cohere (`cohere/north-mini-code:free`) and Qwen (`qwen/qwen3.8-27b`) both return **0**.
