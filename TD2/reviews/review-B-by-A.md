@@ -1,81 +1,116 @@
 # Review of Pair B by Pair A
 
-**Reviewers:** Alexandre (tests executed; review to validate), Maya (validation pending)
-**Reviewed:** Pair B — wrong consensus, cases C08 (Yasmine) and C09 (Marc, Mohamed)
+**Reviewers (at least two):** Alexandre (technical review and tests completed), Maya (validation pending)
+
+**Reviewed:** Pair B — wrong consensus: C08 in [`../pair-b/`](../pair-b/) (Yasmine Boukrouh), C09 in [`../pair-b/C09/`](../pair-b/C09/) (Marc Chen, Mohamed Diawara), section 3 of [`../reports/td2.md`](../reports/td2.md)
+
 **Date:** 18 November 2026
-**Method:** Source inspection and offline reproduction using the committed TD1 traces and Pair B evidence. No new model calls.
+
+**Status:** Technical review completed; awaiting validation by both Pair A reviewers.
+
+Reference for the checks: Lecture 2 (quorum voting, independent verification, evidence and reproducibility, wrong agreement) and the TD2 assignment, Step 2.
+
+All analyses use the recorded TD1 answers. No new LLM calls were made.
 
 ## Files reviewed
 
-- `TD2/pair-b/README.md`, `analyse.py`, `reference.sql`, `delta.sql`, `evidence.json`, `C08-models.csv` and `delta-customers.csv`
-- `TD2/pair-b/faulty-gpt-oss-20b.sql` and `faulty-dots.sql`
-- `TD2/pair-b/C09/README.md`, `part1-quorums.md`, `part2-sql-cause-marc.md` and `part3-delta-mohamed.md`
-- `TD2/pair-b/C09/faulty-north-mini-code.sql`, `faulty-qwen.sql`, `delta-query.sql`, `empty-filter-check.sql` and their recorded outputs
-- `TD2/pair-b/C09/check_c09_csv.py`
-- `TD2/pair-b/check-votes-with-pair-A.py`
-- `TD1/results/traces-td1.csv` and `TD1/reference-td1.csv`
+- **`TD2/pair-b/` (C08):** `README.md`, `analyse.py`, `reference.sql`, `faulty-gpt-oss-20b.sql`, `faulty-dots.sql`, `delta.sql`, `delta-customers.csv`, `C08-models.csv`, `evidence.json` and `data/manifest.json`.
+- **`TD2/pair-b/C09/`:** `README.md`, `part1-quorums.md`, `part2-sql-cause-marc.md`, `part3-delta-mohamed.md`, `faulty-north-mini-code.sql`, `faulty-qwen.sql`, `delta-query.sql`, `delta-output.csv`, `empty-filter-check.sql`, `empty-filter-check.csv` and `check_c09_csv.py`.
+- **Cross-check:** `TD2/pair-b/check-votes-with-pair-A.py` and `votes-pair-A-method.jsonl`.
+- **Original data:** `TD1/results/traces-td1.csv`, `TD1/reference-td1.csv` and the distributed SQLite/CSV dataset.
 
 ## What we re-ran and the result
 
-All commands were executed from the repository root using the stored data, without new LLM calls.
+Tests were run from the repository root on Windows using the committed data. The scripts did not make network requests.
 
 | Check | Command | Result |
 |---|---|---|
-| C08 reproduction | `python TD2/pair-b/analyse.py` | **PASS.** Seven committed evidence files reproduced successfully without being overwritten. |
-| C08 SQL and independent calculation | Included in `analyse.py` | **PASS.** Reference: 605580 cents; GPT-OSS 20B and Dots: 25920 cents each; missing revenue: 579660 cents across five omitted customers. |
-| C09 independent calculation | `python TD2/pair-b/C09/check_c09_csv.py TD2/pair-b/data` | **PASS.** Six eligible customers, with total revenue of 487980 cents. |
-| C08/C09 quorum cross-check | `python TD2/pair-b/check-votes-with-pair-A.py` | **PASS.** Previously executed after consolidation of Pair A's voting implementation. Both cases reproduced the expected 2-of-3 and 3-of-5 decisions. |
+| C08 evidence reproduction | `python TD2/pair-b/analyse.py` | ✅ **PASS.** All seven generated evidence files matched the committed versions: `reference.sql`, both faulty SQL files, `delta.sql`, `delta-customers.csv`, `C08-models.csv`, `evidence.json`. No files were rewritten. |
+| C08 reference and faulty values | Included in `analyse.py` | ✅ Reference **605580** cents; GPT-OSS 20B and Dots each return **25920** cents. |
+| C08 independent delta | Included in `analyse.py` | ✅ Five omitted customers, total **579660** cents. The difference is exactly 605580 − 25920. |
+| C09 independent CSV verification | `python TD2/pair-b/C09/check_c09_csv.py TD2/pair-b/data` | ✅ **PASS.** Six eligible customers, total **487980** cents. |
+| C08/C09 quorum integration | `python TD2/pair-b/check-votes-with-pair-A.py` | ✅ Previously re-run successfully after Pair A's implementation was consolidated. Decisions match both cases' documented quorums. |
+| C09 SQL evidence | Inspection of `delta-query.sql`, `empty-filter-check.sql` and stored outputs | ⚠️ Evidence present and internally consistent with the independent CSV check; these SQL scripts were not separately executed during this review. |
 
-The C09 SQL evidence and recorded outputs were inspected in the repository. The C09 SQL scripts were **not independently executed** as part of this review; the separate CSV calculation verifies the reference total.
+### Verification of the quorum results
+
+The final recorded answers are:
+
+| Model | C08 (reference 605580) | C09 (reference 487980) |
+|---|---|---|
+| GPT-OSS 120B | 605580 ✅ | 487980 ✅ |
+| GPT-OSS 20B | **25920 ❌** | 487980 ✅ |
+| Cohere North Mini Code | 1188090 ❌ | **0 ❌** |
+| Qwen 27B | 605580 ✅ | **0 ❌** |
+| Dots 3 Note | **25920 ❌** | 369240 ❌ |
+
+The quorum decisions are:
+
+| Case | Fixed 2-of-3 panel | All five, k=3 |
+|---|---|---|
+| C08 | Correct consensus on **605580**, 2 votes | Abstention; maximum 2 votes |
+| C09 | **Wrong consensus on 0**, 2 votes | Abstention; maximum 2 votes |
+
+These results agree with Pair A's `vote_k_sur_n` implementation and the original TD1 references.
+
+**Independent C09 CSV result:**
+
+| Customer | Birth date | Revenue (cents) |
+|---|---|---:|
+| C007 | 2000-11-30 | 118740 |
+| C009 | 2001-03-10 | 61330 |
+| C008 | 2001-05-15 | 99090 |
+| C002 | 2001-09-24 | 25920 |
+| C001 | 2001-09-25 | 135000 |
+| C003 | 2001-09-26 | 47900 |
+| **Total** | | **487980** |
+
+This confirms the reference independently of either faulty model query.
 
 ## What is correct
 
-**1. Pair B identifies a genuine wrong-consensus case.**
+- **Two complementary cases of shared incorrect answers.** C09 demonstrates a wrong consensus actually adopted by the fixed panel, whereas C08 demonstrates a shared wrong answer that fails to reach either required quorum. This distinction is important: the outcome depends on panel composition, not only on how many models agree.
 
-For C09, Cohere and Qwen both return 0 against the reference of 487980 cents. Their two votes form an incorrect 2-of-3 consensus. The 3-of-5 quorum abstains because no value receives three votes.
+- **The SQL root causes are identified precisely.** On C08, GPT-OSS 20B and Dots both select customers born on a single date instead of the full interval corresponding to age 25. On C09, Cohere performs inappropriate arithmetic on date strings while Qwen calculates age using the order date with contradictory conditions. These different errors produce the same numerical result of zero.
 
-**2. The SQL explanations distinguish two different errors.**
+- **The delta queries explain the complete discrepancies.** For C08, five omitted customers contribute 579660 cents. For C09, the faulty filters exclude all six eligible customers, explaining the entire 487980-cent difference. The analysis also discusses boundary dates to justify inclusion and exclusion.
 
-Cohere performs invalid date-string arithmetic, while Qwen uses an unsuitable order-date age calculation with contradictory month-day conditions. Both produce empty selections, leading to the same incorrect numerical answer.
+- **The reference is independent of the model-generated SQL.** Both cases are checked using Python calculations on the original CSV data, with completed-age arithmetic. Agreement between SQL replay and an independently written calculation provides stronger evidence than simply comparing two LLM answers.
 
-**3. C08 provides useful complementary evidence.**
+- **The voting decisions are evaluated correctly.** The quorum is computed before consulting the reference. The reference is used afterwards to classify a retained answer as correct or incorrect. A zero is treated as a numerical value, while missing answers are excluded from voting.
 
-GPT-OSS 20B and Dots both return 25920 cents rather than 605580. Their filters retain only a single birth date instead of the complete one-year age interval. The missing customers explain the entire 579660-cent discrepancy. Unlike C09, the shared wrong answer wins neither required quorum.
+- **C08 is reproducible without changing the repository.** `analyse.py` verifies the SQLite and CSV evidence against hashes, executes the stored SQL and compares newly calculated results with committed files. Its default mode is read-only with respect to evidence generation, and the Windows run completed successfully.
 
-**4. The independent verification is reproducible.**
-
-C08's script verifies the SQLite database, recorded traces, faulty queries, delta and independent CSV computation. Its default check mode does not rewrite committed evidence.
-
-C09's CSV script independently confirms the six qualifying customers and the reference amount using completed-age arithmetic rather than the model-generated SQL.
-
-**5. The conclusions respect the distinction between agreement and correctness.**
-
-Pair B does not claim that two agreeing models establish a correct answer. Its proposed deterministic age-window check is a reasonable safeguard, and the documentation identifies it as a proposal rather than an implemented production guarantee.
+- **The conclusions avoid unjustified generalisation.** Pair B uses these cases to demonstrate a failure mechanism, not to estimate a general probability that quorum voting is wrong. The proposed deterministic `age-window-nonempty` check is described as a safeguard rather than an already validated production system.
 
 ## Issues found
 
-| # | File / component | Issue | Severity | Suggested improvement |
+| # | File / component | Issue | Severity | Suggested fix |
 |---|---|---|---|---|
-| 1 | C09 verification workflow | Unlike C08's `analyse.py`, the C09 workflow does not provide a single automated, non-writing check that reruns its SQL evidence and compares all recorded outputs. The CSV reference calculation is separately reproducible. | Low | Add a read-only `--check` workflow for C09 that runs the faulty SQL, empty-filter query and delta query, then compares the results to the committed evidence. |
-| 2 | `C09/check_c09_csv.py` | The script uses `sys.argv[1]` without validating its command-line arguments. Running it without the data-directory argument causes an `IndexError` instead of a useful usage message. | Low | Use `argparse` to require and validate the dataset path. |
-| 3 | Pair B's proposed `age-window-nonempty` check | The proposed check is motivated by C09 but is not implemented or tested as an executable delivery gate. A nonempty age window alone also cannot verify that a nonzero revenue total is correct. | Low | Implement a deterministic test, include positive and negative cases, and distinguish a nonempty-window sanity check from full numerical verification. |
+| 1 | `pair-b/C09/` — SQL verification workflow | **C09 does not provide a single automated, non-writing replay equivalent to C08's `analyse.py`.** The SQL delta, empty-filter results and independent CSV calculation exist, but their agreement must be checked using separate commands and manual comparisons. | **medium** | Add a C09 verification script that executes the stored SQL read-only, compares the results to `delta-output.csv` and `empty-filter-check.csv`, then verifies the independent CSV total. It should exit with a nonzero status if any comparison fails. |
+| 2 | `pair-b/check-votes-with-pair-A.py` | **The cross-check prints decisions without asserting the expected values.** If a future change breaks the voting algorithm and changes C08/C09 outcomes, the script can still finish successfully, leaving the reviewer to detect the discrepancy manually. | **medium** | Add assertions for the four expected case/panel decisions, consensus values and vote counts, or compare the generated records programmatically against the committed `votes-pair-A-method.jsonl`. |
+| 3 | `pair-b/C09/check_c09_csv.py` | **The independent check prints the total but does not verify it against the expected reference automatically.** A different total would still result in a successful process exit. | low | Accept an expected total as an optional argument or compare with `TD1/reference-td1.csv`; fail explicitly when the values differ. |
+| 4 | `pair-b/C09/check_c09_csv.py` | **Command-line arguments are not validated.** The script accesses `sys.argv[1]` directly, so omitting the data path produces an exception rather than a documented usage error. | low | Use `argparse` with a required directory argument and check the existence of the expected CSV files. |
+| 5 | Proposed `age-window-nonempty` safeguard | **The proposed delivery check is not yet an executable, tested component.** Detecting an empty age filter would catch C09, but verifying that customers exist does not establish that the revenue aggregation is correct for nonzero results. | low | Implement the check and test it against C08, C09, a genuinely empty age window and a deliberately incorrect nonzero result. Specify when full deterministic recomputation is required. |
 
-The earlier draft raised issues about missing faulty SQL clauses, `COALESCE` and the C09 folder's explanatory text. Pair B subsequently addressed those points in `delta-query.sql` and `C09/README.md`; they are not repeated as unresolved findings here.
+**Previously reported issues already resolved:** The earlier draft identified missing faulty SQL excerpts, absent `COALESCE`, and missing explanatory text in the C09 folder. Pair B subsequently addressed these issues by updating `delta-query.sql`, preserving both faulty queries and adding the explanatory takeaway in `C09/README.md`. They are therefore not counted as unresolved findings.
+
+These issues concern verification automation and robustness. They do not invalidate the numerical evidence established by the reproduced cases.
 
 ## Questions to the authors
 
-1. Could C09 have an automated check mode comparable to C08's, so an independent reviewer can verify all SQL evidence with one command?
-2. Would the proposed `age-window-nonempty` check only reject suspicious zero results, or would it also verify the complete revenue calculation before delivery?
-3. What would Pair B recommend for age-related questions when the deterministic reference is unavailable: abstention, a different panel or mandatory human review?
+1. **Automated verification:** Could the C09 analysis be consolidated into a read-only verification command, equivalent to `analyse.py` for C08, so that all its SQL results and the independent reference are tested automatically?
 
-## Overall assessment
+2. **Quorum testing:** Would Pair B consider turning `check-votes-with-pair-A.py` into a regression test that fails when a previously verified voting decision changes?
 
-**The main analysis is supported by reproducible evidence.** The C08 checks passed, the C09 reference was independently recomputed, and the recorded quorum outcomes agree with Pair A's implementation.
+3. **Production safeguards:** Is the proposed `age-window-nonempty` test intended as a preliminary sanity check or as a sufficient condition for delivering a revenue figure? How should the system verify incorrect but nonzero aggregates?
 
-The remaining findings concern additional automation, usability and the proposed production safeguard. They do not invalidate the two demonstrated cases.
+4. **Fallback decision:** Since C09 produces a wrong 2-of-3 consensus while C08 produces a correct 2-of-3 consensus but a 3-of-5 abstention, which quorum and independent-check policy would Pair B recommend for customer-facing age queries?
 
-**Review status:** Technical review drafted from inspected sources and executed tests. Final approval by both Pair A reviewers is pending.
+5. **Reproducibility:** Would Pair B prefer a single verification command for both C08 and C09, producing a summary that records the input hashes, expected outputs and whether each check passed?
 
 ## Authors' answer
 
-Awaiting confirmation or additional responses from Pair B. Their earlier responses to the initial draft were considered when preparing this revised review.
+_Awaiting Pair B's response to the revised findings and questions._
+
+Pair B's responses to the earlier draft have already been considered. Previously corrected issues are acknowledged above rather than repeated as open findings. The current review should be validated by both Pair A reviewers before final sign-off.
