@@ -6,7 +6,7 @@
 
 ## Files reviewed
 
-_To complete._
+[1] chech_c09_csv.py
 
 ## What we re-ran and the result
 
@@ -20,7 +20,7 @@ _To complete._
 
 | # | File / cell | Issue | Severity | Suggested fix |
 |---|---|---|---|---|
-| 1 | | | | |
+| 1 |[1] |NULL Safety on SUM | Low| COALESCE(SUM(o.quantity_product * p.price), 0) avoids returning NULL instead of 0|
 
 ## Questions to the authors
 
