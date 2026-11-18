@@ -67,7 +67,7 @@ python TD2/pair-A/td2_compare_votes.py
 Inputs: `TD1/results/traces-td1.csv` and `TD1/reference-td1.csv`.  
 Outputs: `reports/td2-vote-synthetic.jsonl`, `reports/td2-vote-real.jsonl`, and `reports/td2-task-A-comparison.csv`.
 
-The synthetic cases and the recorded TD1 traces are clearly labelled as **simulation** and **real replay**, respectively. No live model calls were made during TD2. Pair A implemented and documented the voting comparison, with AI tools used for coding and drafting support. The results were checked against the offline test outputs and the course's voting contract.
+The synthetic cases and the recorded TD1 traces are clearly labelled as **simulation** and **real replay**, respectively. No live model calls were made during TD2. The results were checked against the offline test outputs and the course's voting contract.
 
 ## 6. Cross-review and hand-in checks
 

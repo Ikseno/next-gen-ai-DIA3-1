@@ -84,7 +84,7 @@ The published simulations reproduce and all family rates match the team's traces
 
 ## Technical follow-up — fixes verified on Windows
 
-18 November 2026, verification follow-up on Yasmine's Windows machine (with Codex assistance), based on `8156c0e`. The original findings above refer to the earlier snapshot; the current routing policy is `pairC-v2.2`.
+18 November 2026, verification follow-up on Yasmine's Windows machine, based on `8156c0e`. The original findings above refer to the earlier snapshot; the current routing policy is `pairC-v2.2`.
 
 - **C1 resolved:** the rule's two TD1 links now resolve through `../../TD1/`.
 - **C2 resolved:** urgent paid-route and budget-abstention reasons cite the family evidence and exact case IDs.

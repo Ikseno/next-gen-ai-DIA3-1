@@ -125,7 +125,7 @@ C10 is another example of dangerous shared errors. In the 3-of-5 panel, the corr
 
 **Q4 — Where is AI assistance declared?**
 
-Section 2.4 of `TD2/reports/td2.md` discloses AI assistance in coding and report preparation. A complete TD2-specific prompt log is not currently documented; it should be added if required for the assignment.
+It is declared in section 8 of [`td2.md`](../reports/td2.md#8-ai-assistance-declared), the single place for AI-assistance declarations in TD 2.
 
 ### Final verification
 

@@ -172,13 +172,21 @@ Pair C accepted and addressed points 3–6 in policy `pairC-v2.2`. Points 1 and 
 
 **New follow-up findings (current review):**
 
-_Awaiting Pair C's answers to questions 1–5 above. These findings were identified after the original `pairC-v2.2` corrections._
+**From Pair C (Raphaël Delavictoire, Dorian Courcelle).** Answers checked against the current `atelier-routage-adapted.py` (policy `pairC-v2.2`, commit `a38500d`); `python3 TD2/pair-C/atelier-routage-adapted.py` still reproduces `output-after.jsonl` exactly.
+
+| # | Answer | Status |
+|---|---|---|
+| 1 | Yes. It is already the behaviour of the current code: `family_level()` returns `None` for a missing, empty or unknown family, and `choose()` then **abstains** with human review, exactly like a missing `use`. Re-tested with no `family` key, `family=None` and `family=""`: all three give `abstain`, check `pairC-v2.2-human`, no `KeyError`. | done |
+| 2 | Accepted as a limit. The simulator **names** the 2-of-3 quorum but does not count how many distinct eligible models are available: with a single available model it still returns `run` with the quorum text. The intended fallback is the use's `on_failure` (customer: abstain, "no verified figure yet"; payout: human review), since a quorum that cannot be formed is a check that cannot pass. Reporting "quorum not formable" explicitly is the next change to the simulator. | open (documented) |
+| 3 | Already uniform. Every record, including unsupported family and unsupported use, carries the same `checks` fields: `id`, `check`, `why`, `status`, `on_failure`. | done |
+| 4 | Yes, useful. Today the age predicates are only checked against the TD 1 references (C02, C08, C09, C10, C11) on the supplied database, which has no 29 February birth. A test on synthetic data with births on the boundary days (exactly 25 and 26 years, and 29 February) is needed before any use outside TD 1. | open (documented) |
+| 5 | Two cells (C10, C18) are not enough to rely on the model. That is why the rule never uses a quorum on age families: the **deterministic reference** stays mandatory before delivery. Before customer-facing use outside the 20 questions, we would require more F2/F2b cases with known references, the boundary test of question 4, and the deterministic reference for every age figure. Without a reference, the answer stays abstain (customer) or human review (payout). | answered |
 
 ## Review conclusion
 
 **The implemented routing policy passes all reproduced scenarios and 16 additional targeted tests.** The main routing logic, verification levels, fallbacks and decision records are consistent with the stated TD2 design.
 
-The remaining reproducible defect is the missing-family `KeyError`. The quorum-feasibility and schema observations concern robustness and integration beyond the predefined scenarios; they do not invalidate the reported simulation results.
+The missing-family `KeyError` is no longer reproducible in `pairC-v2.2` (see the authors' answer, question 1). The quorum-feasibility and schema observations concern robustness and integration beyond the predefined scenarios; they do not invalidate the reported simulation results.
 
 **Assessment:** Technically satisfactory for the TD2 routing-simulation scope, with minor follow-up corrections recommended before final sign-off.
 

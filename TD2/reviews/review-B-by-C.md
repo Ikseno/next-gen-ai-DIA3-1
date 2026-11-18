@@ -59,7 +59,7 @@ All runs were made on a scratch copy of the repository, so that the scripts coul
 
 ## Authors' answer
 
-_Pair B's response was authored by Marc Chen and validated by Yasmine Boukrouh and Mohamed Diawara. Assistance during preparation is documented in [`ai-assistance-marc.md`](../pair-b/ai-assistance-marc.md); statuses were updated after the fixes._
+_Pair B's response was authored by Marc Chen and validated by Yasmine Boukrouh and Mohamed Diawara; statuses were updated after the fixes._
 
 | # | Answer | Status |
 |---|---|---|
@@ -71,11 +71,11 @@ _Pair B's response was authored by Marc Chen and validated by Yasmine Boukrouh a
 | 6 | Fixed in `a3169f6`: the pending notes are replaced by the result of the re-check with Pair A's `vote_k_sur_n` (`pair-b/check-votes-with-pair-A.py` → `votes-pair-A-method.jsonl`). It is identical to the hand counts and to your re-run. | done |
 | 7 | Fair question. The kit data is not personal data (fictitious shop), but the course does not say whether it may be redistributed. We will ask the instructor; if not allowed, we keep only `manifest.json` and the hashes. | to ask |
 
-Windows verification follow-up on Yasmine's machine (18 November 2026, commit `53e1b85`, with Codex assistance): ran `python TD2/pair-b/analyse.py` with Python 3.13.9. All seven files reported `OK` (reference.sql, faulty-gpt-oss-20b.sql, faulty-dots.sql, delta.sql, delta-customers.csv, C08-models.csv, evidence.json); exit code 0. Repository status before and after was identical: no evidence files were written. This closes the pending Windows verification for issues 1 and 2; the original reviewer findings above are retained as history.
+Windows verification follow-up on Yasmine's machine (18 November 2026, commit `53e1b85`): ran `python TD2/pair-b/analyse.py` with Python 3.13.9. All seven files reported `OK` (reference.sql, faulty-gpt-oss-20b.sql, faulty-dots.sql, delta.sql, delta-customers.csv, C08-models.csv, evidence.json); exit code 0. Repository status before and after was identical: no evidence files were written. This closes the pending Windows verification for issues 1 and 2; the original reviewer findings above are retained as history.
 
 **Answers to the questions**
 
 1. Yes. `part2-sql-cause-marc.md` ("A check that can see the cause") proposes the deterministic check `age-window-nonempty`. Re-run the model's `WHERE` with `COUNT(DISTINCT c.customer_id)`, and compare it with the number of customers in the age window computed by code. Deliver a 0 only if both counts are 0; otherwise reject the answer. The check is logged with its identifier and result (Lecture 2, slides 37–38), and Pair C's rule can run it after the vote on F2 questions.
 2. The pilot case is described in the TD 2 assignment ("Historical shop-database case: DEMO-SQL-C11": gpt-oss-20b and north-mini-code, two different queries, both 0). It is also the example of the "wrong agreement" slides of Lecture 2 (slide 21 in our copy). We will cite the assignment section, which is stable.
 3. No. For age questions, neither quorum is enough on its own. 3-of-5 abstains on C08 (where 2-of-3 was right) and on C09, and it would have let C09's 0 through if a third model had shared it. Section 3.4 of `td2.md` recommends a deterministic age-window check after the vote, whatever k is, which is consistent with Pair C's rule.
-4. It is declared in section 6 of `td2.md` (Yasmine: Codex; Marc and Mohamed: Claude) and at the end of each Pair B file. A log of the AI-assistance prompts for Marc's part is in [`pair-b/ai-assistance-marc.md`](../pair-b/ai-assistance-marc.md), in the TD 1 format. The assignment's item 6 ("the prompts, as used, if they have changed since TD 1") concerns the prompt sent to the models, which did not change in TD 2: there was no new batch.
+4. It is declared in one place, section 8 of [`td2.md`](../reports/td2.md#8-ai-assistance-declared), in the same table format as TD 1. The assignment's item 6 ("the prompts, as used, if they have changed since TD 1") concerns the prompt sent to the models, which did not change in TD 2: there was no new batch.

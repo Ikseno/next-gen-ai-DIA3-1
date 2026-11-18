@@ -111,7 +111,7 @@ We would not select a production panel solely from this small sample. For custom
 
 **Q4 — AI assistance disclosure**
 
-AI assistance in coding and report preparation is acknowledged in section 2.4 of `TD2/reports/td2.md`. A complete TD2-specific prompt log has not yet been provided; this remains a documentation item if required by the assignment.
+It is declared in section 8 of [`td2.md`](../reports/td2.md#8-ai-assistance-declared), the single place for AI-assistance declarations in TD 2.
 
 ### Final technical verification
 

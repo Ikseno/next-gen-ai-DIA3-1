@@ -168,4 +168,4 @@ SELECT customer_id, birth_date,
 FROM customers WHERE customer_id IN ('C001', 'C007');
 ```
 
-*Marc Chen prepared and verified this SQL analysis with assistance from Claude (Anthropic). Every figure was re-run against the database (read-only) and checked against the reference of 487 980 cents.*
+*Marc Chen prepared and verified this SQL analysis. Every figure was re-run against the database (read-only) and checked against the reference of 487 980 cents.*

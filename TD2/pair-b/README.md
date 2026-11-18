@@ -13,7 +13,7 @@ One folder for the pair, two cases:
 
 ## Case C08 — shared wrong answer
 
-Author: Yasmine Boukrouh (Pair B). Pair B also analyses a second case, **C09**, in [`C09/`](C09/) (Marc Chen, Mohamed). Internal check within Pair B: Mohamed verified the results by re-running `analyse.py` from the repository root on 18 November, with AI assistance; all figures were reproduced.
+Author: Yasmine Boukrouh (Pair B). Pair B also analyses a second case, **C09**, in [`C09/`](C09/) (Marc Chen, Mohamed). Internal check within Pair B: Mohamed verified the results by re-running `analyse.py` from the repository root on 18 November; all figures were reproduced.
 
 ## Source and scope
 

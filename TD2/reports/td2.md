@@ -120,7 +120,7 @@ Evidence:
 - [`td2-vote-real.jsonl`](td2-vote-real.jsonl) — real-trace tests.
 - [`td2-task-A-report.md`](td2-task-A-report.md) — supplementary Pair A report.
 
-Pair A developed and documented the voting implementation, with AI tools used for coding and drafting support. The experimental results were obtained by running the offline scripts against the recorded TD1 traces.
+The experimental results were obtained by running the offline scripts against the recorded TD1 traces.
 
 ## 3. Step 2 — Wrong consensus (Pair B)
 
@@ -259,8 +259,8 @@ The cross-review by Pair B (C1 to C5, [`review-C-by-B.md`](../reviews/review-C-b
 | Pair | Members | Step |
 |---|---|---|
 | A | Alexandre, Maya | k-of-n vote |
-| B | Yasmine Boukrouh, Marc Chen, Mohamed Diawara | wrong consensus — C08 (Yasmine: identification, SQL cause, delta, `analyse.py`); C09 (Marc: SQL root cause; Mohamed: identification and quorums, delta query, independent CSV check, assembly of section 3). Pair B prepared and verified the analysis, using Codex (Yasmine) and Claude (Marc and Mohamed) as supporting tools; every figure was re-run on the database. |
-| C | Raphael Delavictoire, Dorian Courcelle | routing rule; Rapha?l and Dorian developed the rule, adapted the simulator and prepared the analysis with assistance from Claude; they reproduced the outputs and documented cross-reviews, with remaining follow-ups and sign-offs pending |
+| B | Yasmine Boukrouh, Marc Chen, Mohamed Diawara | wrong consensus — C08 (Yasmine: identification, SQL cause, delta, `analyse.py`); C09 (Marc: SQL root cause; Mohamed: identification and quorums, delta query, independent CSV check, assembly of section 3). Every figure was re-run on the database. |
+| C | Raphaël Delavictoire, Dorian Courcelle | routing rule; Raphaël and Dorian developed the rule, adapted the simulator and prepared the analysis; they reproduced the outputs and answered the cross-reviews |
 
 ## 7. Cross-review between pairs
 
@@ -271,3 +271,18 @@ Each pair is reviewed by the two other pairs (at least two reviewers each): six 
 | A — vote | — | [review](../reviews/review-A-by-B.md) | [review](../reviews/review-A-by-C.md) |
 | B — wrong consensus | [review](../reviews/review-B-by-A.md) | — | [review](../reviews/review-B-by-C.md) |
 | C — routing rule | [review](../reviews/review-C-by-A.md) | [review](../reviews/review-C-by-B.md) | — |
+
+## 8. AI assistance (declared)
+
+AI-assisted work is accepted in this module when it is declared and the decisions are explained (see [`TD1/prompt/README.md`](../../TD1/prompt/README.md)). This section is the single place where the AI assistance used in TD 2 is declared; the other TD 2 files do not repeat it.
+
+| Who | Assistant | Used for | How it was checked |
+|---|---|---|---|
+| Pair A — Alexandre Flavigny, Maya Bourrey | AI tools (coding and drafting support) | `vote_k_sur_n`, comparison script, Pair A report | Offline test outputs and the course's voting contract; review by Pairs B and C |
+| Pair B — Yasmine Boukrouh | Codex | C08 analysis and `analyse.py`; Windows re-runs of `analyse.py` and `check_all.py` recorded in the reviews | `analyse.py` compares every evidence file; 7/7 OK on Windows |
+| Pair B — Marc Chen | Claude (Anthropic) | C09 SQL root cause, `check-votes-with-pair-A.py`, Pair B's answer to review B-by-C, draft of review A-by-B | Every query re-run read-only on the database |
+| Pair B — Mohamed Diawara | Claude (Anthropic) | C09 quorums and delta, `check_c09_csv.py`, `check_c09.py`, `check_all.py`, assembly of section 3, Pair B's answer to review B-by-A, internal re-run of `analyse.py` | `python3 TD2/pair-b/check_all.py`: 4/4 steps (C09 19/19) |
+| Pair C — Raphaël Delavictoire, Dorian Courcelle | Claude (Anthropic) | Routing rule and adapted simulator, Pair C's answers to reviews C-by-A and C-by-B | `atelier-routage-adapted.py` reproduces `output-after.jsonl` exactly |
+
+No model or assistant answer was used as a reference value: every figure comes from the database, the TD 1 traces or the deterministic reference queries. The prompts sent to the models are unchanged since TD 1.
+
