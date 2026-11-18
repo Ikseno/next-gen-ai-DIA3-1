@@ -57,10 +57,24 @@ def proposals_for(rows, case, nature, panel=PANEL):
     for provider, model in panel:
         row = selected.get((provider, model), {})
         value = row.get("value", "")
-        valid = row.get("verdict") in {"correct", "incorrect"} and value not in {None, ""}
-        proposals.append(SimpleNamespace(provider=provider, model_requested=model,
-                                         value=int(value) if valid else None,
-                                         verdict="executed" if valid else "error"))
+        valid = (
+            row.get("verdict") in {"correct", "incorrect"}
+            and value not in {None, ""}
+            and bool((row.get("sql") or "").strip())
+        )
+        parsed_value = None
+        if valid:
+            try:
+                parsed_value = int(value)
+            except (TypeError, ValueError):
+                pass
+
+        proposals.append(SimpleNamespace(
+            provider=provider,
+            model_requested=model,
+            value=parsed_value,
+            verdict="executed" if parsed_value is not None else "error"
+        ))
     return proposals
 
 

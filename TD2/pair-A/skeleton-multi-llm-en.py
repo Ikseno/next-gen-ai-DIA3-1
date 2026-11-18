@@ -639,7 +639,7 @@ class Orchestrateur:
             if proposal.verdict != "executed" or proposal.value is None:
                 continue
             if not isinstance(proposal.value, int) or isinstance(proposal.value, bool):
-                raise ValueError("executed proposals must carry an integer value.")
+                continue  # Invalid proposal: no vote, but the member remains in n.
             votes_by_value.setdefault(proposal.value, []).append(f"{model[0]}:{model[1]}")
 
         largest_count = max((len(models) for models in votes_by_value.values()), default=0)
