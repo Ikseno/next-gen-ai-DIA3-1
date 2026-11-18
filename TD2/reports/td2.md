@@ -206,6 +206,9 @@ The cross-review by Pair B (C1 to C5, [`review-C-by-B.md`](../reviews/review-C-b
 - Two cases from one run per cell at temperature 0; they show the mechanism, not a probability that a quorum is wrong.
 - The vote counts were computed by hand from the stored answers, then re-run with Pair A's completed `vote_k_sur_n` on C08 and C09: identical decisions ([`check-votes-with-pair-A.py`](../pair-b/check-votes-with-pair-A.py), output [`votes-pair-A-method.jsonl`](../pair-b/votes-pair-A-method.jsonl)). The cross-check now uses the authoritative implementation and supporting files from `TD2/pair-A/`.
 - `TD2/pair-b/evidence.json` records SHA-256 hashes of the source files. Text files are hashed with line endings normalised to LF and `.gitattributes` keeps the data files byte-identical, so `analyse.py` gives the same result on Windows (CRLF) and macOS/Linux (LF). `analyse.py` only checks by default and writes nothing (`--write` regenerates the evidence).
+- Next steps for TD 3:
+  - implement the `age-window-nonempty` check proposed for C09 as a deterministic code check, run after the vote on every age question (F2, F2b). A 0 is delivered only if the age window really holds no customer, and the check identifier and result are logged.
+  - pass any value that the check rejects to the deterministic reference or to human review, as section 4 requires for customer and payout figures. The check could be extended to other filters where `COALESCE(SUM(...), 0)` can hide an empty selection (period, product list).
 
 **Pair A:** Implementation and 20-case comparison completed; see Section 2.
 

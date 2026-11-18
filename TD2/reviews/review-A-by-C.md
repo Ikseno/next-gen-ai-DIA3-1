@@ -1,8 +1,9 @@
 # Review of Pair A by Pair C
 
 **Reviewers (at least two):** Raphaël Delavictoire, Dorian Courcelle (Pair C) — read and validated on 18 November 2026
-**Reviewed:** Pair A (Alexandre Flavigny, Maya Bourrey) — k-of-n vote: `vote_k_sur_n` in [`../skeleton-multi-llm-en.py`](../skeleton-multi-llm-en.py), [`../atelier-vote.py`](../atelier-vote.py), 2-of-3 vs 3-of-5 table for C01–C20, section 2 of [`../reports/td2.md`](../reports/td2.md)
+**Reviewed:** Pair A (Alexandre Flavigny, Maya Bourrey) — k-of-n vote: `vote_k_sur_n` in [`../pair-A/skeleton-multi-llm-en.py`](../pair-A/skeleton-multi-llm-en.py), [`../pair-A/atelier-vote.py`](../pair-A/atelier-vote.py), 2-of-3 vs 3-of-5 table for C01–C20, section 2 of [`../reports/td2.md`](../reports/td2.md)
 **Date:** 18 November 2026 (state of `main` at commit `7967fcd`)
+_Links updated by Pair B after Pair A moved its files to `pair-A/` and removed the copies in `TD2/` (commit `1eeaf76`); the review's content is unchanged._
 
 
 Reference for the checks: Lecture 2 rules ([cm2](https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/latest/students/lectures/cm2-en.html), "Quorum and voting", "Evidence and reproducibility", "Traces, logs and replay") and the TD 2 assignment.

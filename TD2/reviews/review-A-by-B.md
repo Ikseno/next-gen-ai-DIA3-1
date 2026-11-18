@@ -68,9 +68,9 @@ C10 abstains in both quorums, but for two different reasons. In 2-of-3, the thre
 | 8 | `vote_k_sur_n` | The vote does not normalise values. The integer 100 and the text `"100"` count as two different values, so the vote abstains. There is no effect in TD 2, because `td2_compare_votes.py` converts every value with `int()` first. Lecture 2 puts normalisation before the vote (slides 10–12). | low | State in the report that values are normalised to integer cents **before** the call, or check the type inside the function. |
 | 9 | CSV and report | No policy version is recorded. Lecture 2 versions policies (for example `p2`), so that a decision can be traced back to the rule in force. | low | Add a `policy` column, for example `2of3-fixed-v1` and `3of5-all-v1`. |
 
-### Follow-up after Pair A's updates (state of `main` at `ff0848b`)
+### Follow-up after Pair A's updates (state of `main` at `f4b68e0`)
 
-Pair A then wrote section 2 of `td2.md` (commit `59e7e37`) and consolidated its implementation (commit `1eeaf76`). We re-checked each issue against that version:
+Pair A then wrote section 2 of `td2.md` (commit `59e7e37`) consolidated its implementation (commit `1eeaf76`), and normalised its evidence with a safe replay mode (commit `1ba9621`). We re-checked each issue against that version:
 
 | # | Status | Detail |
 |---|---|---|
@@ -78,8 +78,8 @@ Pair A then wrote section 2 of `td2.md` (commit `59e7e37`) and consolidated its 
 | 2 | ⏳ open | The explanations in section 2.2 still give only the winning value. They do not give the other models' values and verdicts, or Qwen's HTTP 429 retry on C17 (see the table above). |
 | 3 | ✅ fixed | Only `pair-A/skeleton-multi-llm-en.py` remains, and it now rejects a non-integer k: re-run, `k = 2.0` and `k = True` → `ValueError`, `k = 2` → consensus. `td2_compare_votes.py` still reproduces the committed CSV exactly. |
 | 4 | ✅ fixed | `td2.md` section 2.4, `td2-task-A-report.md` and the docstring of `td2_compare_votes.py` now give `python TD2/pair-A/...`, which we checked from the repository root. |
-| 5 | ⏳ open | `td2-vote-synthetic.jsonl` is still UTF-16 LE. |
-| 6 | ⏳ open | The script still rewrites the committed CSV. |
+| 5 | ✅ fixed | `td2-vote-synthetic.jsonl` and `td2-vote-real.jsonl` are now UTF-8 JSON lines without BOM. Re-running `python TD2/pair-A/atelier-vote.py` reproduces the synthetic file exactly. |
+| 6 | ✅ fixed | `td2_compare_votes.py --check` verifies the committed CSV without modifying it. Re-run: the working tree stays clean. |
 | 7 | ◐ partly fixed | Section 2.3 now says the two gpt-oss models are not independent. C19 is still not flagged as correct by chance. |
 | 8, 9 | ⏳ open | Low severity: no change needed for the TD 2 results. |
 
