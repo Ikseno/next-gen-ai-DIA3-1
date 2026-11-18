@@ -78,4 +78,16 @@ The remaining findings concern additional automation, usability and the proposed
 
 ## Authors' answer
 
-Awaiting confirmation or additional responses from Pair B. Their earlier responses to the initial draft were considered when preparing this revised review.
+_Answer by Pair B, written by Mohamed Diawara with AI assistance (Claude), to be validated by Marc Chen and Yasmine Boukrouh._
+
+| # | Answer | Status |
+|---|---|---|
+| 1 | Accepted and fixed. New [`pair-b/C09/check_c09.py`](../pair-b/C09/check_c09.py): one command, **read-only** (it writes nothing). It checks the data against `manifest.json` (line endings normalised, so it also passes on Windows), re-runs `faulty-north-mini-code.sql` and `faulty-qwen.sql` (both 0), the delta query (compared with `delta-output.csv`) and the empty-filter check (compared with `empty-filter-check.csv`), and recomputes C09 without SQL. `python3 TD2/pair-b/C09/check_c09.py` → **16/16 checks OK**, exit code 0. | done |
+| 2 | Accepted and fixed. `check_c09_csv.py` now uses `argparse`, defaults to `TD2/pair-b/data`, accepts `--data <folder>` (the old positional form still works) and stops with a clear message if a CSV file is missing, instead of an `IndexError`. | done |
+| 3 | Accepted and fixed. The gate `age-window-nonempty` is now **executable and tested** in `check_c09.py`, on positive and negative cases: Cohere 0 → reject, Qwen 0 → reject (6 customers with orders in the window), a true 0 (age 80, empty window) → accept. As you point out, a non-empty window does not verify a non-zero total, so the two checks are kept separate: the gate only judges a 0, and a **full numerical check** (recompute the window's revenue by code, compare with the value) judges every value — gpt-oss-120b 487 980 → accept, Dots 369 240 → reject. | done |
+
+**Answers to the questions**
+
+1. Yes: `python3 TD2/pair-b/C09/check_c09.py` (C09) mirrors `python3 TD2/pair-b/analyse.py` (C08). Both are read-only by default.
+2. The gate `age-window-nonempty` only rejects suspicious zeros (Lecture 2: a missing value is not zero — a 0 can hide an empty filter). The complete revenue is verified by the separate full numerical check, which recomputes the age window by code; it is the check required before delivery for customer-facing or paid-out age figures.
+3. Without a deterministic reference, we would not deliver an age figure on a vote alone (C09 shows a 2-of-3 panel adopting a wrong value): **abstain** for a customer-facing figure, **mandatory human review** for a payout, and at most an unchecked value logged as such for an internal dashboard. A different panel lowers the risk (distinct families) but, as C09 shows with two families agreeing on 0, it does not remove it.
